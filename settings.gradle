@@ -1,0 +1,2 @@
+include ':buildsync'
+include ':buildsync-example'

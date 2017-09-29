@@ -12,7 +12,6 @@ targetCompatibility = JavaVersion.VERSION_1_8
 dependencies {
     compileOnly gradleApi()
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$versions.kotlin"
-    implementation "com.google.guava:guava:$versions.guava"
     implementation "com.squareup:javapoet:$versions.javapoet"
     testImplementation "junit:junit:$versions.junit"
 }

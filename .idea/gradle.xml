@@ -9,8 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/buildsync" />
-            <option value="$PROJECT_DIR$/buildsync-example" />
+            <option value="$PROJECT_DIR$/buildconfig" />
+            <option value="$PROJECT_DIR$/buildconfig-example" />
           </set>
         </option>
       </GradleProjectSettings>

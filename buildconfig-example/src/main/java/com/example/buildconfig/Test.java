@@ -1,13 +1,11 @@
-package com.example.rsync;
+package com.example.buildconfig;
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
  */
 public class Test {
 
-    String test;
-
     public Test() {
-        // String key = R.string.little;
+
     }
 }

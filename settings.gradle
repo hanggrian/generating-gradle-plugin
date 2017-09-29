@@ -1,2 +1,2 @@
-include ':buildsync'
-include ':buildsync-example'
+include ':buildconfig'
+include ':buildconfig-example'

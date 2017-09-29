@@ -2,10 +2,16 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="buildconfig-buildconfig_main" target="1.8" />
+      <module name="buildconfig-buildconfig_test" target="1.8" />
+      <module name="buildconfig-example_main" target="1.8" />
+      <module name="buildconfig-example_test" target="1.8" />
       <module name="buildsync-buildsync_main" target="1.8" />
       <module name="buildsync-buildsync_test" target="1.8" />
       <module name="buildsync-example_main" target="1.8" />
       <module name="buildsync-example_test" target="1.8" />
+      <module name="buildsync_main" target="1.8" />
+      <module name="buildsync_test" target="1.8" />
       <module name="r-properties-example_main" target="1.8" />
       <module name="r-properties-example_test" target="1.8" />
       <module name="r-properties-r-properties_main" target="1.8" />

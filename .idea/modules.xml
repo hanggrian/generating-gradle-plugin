@@ -2,6 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" group="buildconfig" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" group="buildconfig" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" group="buildconfig" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_main.iml" group="buildconfig-example" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_test.iml" group="buildconfig-example" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example~1.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example~1.iml" group="buildconfig-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync.iml" group="buildsync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_main.iml" group="buildsync" />
@@ -17,8 +24,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties/r-properties-r-properties_main.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties/r-properties-r-properties_main.iml" group="r-properties" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties/r-properties-r-properties_test.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties/r-properties-r-properties_test.iml" group="r-properties" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties-example/r-sync-example.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties-example/r-sync-example.iml" group="r-sync-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync-example/r-sync-example.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync-example/r-sync-example.iml" group="r-sync-example" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties-example/r-sync-example.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties-example/r-sync-example.iml" group="r-sync-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync-example/r-sync-example_main.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync-example/r-sync-example_main.iml" group="r-sync-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync-example/r-sync-example_test.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync-example/r-sync-example_test.iml" group="r-sync-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync/r-sync-r-sync.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync/r-sync-r-sync.iml" group="r-sync" />

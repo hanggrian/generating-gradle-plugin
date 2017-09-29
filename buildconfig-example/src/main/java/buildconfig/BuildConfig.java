@@ -1,4 +1,4 @@
-// BuildConfig generated this class at 2017-09-28T23:13:01.717.
+// buildconfig generated this class at 2017-09-29T15:29:17.065.
 package buildconfig;
 
 import java.lang.String;

@@ -19,8 +19,8 @@ dependencies {
 publish {
     userOrg = bintray.user
     groupId = bintray.group
-    artifactId = bintray.artifact.rsync.id
+    artifactId = bintray.artifact.buildconfig.id
     publishVersion = versions.release
-    desc = bintray.artifact.rsync.desc
-    website = bintray.artifact.rsync.website
+    desc = bintray.artifact.buildconfig.desc
+    website = bintray.artifact.buildconfig.website
 }

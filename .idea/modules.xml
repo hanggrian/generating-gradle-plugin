@@ -3,12 +3,14 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" group="buildconfig" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example.iml" group="buildconfig-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example.iml" group="buildconfig-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_main.iml" group="buildconfig-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_main.iml" group="buildconfig-example" />

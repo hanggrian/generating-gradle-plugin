@@ -24,10 +24,11 @@ class BuildConfigPlugin : Plugin<Project> {
             require(ext.packageName.isNotBlank(), { "Package name must not be blank." })
             require(ext.className.isNotBlank(), { "Class name must not be blank." })
 
-            val map = LinkedHashMap<String, String>()
+            val map = LinkedHashMap<String, Any>()
             map.put("GROUP", ext.groupId ?: "unspecified")
             map.put("ARTIFACT", ext.artifactId ?: "unspecified")
             map.put("VERSION", ext.version ?: "unspecified")
+            map.put("DEBUG", ext.debug ?: false)
 
             // class generation
             val outputDir = project.projectDir.resolve(ext.pathToJava)
@@ -42,14 +43,14 @@ class BuildConfigPlugin : Plugin<Project> {
     }
 
     companion object {
-        private fun generateClass(map: Map<String, String>, outputDir: File, packageName: String, className: String) = JavaFile
+        private fun generateClass(map: Map<String, Any>, outputDir: File, packageName: String, className: String) = JavaFile
                 .builder(packageName, TypeSpec.classBuilder(className)
                         .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                         .addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).build())
                         .apply {
                             map.keys.forEach {
-                                addField(FieldSpec.builder(String::class.java, it, Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-                                        .initializer("\$S", map[it])
+                                addField(FieldSpec.builder(map[it]!!.javaClass, it, Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                                        .initializer(if (map[it] is String) "\$S" else "\$L", map[it])
                                         .build())
                             }
                         }

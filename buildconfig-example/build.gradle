@@ -16,6 +16,7 @@ buildconfig {
     groupId = 'com.example'
     artifactId = 'buildconfig-example'
     version = '0.1'
+    debug = true
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8

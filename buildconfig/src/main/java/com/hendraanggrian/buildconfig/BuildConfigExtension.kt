@@ -17,4 +17,5 @@ open class BuildConfigExtension {
     var groupId: String? = null
     var artifactId: String? = null
     var version: String? = null
+    var debug: Boolean? = null
 }

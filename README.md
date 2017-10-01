@@ -7,6 +7,7 @@ buildconfig {
     groupId = 'com.example'
     artifactId = 'app'
     version = '1.0'
+    debug = true
 }
 
 String group = BuildConfig.GROUP;
@@ -66,7 +67,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.1'
+        classpath 'com.hendraanggrian:buildconfig:0.2'
     }
 }
 ```

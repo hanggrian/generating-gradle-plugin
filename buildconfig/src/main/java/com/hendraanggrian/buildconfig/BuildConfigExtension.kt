@@ -11,11 +11,11 @@ open class BuildConfigExtension {
     /** Name of which class will be generated with, optional. */
     var className: String = "BuildConfig"
 
-    /** Automatic detection not yet supported, relies for absolute path for now. */
-    var pathToJava: String = "src/main/java"
+    /** Path of which BuildConfig class is generated to. */
+    var srcDir: String = "src/main/java"
 
-    var groupId: String? = null
-    var artifactId: String? = null
-    var version: String? = null
-    var debug: Boolean? = null
+    var groupId: String = "unspecified"
+    var artifactId: String = "unspecified"
+    var version: String = "unspecified"
+    var debug: Boolean = false
 }

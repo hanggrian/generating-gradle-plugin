@@ -25,21 +25,38 @@ class BuildConfigPlugin : Plugin<Project> {
             require(ext.className.isNotBlank(), { "Class name must not be blank." })
 
             val map = LinkedHashMap<String, Any>()
-            map.put("GROUP", ext.groupId ?: "unspecified")
-            map.put("ARTIFACT", ext.artifactId ?: "unspecified")
-            map.put("VERSION", ext.version ?: "unspecified")
-            map.put("DEBUG", ext.debug ?: false)
+            ext.println(ext.packageName + "." + ext.className)
+
+            ext.println("GROUP", ext.groupId)
+            map.put("GROUP", ext.groupId)
+
+            ext.println("ARTIFACT", ext.artifactId)
+            map.put("ARTIFACT", ext.artifactId)
+
+            ext.println("VERSION", ext.version)
+            map.put("VERSION", ext.version)
+
+            ext.println("DEBUG", ext.debug)
+            map.put("DEBUG", ext.debug)
 
             // class generation
-            val outputDir = project.projectDir.resolve(ext.pathToJava)
+            val outputDir = project.projectDir.resolve(ext.srcDir)
             project.tasks.create("buildconfig").apply {
+                val oldPath = Paths.get(outputDir.absolutePath, *ext.packageName.split('.').toTypedArray(), ext.className)
+                inputs.file(oldPath.toFile())
+                doFirst { Files.deleteIfExists(oldPath) }
                 outputs.dir(outputDir)
-                doLast {
-                    Files.deleteIfExists(Paths.get(outputDir.absolutePath, *ext.packageName.split('.').toTypedArray(), ext.className))
-                    generateClass(map, outputDir, ext.packageName, ext.className)
-                }
+                doLast { generateClass(map, outputDir, ext.packageName, ext.className) }
             }
         }
+    }
+
+    private fun BuildConfigExtension.println(message: Any?) {
+        if (debug) kotlin.io.println(message)
+    }
+
+    private fun BuildConfigExtension.println(message1: Any?, message2: Any?) {
+        if (debug) kotlin.io.println("|_$message1 = $message2")
     }
 
     companion object {

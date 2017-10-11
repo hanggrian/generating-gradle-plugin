@@ -55,10 +55,6 @@ buildconfig {
 }
 ```
 
-#### Limitation
-Class file overwriting is currently not supported.
-Therefore, current class must be deleted before running the task `buildconfig` again to apply any changes made in properties files.
-
 Download
 --------
 ```gradle
@@ -67,7 +63,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.2'
+        classpath 'com.hendraanggrian:buildconfig:0.3'
     }
 }
 ```

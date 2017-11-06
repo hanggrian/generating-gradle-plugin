@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath files(String.format("../buildconfig/build/libs/buildconfig-%s.jar", versions.release))
+        classpath files(String.format("../buildconfig/build/libs/buildconfig-%s.jar", versions.publish))
         classpath "com.squareup:javapoet:$versions.javapoet"
     }
 }
@@ -13,10 +13,14 @@ apply plugin: 'kotlin'
 apply plugin: com.hendraanggrian.buildconfig.BuildConfigPlugin
 
 buildconfig {
-    groupId = 'com.example'
-    artifactId = 'buildconfig-example'
-    version = '0.1'
-    debug = true
+    groupId 'com.example'
+    artifactId 'buildconfig-example'
+    version '0.1'
+    debug true
+
+    field('TEST_STRING', String.class, "Hello world!")
+    field('TEST_INT', int.class, 1234)
+
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8

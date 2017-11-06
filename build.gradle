@@ -1,6 +1,6 @@
 buildscript {
     ext.versions = [
-            release : '0.3',
+            publish : '0.4',
             // main
             kotlin  : '1.1.51',
             javapoet: '1.9.0',
@@ -23,6 +23,6 @@ allprojects {
 }
 
 /** QUICK LINT CHECK BEFORE UPLOAD
- ./gradlew :buildconfig:clean :buildconfig:build
- ./gradlew :buildconfig:bintrayUpload -PdryRun=false -PbintrayUser=hendraanggrian -PbintrayKey=
+ ./gradlew clean build
+ ./gradlew bintrayUpload -PdryRun=false -PbintrayUser=hendraanggrian -PbintrayKey=
  */

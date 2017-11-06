@@ -4,7 +4,7 @@ apply plugin: 'com.novoda.bintray-release'
 apply from: 'https://raw.githubusercontent.com/HendraAnggrian/hendraanggrian.github.io/master/bintray.gradle'
 
 group = bintray.group
-version = versions.release
+version = versions.publish
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -20,7 +20,7 @@ publish {
     userOrg = bintray.user
     groupId = bintray.group
     artifactId = bintray.artifact.buildconfig.id
-    publishVersion = versions.release
+    publishVersion = versions.publish
     desc = bintray.artifact.buildconfig.desc
     website = bintray.artifact.buildconfig.website
 }

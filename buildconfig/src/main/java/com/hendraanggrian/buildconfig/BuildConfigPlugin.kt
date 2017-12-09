@@ -18,17 +18,17 @@ class BuildConfigPlugin : Plugin<Project> {
         val ext = project.extensions.create("buildconfig", BuildConfigExtension::class.java)
         project.afterEvaluate {
             // requirement checks
-            require(ext.packageName.isNotBlank(), { "Package name must not be blank." })
-            require(ext.className.isNotBlank(), { "Class name must not be blank." })
+            require(ext.mPackageName.isNotBlank(), { "Package name must not be blank." })
+            require(ext.mClassName.isNotBlank(), { "Class name must not be blank." })
 
             // class generation
-            val outputDir = project.projectDir.resolve(ext.srcDir)
+            val outputDir = project.projectDir.resolve(ext.mSrcDir)
             project.tasks.create("buildconfig").apply {
-                val oldPath = Paths.get(outputDir.absolutePath, *ext.packageName.split('.').toTypedArray(), ext.className)
+                val oldPath = Paths.get(outputDir.absolutePath, *ext.mPackageName.split('.').toTypedArray(), ext.mClassName)
                 inputs.file(oldPath.toFile())
                 doFirst { Files.deleteIfExists(oldPath) }
                 outputs.dir(outputDir)
-                doLast { generateClass(ext.mFields, outputDir, ext.packageName, ext.className) }
+                doLast { generateClass(ext.mFields, outputDir, ext.mPackageName, ext.mClassName) }
             }
         }
     }

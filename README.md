@@ -63,7 +63,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.4'
+        classpath 'com.hendraanggrian:buildconfig:0.5'
     }
 }
 ```

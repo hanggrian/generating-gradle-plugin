@@ -14,21 +14,18 @@ import javax.lang.model.element.Modifier.*
 
 class BuildConfigPlugin : Plugin<Project> {
 
-    override fun apply(project: Project) {
-        val ext = project.extensions.create("buildconfig", BuildConfigExtension::class.java)
+    override fun apply(project: Project) = project.extensions.create("buildconfig", BuildConfigExtension::class.java).let { ext ->
         project.afterEvaluate {
-            // requirement checks
-            require(ext.mPackageName.isNotBlank(), { "Package name must not be blank." })
-            require(ext.mClassName.isNotBlank(), { "Class name must not be blank." })
-
-            // class generation
-            val outputDir = project.projectDir.resolve(ext.mSrcDir)
-            project.tasks.create("buildconfig").apply {
-                val oldPath = Paths.get(outputDir.absolutePath, *ext.mPackageName.split('.').toTypedArray(), ext.mClassName)
-                inputs.file(oldPath.toFile())
-                doFirst { Files.deleteIfExists(oldPath) }
-                outputs.dir(outputDir)
-                doLast { generateClass(ext.mFields, outputDir, ext.mPackageName, ext.mClassName) }
+            project.task("buildconfig").apply {
+                val outputDir = project.projectDir.resolve(ext.srcDir)
+                doFirst {
+                    require(ext.packageName.isNotBlank(), { "Package name must not be blank." })
+                    require(ext.className.isNotBlank(), { "Class name must not be blank." })
+                    Files.deleteIfExists(Paths.get(outputDir.absolutePath, *ext.packageName.split('.').toTypedArray(), ext.className))
+                }
+                doLast {
+                    generateClass(ext.fields, outputDir, ext.packageName, ext.className)
+                }
             }
         }
     }

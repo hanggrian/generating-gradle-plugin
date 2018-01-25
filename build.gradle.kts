@@ -3,8 +3,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("com.novoda:bintray-release:0.7.0")
+        classpath(kotlin("gradle-plugin", kotlinVersion))
+        classpath(dokka)
+        classpath(`bintray-release`)
+        classpath(junitPlatform("gradle-plugin", junitPlatformVersion))
     }
 }
 
@@ -12,6 +14,13 @@ allprojects {
     repositories {
         mavenCentral()
     }
+    tasks.withType(Delete::class.java) {
+        delete(File(projectDir, "out"))
+    }
+}
+
+task<Delete>("clean") {
+    delete(rootProject.buildDir)
 }
 
 /** QUICK LINT CHECK BEFORE UPLOAD

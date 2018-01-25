@@ -14,6 +14,8 @@
       <module name="buildsync-example_test" target="1.8" />
       <module name="buildsync_main" target="1.8" />
       <module name="buildsync_test" target="1.8" />
+      <module name="example_main" target="1.8" />
+      <module name="example_test" target="1.8" />
       <module name="r-properties-example_main" target="1.8" />
       <module name="r-properties-example_test" target="1.8" />
       <module name="r-properties-r-properties_main" target="1.8" />

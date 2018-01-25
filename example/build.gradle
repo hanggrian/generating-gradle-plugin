@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(files('../buildconfig/build/libs/buildconfig-0.5.jar'))
+        classpath(files('../buildconfig/build/libs/buildconfig-0.6.jar'))
         classpath 'com.squareup:javapoet:1.9.0'
     }
 }
@@ -14,17 +14,19 @@ apply plugin: com.hendraanggrian.buildconfig.BuildConfigPlugin
 
 buildconfig {
     groupId('com.example')
-    artifactId('buildconfig-example')
+    artifactId('example')
     version('0.1')
     debug(true)
 
     field('TEST_STRING', String.class, "Hello world!")
     field('TEST_INT', int.class, 1234)
+    field('TEST_DOUBLE', double.class, 123.0)
+    field('TEST_BOOLEAN', boolean.class, true)
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.1.61'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.21'
 }

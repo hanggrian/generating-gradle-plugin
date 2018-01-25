@@ -1,2 +1,2 @@
 include ':buildconfig'
-include ':buildconfig-example'
+include ':example'

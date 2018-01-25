@@ -1,31 +1,32 @@
 package com.hendraanggrian.buildconfig
 
-/** Extension to customize BuildConfig generation, note that all of this is optional. */
-@Suppress("UNUSED")
+/** Extension to customize BuildConfig generation, note that all properties are optional. */
 open class BuildConfigExtension {
 
-    internal var mPackageName: String = "buildconfig"
-    internal var mClassName: String = "BuildConfig"
-    internal var mSrcDir: String = "src/main/java"
-    internal var mFields = linkedMapOf<String, Pair<Class<*>, Any>>()
+    internal var packageName: String = "buildconfig"
+    internal var className: String = "BuildConfig"
+    internal var srcDir: String = "src/main/java"
+    internal var fields = linkedMapOf<String, Pair<Class<*>, Any>>()
 
     /** Package name of generated class, optional. */
     fun packageName(name: String) {
-        mPackageName = name
+        packageName = name
     }
 
     /** Name of which class will be generated with, optional. */
     fun className(name: String) {
-        mClassName = name
+        className = name
     }
 
     /** Path of which BuildConfig class is generated to. */
     fun srcDir(dir: String) {
-        mSrcDir = dir
+        srcDir = dir
     }
 
     /** Add any field with specified name, type and value. */
-    fun <T : Any> field(name: String, type: Class<T>, value: T) = mFields.put(name, Pair(type, value))
+    fun <T : Any> field(name: String, type: Class<T>, value: T) {
+        fields[name] = type to value
+    }
 
     fun groupId(groupId: String) = field("GROUP", String::class.java, groupId)
 

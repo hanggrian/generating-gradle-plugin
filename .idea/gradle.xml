@@ -11,7 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/buildconfig" />
-            <option value="$PROJECT_DIR$/buildconfig-example" />
+            <option value="$PROJECT_DIR$/example" />
           </set>
         </option>
       </GradleProjectSettings>

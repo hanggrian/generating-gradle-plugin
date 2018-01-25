@@ -49,8 +49,8 @@ apply plugin: 'java'
 apply plugin: 'buildconfig'
 
 buildconfig {
-    packageName = 'com.example'
-    className = 'MyBuild'
+    packageName 'com.example'
+    className 'MyBuild'
     ...
 }
 ```
@@ -63,7 +63,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.5'
+        classpath 'com.hendraanggrian:buildconfig:0.6'
     }
 }
 ```

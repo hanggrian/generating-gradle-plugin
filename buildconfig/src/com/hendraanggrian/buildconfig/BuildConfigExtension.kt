@@ -1,21 +1,18 @@
 package com.hendraanggrian.buildconfig
 
+import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.TASK_NAME
+import javax.lang.model.SourceVersion.isName
+
 /** Extension to customize BuildConfig generation, note that all properties are optional. */
 open class BuildConfigExtension {
 
-    internal var packageName: String = "buildconfig"
-    internal var className: String = "BuildConfig"
+    internal var packageName: String = TASK_NAME
     internal var srcDir: String = "src/main/java"
-    internal var fields = linkedMapOf<String, Pair<Class<*>, Any>>()
+    internal var fieldMap: MutableMap<String, Pair<Class<*>, Any>> = linkedMapOf()
 
     /** Package name of generated class, optional. */
     fun packageName(name: String) {
         packageName = name
-    }
-
-    /** Name of which class will be generated with, optional. */
-    fun className(name: String) {
-        className = name
     }
 
     /** Path of which BuildConfig class is generated to. */
@@ -23,16 +20,16 @@ open class BuildConfigExtension {
         srcDir = dir
     }
 
-    /** Add any field with specified name, type and value. */
-    fun <T : Any> field(name: String, type: Class<T>, value: T) {
-        fields[name] = type to value
+    fun <T : Any> field(type: Class<T>, name: String, value: T) {
+        require(isName(name)) { "Field name is not a valid java variable name!" }
+        fieldMap[name] = type to value
     }
 
-    fun groupId(groupId: String) = field("GROUP", String::class.java, groupId)
+    fun groupId(groupId: String) = field(String::class.java, "GROUP", groupId)
 
-    fun artifactId(artifactId: String) = field("ARTIFACT", String::class.java, artifactId)
+    fun artifactId(artifactId: String) = field(String::class.java, "ARTIFACT", artifactId)
 
-    fun version(version: String) = field("VERSION", String::class.java, version)
+    fun version(version: String) = field(String::class.java, "VERSION", version)
 
-    fun debug(debug: Boolean) = field("DEBUG", Boolean::class.java, debug)
+    fun debug(debug: Boolean) = field(Boolean::class.java, "DEBUG", debug)
 }

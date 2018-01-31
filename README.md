@@ -9,49 +9,18 @@ buildconfig {
     version '1.0'
     debug true
 }
-
-String group = BuildConfig.GROUP;
-String artifact = BuildConfig.ARTIFACT;
-String version = BuildConfig.VERSION;
 ```
 
-Usage
------
-Apply `buildconfig` plugin on the project. (not the root project)
-
-```gradle
-apply plugin: 'java'
-apply plugin: 'buildconfig'
-
-buildconfig {
-    groupId = 'com.example'
-    artifactId = 'app'
-    version = '1.0'
-}
-
-dependencies {
-    ...
-}
-```
-
-Then simply run gradle task `buildconfig`,
-it will automatically read properties files from your resources folder and generate class accordingly.
-
-```
-./gradlew buildConfig
-```
-
-#### Customization
-Declare and modify extension `buildconfig`, note that all of this is optional.
-
-```gradle
-apply plugin: 'java'
-apply plugin: 'buildconfig'
-
-buildconfig {
-    packageName 'com.example'
-    className 'MyBuild'
-    ...
+```java
+public final class BuildConfig {
+    
+    public static final String group = "com.example";
+    public static final String artifact = "app";
+    public static final String version = "1.0";
+    public static final String debug = true;
+    
+    private BuildConfig() {
+    }
 }
 ```
 
@@ -63,8 +32,56 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.6'
+        classpath 'com.hendraanggrian:buildconfig:0.7'
     }
+}
+```
+
+Custom field
+------------
+To generate custom fields, simply invoke `field`.
+
+```gradle
+buildconfig {
+    field(String.class, "myString", "Hello world!")
+    field(double.class, "myDecimal", 12.0)
+}
+```
+
+Generate
+--------
+Apply `buildconfig` plugin on the project. (not the root project)
+
+```gradle
+apply plugin: 'java'
+apply plugin: 'buildconfig'
+
+buildconfig {
+    ...
+}
+
+dependencies {
+    ...
+}
+```
+
+Then run gradle task `buildconfig`, it will automatically read properties files from your resources folder and generate class accordingly.
+
+```
+./gradlew buildConfig
+```
+
+Customization
+-----
+Declare and modify extension `buildconfig`, note that all of properties are optional.
+
+```gradle
+apply plugin: 'java'
+apply plugin: 'buildconfig'
+
+buildconfig {
+    packageName 'com.example'
+    srcDir 'src'
 }
 ```
 

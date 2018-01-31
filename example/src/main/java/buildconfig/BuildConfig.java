@@ -1,4 +1,4 @@
-// buildconfig generated this class at 2018-01-26T00:40:28.594.
+// buildconfig generated this class at 01-31-2018 at 9.10.04 PM
 package buildconfig;
 
 import java.lang.String;
@@ -19,6 +19,8 @@ public final class BuildConfig {
   public static final double TEST_DOUBLE = 123.0;
 
   public static final boolean TEST_BOOLEAN = true;
+
+  public static final char TEST_CHAR = 'e';
 
   private BuildConfig() {
   }

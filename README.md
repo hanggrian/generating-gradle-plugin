@@ -37,17 +37,6 @@ buildscript {
 }
 ```
 
-Custom field
-------------
-To generate custom fields, simply invoke `field`.
-
-```gradle
-buildconfig {
-    field(String.class, "myString", "Hello world!")
-    field(double.class, "myDecimal", 12.0)
-}
-```
-
 Generate
 --------
 Apply `buildconfig` plugin on the project. (not the root project)
@@ -71,8 +60,19 @@ Then run gradle task `buildconfig`, it will automatically read properties files 
 ./gradlew buildConfig
 ```
 
+Custom field
+------------
+To generate custom fields, simply invoke `field`.
+
+```gradle
+buildconfig {
+    field(String.class, "myString", "Hello world!")
+    field(double.class, "myDecimal", 12.0)
+}
+```
+
 Customization
------
+-------------
 Declare and modify extension `buildconfig`, note that all of properties are optional.
 
 ```gradle

@@ -1,12 +1,11 @@
 package com.hendraanggrian.buildconfig
 
-import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.TASK_NAME
 import javax.lang.model.SourceVersion.isName
 
 /** Extension to customize BuildConfig generation, note that all properties are optional. */
 open class BuildConfigExtension {
 
-    internal var packageName: String = TASK_NAME
+    internal var packageName: String = "buildconfig"
     internal var srcDir: String = "src/main/java"
     internal var fieldMap: MutableMap<String, Pair<Class<*>, Any>> = linkedMapOf()
 

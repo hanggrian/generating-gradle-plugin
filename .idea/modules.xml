@@ -3,22 +3,25 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" group="buildSrc" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" group="buildSrc" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" group="buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" group="buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" group="buildconfig" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example.iml" group="buildconfig-example" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_main.iml" group="buildconfig-example" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example_test.iml" group="buildconfig-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example~1.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example~1.iml" group="buildconfig-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync.iml" group="buildsync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_main.iml" group="buildsync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_test.iml" group="buildsync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example.iml" group="example" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example.iml" group="example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example_main.iml" group="example" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example_main.iml" group="example" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example_test.iml" group="example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example_test.iml" group="example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties-example/r-properties-example.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties-example/r-properties-example.iml" group="r-properties-example" />

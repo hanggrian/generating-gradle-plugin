@@ -16,13 +16,13 @@ import javax.lang.model.element.Modifier.*
 class BuildConfigPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        val ext = project.extensions.create(TASK_NAME, BuildConfigExtension::class.java)
+        val ext = project.extensions.create("buildconfig", BuildConfigExtension::class.java)
         project.afterEvaluate {
             val outputDir = project.projectDir.resolve(ext.srcDir)
-            project.task(TASK_NAME).apply {
+            project.task("buildconfig").apply {
                 doFirst {
                     check(ext.packageName.isNotBlank()) { "Package name must not be blank." }
-                    deleteIfExists(get(outputDir.absolutePath, *ext.packageName.split('.').toTypedArray(), "$CLASS_NAME.java"))
+                    deleteIfExists(get(outputDir.absolutePath, *ext.packageName.split('.').toTypedArray(), "BuildConfig.java"))
                 }
                 doLast {
                     generateClass(ext.packageName, ext.fieldMap, outputDir)
@@ -32,11 +32,8 @@ class BuildConfigPlugin : Plugin<Project> {
     }
 
     companion object {
-        internal const val TASK_NAME = "buildconfig"
-        private const val CLASS_NAME = "BuildConfig"
-
         private fun generateClass(packageName: String, map: Map<String, Pair<Class<*>, Any>>, outputDir: File) = JavaFile
-                .builder(packageName, classBuilder(CLASS_NAME)
+                .builder(packageName, classBuilder("BuildConfig")
                         .addModifiers(PUBLIC, FINAL)
                         .addMethod(constructorBuilder().addModifiers(PRIVATE).build())
                         .apply {
@@ -52,7 +49,7 @@ class BuildConfigPlugin : Plugin<Project> {
                             }
                         }
                         .build())
-                .addFileComment("$TASK_NAME generated this class at ${now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
+                .addFileComment("buildconfig generated this class at ${now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
                 .build()
                 .writeTo(outputDir)
     }

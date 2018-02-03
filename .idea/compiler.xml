@@ -14,6 +14,10 @@
       <module name="buildsync-example_test" target="1.8" />
       <module name="buildsync_main" target="1.8" />
       <module name="buildsync_test" target="1.8" />
+      <module name="custom-fields_main" target="1.8" />
+      <module name="custom-fields_test" target="1.8" />
+      <module name="custom-source-sets_main" target="1.8" />
+      <module name="custom-source-sets_test" target="1.8" />
       <module name="example_main" target="1.8" />
       <module name="example_test" target="1.8" />
       <module name="r-properties-example_main" target="1.8" />
@@ -36,6 +40,8 @@
       <module name="rsync-rsync_test" target="1.8" />
       <module name="rsync_main" target="1.8" />
       <module name="rsync_test" target="1.8" />
+      <module name="simple_main" target="1.8" />
+      <module name="simple_test" target="1.8" />
       <module name="testbed_main" target="1.8" />
       <module name="testbed_test" target="1.8" />
     </bytecodeTargetLevel>

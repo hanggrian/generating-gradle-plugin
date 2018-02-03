@@ -3,11 +3,10 @@ BuildConfig
 `BuildConfig` class for non-Android Java projects.
 
 ```gradle
+group = 'com.example'
+version = '1.0'
+
 buildconfig {
-    groupId 'com.example'
-    artifactId 'app'
-    version '1.0'
-    debug true
 }
 ```
 

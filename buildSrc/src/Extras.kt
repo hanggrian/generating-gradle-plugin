@@ -13,7 +13,7 @@ val Plugin.dokka get() = id("org.jetbrains.dokka")
 val Dependency.`bintray-release` get() = "com.novoda:bintray-release:0.8.0"
 val Plugin.`bintray-release` get() = id("com.novoda.bintray-release")
 
-val Dependency.javapoet get() = "com.squareup:javapoet:1.10.0"
+fun Dependency.javapoet() = "com.squareup:javapoet:1.10.0"
 
 fun Dependency.junitPlatform(module: String, version: String) = "org.junit.platform:junit-platform-$module:$version"
 val Plugin.`junit-platform` get() = id("org.junit.platform.gradle.plugin")

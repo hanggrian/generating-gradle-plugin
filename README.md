@@ -1,21 +1,20 @@
 BuildConfig
 ===========
-`BuildConfig` class for non-Android Java projects.
+`BuildConfig` gradle plugin for Java projects.
+Currently only supported with <b>IntelliJ IDEA</b>.
 
-```java
-public final class BuildConfig {
-    public static final String NAME = "app";
-    public static final String GROUP = "com.example";
-    public static final String VERSION = "1.0";
-    
-    private BuildConfig() {
-    }
+```gradle
+buildconfig {
+    name 'Awesome App'
+    group 'my.package'
+    version '1.0'
+    debug 'false'
 }
 ```
 
 Download
 --------
-Currently, only <b>IntelliJ IDEA</b> is supported. Add `buildconfig` classpath to buildscript.
+Add plugin to buildscript:
 
 ```gradle
 buildscript {
@@ -26,6 +25,13 @@ buildscript {
         classpath 'com.hendraanggrian:buildconfig:0.8'
     }
 }
+```
+
+then apply it in your module, along with idea plugin:
+
+```gradle
+apply plugin: 'idea'
+apply plugin: 'buildconfig'
 ```
 
 Generate

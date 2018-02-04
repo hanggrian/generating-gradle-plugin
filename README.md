@@ -14,6 +14,8 @@ public final class BuildConfig {
 }
 ```
 
+Similarly, check out [r plugin][r] to generate `R` class.
+
 Download
 --------
 Add plugin to buildscript:
@@ -48,7 +50,7 @@ version = '1.0'       // project version
 
 buildconfig {
     name 'My App'      // `BuildConfig.NAME` value, default is project name
-    group 'my.example' // `BuildConfig.GROUP` value, default is project group
+    group 'my.app'     // `BuildConfig.GROUP` value, default is project group
     version '2.0'      // `BuildConfig.VERSION` value, default is project version
     debug true         // `BuildConfig.DEBUG` value
     
@@ -73,3 +75,5 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+[r]: https://github.com/hendraanggrian/r

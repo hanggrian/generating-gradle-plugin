@@ -2,7 +2,7 @@ const val bintrayUser = "hendraanggrian"
 const val bintrayGroup = "com.hendraanggrian"
 const val bintrayArtifact = "buildconfig"
 const val bintrayPublish = "0.8"
-const val bintrayDesc = "BuildConfig class for non-Android Java projects"
+const val bintrayDesc = "BuildConfig gradle plugin for Java projects"
 const val bintrayWeb = "https://github.com/$bintrayUser/$bintrayArtifact"
 
 const val kotlinVersion = "1.2.21"

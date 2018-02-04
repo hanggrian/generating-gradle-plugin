@@ -8,8 +8,8 @@ buildscript {
     }
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
-        classpath(dokka)
-        classpath(`bintray-release`)
+        classpath(dokka())
+        classpath(bintrayRelease())
         classpath(junitPlatform("gradle-plugin", junitPlatformVersion))
     }
 }
@@ -27,6 +27,6 @@ task<Delete>("clean") {
     delete(rootProject.buildDir)
 }
 
-/** QUICK LINT CHECK BEFORE UPLOAD
+/** bintray upload snippet
 ./gradlew bintrayUpload -PdryRun=false -PbintrayUser=hendraanggrian -PbintrayKey=
  */

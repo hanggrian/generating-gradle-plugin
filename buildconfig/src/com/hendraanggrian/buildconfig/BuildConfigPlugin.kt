@@ -41,13 +41,13 @@ class BuildConfigPlugin : Plugin<Project> {
         }
     }
 
-    private val BuildConfigExtension.generateTask: GenerateBuildConfigTask
+    private inline val BuildConfigExtension.generateTask: GenerateBuildConfigTask
         get() = project.task(mapOf("type" to GenerateBuildConfigTask::class.java), "generate$CLASS_NAME", closureOf<GenerateBuildConfigTask> {
             packageName = this@generateTask.packageName
             fields = this@generateTask.fields
         }) as GenerateBuildConfigTask
 
-    private val GenerateBuildConfigTask.compileTask: JavaCompile
+    private inline val GenerateBuildConfigTask.compileTask: JavaCompile
         get() = project.task(mapOf("type" to JavaCompile::class.java, "dependsOn" to this), "compile$CLASS_NAME", closureOf<JavaCompile> {
             classpath = project.files()
             destinationDir = project.buildDir.toPath().resolve(GENERATED_SOURCE_CLASSES).toFile()

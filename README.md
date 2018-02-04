@@ -1,14 +1,16 @@
 BuildConfig
 ===========
-`BuildConfig` gradle plugin for Java projects.
+Generate Android-like `BuildConfig` class on any JVM projects.
 Currently only supported with <b>IntelliJ IDEA</b>.
 
-```gradle
-buildconfig {
-    name 'Awesome App'
-    group 'my.package'
-    version '1.0'
-    debug 'false'
+```java
+public final class BuildConfig {
+    public static final String NAME = "My App";
+    public static final String GROUP = "my.package";
+    public static final String VERSION = "1.0";
+
+    private BuildConfig() {
+    }
 }
 ```
 
@@ -34,60 +36,26 @@ apply plugin: 'idea'
 apply plugin: 'buildconfig'
 ```
 
-Generate
---------
-Apply `buildconfig` plugin on the project. (not the root project)
+that's it, `BuildConfig` are now automatically generated after compilation with default behavior.
+
+Usage
+-----
+Modify `BuildConfig` fields generation with `buildconfig` closure.
 
 ```gradle
-apply plugin: 'java'
-apply plugin: 'buildconfig'
+group = 'com.example' // project group
+version = '1.0'       // project version
 
 buildconfig {
-    ...
+    name 'My App'      // `BuildConfig.NAME` value, default is project name
+    group 'my.example' // `BuildConfig.GROUP` value, default is project group
+    version '2.0'      // `BuildConfig.VERSION` value, default is project version
+    debug true         // `BuildConfig.DEBUG` value
+    
+    // add custom field specifying its type, name, and value
+    field String.class, "myString", "Hello world!"
+    field double.class, "myDecimal", 12.0
 }
-
-dependencies {
-    ...
-}
-```
-
-Then run gradle task `buildconfig`, it will automatically read properties files from your resources folder and generate class accordingly.
-
-```
-./gradlew buildConfig
-```
-
-Custom field
-------------
-To generate custom fields, simply invoke `field`.
-
-```gradle
-buildconfig {
-    field(String.class, "myString", "Hello world!")
-    field(double.class, "myDecimal", 12.0)
-}
-```
-
-Customization
--------------
-Declare and modify extension `buildconfig`, note that all of properties are optional.
-
-```gradle
-apply plugin: 'java'
-apply plugin: 'buildconfig'
-
-buildconfig {
-    packageName 'com.example'
-    srcDir 'src'
-}
-```
-
-```gradle
-apply plugin: 'idea'
-apply plugin: 'buildconfig'
-
-group = 'com.example'
-version = '1.0'
 ```
 
 License

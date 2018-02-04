@@ -1,9 +1,10 @@
 package com.hendraanggrian.buildconfig
 
-import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.JavaFile
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.TypeSpec
+import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.CLASS_NAME
+import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.EXTENSION_NAME
+import com.squareup.javapoet.JavaFile.builder
+import com.squareup.javapoet.MethodSpec.constructorBuilder
+import com.squareup.javapoet.TypeSpec.classBuilder
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
@@ -18,30 +19,19 @@ import javax.lang.model.element.Modifier.*
 open class GenerateBuildConfigTask : DefaultTask() {
 
     @Input lateinit var packageName: String
-    @Input lateinit var fields: Map<String, Pair<Class<*>, Any>>
+    @Input lateinit var fields: Set<BuildConfigField<*>>
     @OutputDirectory lateinit var outputDir: File
 
     @TaskAction
     @Throws(IOException::class)
     fun generateBuildConfig() {
         deleteIfExists(outputDir.toPath())
-        JavaFile.builder(packageName, TypeSpec.classBuilder("BuildConfig")
+        builder(packageName, classBuilder(CLASS_NAME)
                 .addModifiers(PUBLIC, FINAL)
-                .addMethod(MethodSpec.constructorBuilder().addModifiers(PRIVATE).build())
-                .apply {
-                    fields.keys.forEach { name ->
-                        val (type, value) = fields[name]!!
-                        addField(FieldSpec.builder(type, name, PUBLIC, STATIC, FINAL)
-                                .initializer(when (type) {
-                                    String::class.java -> "\$S"
-                                    Char::class.java -> "'\$L'"
-                                    else -> "\$L"
-                                }, value)
-                                .build())
-                    }
-                }
+                .addMethod(constructorBuilder().addModifiers(PRIVATE).build())
+                .apply { fields.forEach { addField(it.toFieldSpec()) } }
                 .build())
-                .addFileComment("${BuildConfigExtension.name} generated this class at ${now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
+                .addFileComment("$EXTENSION_NAME generated this class at ${now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
                 .build()
                 .writeTo(outputDir)
     }

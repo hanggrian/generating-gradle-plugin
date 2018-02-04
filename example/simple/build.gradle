@@ -14,3 +14,7 @@ version = "1.0"
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'buildconfig'
+
+dependencies {
+    implementation 'junit:junit:4.12'
+}

@@ -32,14 +32,6 @@ gradlePlugin {
     }
 }
 
-configure<JUnitPlatformExtension> {
-    filters {
-        engines {
-            include("spek")
-        }
-    }
-}
-
 dependencies {
     implementation(kotlin("stdlib", kotlinVersion))
     implementation(javapoet())
@@ -63,6 +55,14 @@ publish {
     publishVersion = bintrayPublish
     desc = bintrayDesc
     website = bintrayWeb
+}
+
+configure<JUnitPlatformExtension> {
+    filters {
+        engines {
+            include("spek")
+        }
+    }
 }
 
 fun JUnitPlatformExtension.filters(setup: FiltersExtension.() -> Unit) {

@@ -1,49 +1,48 @@
 package com.hendraanggrian.buildconfig
 
-import org.gradle.api.Named
+import com.hendraanggrian.buildconfig.BuildConfigField.Companion.NAME_DEBUG
+import com.hendraanggrian.buildconfig.BuildConfigField.Companion.NAME_GROUP
+import com.hendraanggrian.buildconfig.BuildConfigField.Companion.NAME_NAME
+import com.hendraanggrian.buildconfig.BuildConfigField.Companion.NAME_VERSION
+import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.EXTENSION_NAME
 import javax.lang.model.SourceVersion.isName
 import kotlin.DeprecationLevel.ERROR
 
 /** Extension to customize BuildConfig generation, note that all properties are optional. */
 open class BuildConfigExtension {
 
-    internal var fields: MutableMap<String, Pair<Class<*>, Any>> = linkedMapOf()
+    internal var fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
+    /** Customize `BuildConfig.NAME` value, default is project name. */
     var name: String
         @Deprecated(NO_GETTER, level = ERROR) get() = noGetter()
-        set(value) = field(String::class.java, FIELD_NAME, value)
+        set(value) = field(String::class.java, NAME_NAME, value)
 
+    /** Customize `BuildConfig.GROUP` value, default is project group. */
     var group: String
         @Deprecated(NO_GETTER, level = ERROR) get() = noGetter()
-        set(value) = field(String::class.java, FIELD_GROUP, value)
+        set(value) = field(String::class.java, NAME_GROUP, value)
 
+    /** Customize `BuildConfig.VERSION` value, default is project version. */
     var version: String
         @Deprecated(NO_GETTER, level = ERROR) get() = noGetter()
-        set(value) = field(String::class.java, FIELD_VERSION, value)
+        set(value) = field(String::class.java, NAME_VERSION, value)
 
+    /** Customize `BuildConfig.DEBUG` value. */
     var debug: Boolean
         @Deprecated(NO_GETTER, level = ERROR) get() = noGetter()
-        set(value) = field(Boolean::class.java, FIELD_DEBUG, value)
+        set(value) = field(Boolean::class.java, NAME_DEBUG, value)
 
     /** Add custom field specifying its type, name, and value. */
     fun <T : Any> field(type: Class<T>, name: String, value: T) {
         require(isName(name)) { "Field name is not a valid java variable name" }
-        fields[name] = type to value
+        fields.add(BuildConfigField(type, name, value))
     }
 
     internal val packageName: String
-        get() = when (fields.contains(FIELD_GROUP)) {
-            true -> fields[FIELD_GROUP]!!.second as String
-            else -> getName()
-        }
+        get() = fields.singleOrNull { it.name == NAME_GROUP }?.value as? String ?: EXTENSION_NAME
 
-    companion object : Named {
-        override fun getName(): String = "buildconfig"
-
-        internal const val FIELD_NAME = "NAME"
-        internal const val FIELD_GROUP = "GROUP"
-        internal const val FIELD_VERSION = "VERSION"
-        internal const val FIELD_DEBUG = "DEBUG"
+    companion object {
 
         private const val NO_GETTER: String = "Property does not have a getter"
 

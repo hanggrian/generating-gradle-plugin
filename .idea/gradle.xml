@@ -12,8 +12,8 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/buildconfig" />
             <option value="$PROJECT_DIR$/example" />
-            <option value="$PROJECT_DIR$/example/custom-fields" />
-            <option value="$PROJECT_DIR$/example/custom-source-sets" />
+            <option value="$PROJECT_DIR$/example/custom" />
+            <option value="$PROJECT_DIR$/example/extra-fields" />
             <option value="$PROJECT_DIR$/example/simple" />
           </set>
         </option>

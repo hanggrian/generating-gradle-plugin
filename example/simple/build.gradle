@@ -12,4 +12,5 @@ group = "com.example"
 version = "1.0"
 
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'buildconfig'

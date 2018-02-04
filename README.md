@@ -2,21 +2,11 @@ BuildConfig
 ===========
 `BuildConfig` class for non-Android Java projects.
 
-```gradle
-group = 'com.example'
-version = '1.0'
-
-buildconfig {
-}
-```
-
 ```java
 public final class BuildConfig {
-    
-    public static final String group = "com.example";
-    public static final String artifact = "app";
-    public static final String version = "1.0";
-    public static final String debug = true;
+    public static final String NAME = "app";
+    public static final String GROUP = "com.example";
+    public static final String VERSION = "1.0";
     
     private BuildConfig() {
     }
@@ -25,13 +15,15 @@ public final class BuildConfig {
 
 Download
 --------
+Currently, only <b>IntelliJ IDEA</b> is supported. Add `buildconfig` classpath to buildscript.
+
 ```gradle
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.7'
+        classpath 'com.hendraanggrian:buildconfig:0.8'
     }
 }
 ```
@@ -82,6 +74,14 @@ buildconfig {
     packageName 'com.example'
     srcDir 'src'
 }
+```
+
+```gradle
+apply plugin: 'idea'
+apply plugin: 'buildconfig'
+
+group = 'com.example'
+version = '1.0'
 ```
 
 License

@@ -12,9 +12,12 @@ group = "com.example"
 version = "1.0"
 
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'buildconfig'
 
 buildconfig {
-    field(String.class, "NAME", "Stan Marsh")
-    field(int.class, "AGE", "8")
+    name 'Hello world!'
+    group 'my.website'
+    version '2.0'
+    debug true
 }

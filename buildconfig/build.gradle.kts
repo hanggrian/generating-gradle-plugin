@@ -1,4 +1,5 @@
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.kotlin.dsl.`kotlin-dsl`
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.kotlin
 
@@ -8,7 +9,7 @@ import org.junit.platform.gradle.plugin.JUnitPlatformExtension
 
 plugins {
     `java-gradle-plugin`
-    kotlin("jvm")
+    `kotlin-dsl`
     dokka
     `bintray-release`
     `junit-platform`
@@ -18,11 +19,17 @@ group = bintrayGroup
 version = bintrayPublish
 
 java.sourceSets {
-    getByName("main") {
-        java.srcDir("src")
-        resources.srcDirs("res")
-    }
+    getByName("main").java.srcDir("src")
     getByName("test").java.srcDir("tests/src")
+}
+
+gradlePlugin {
+    (plugins) {
+        "buildconfig" {
+            id = "buildconfig"
+            implementationClass = "com.hendraanggrian.buildconfig.BuildConfigPlugin"
+        }
+    }
 }
 
 configure<JUnitPlatformExtension> {

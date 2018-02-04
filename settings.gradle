@@ -1,5 +1,5 @@
 include ':buildconfig'
 
 include ':example:simple'
-include ':example:custom-source-sets'
-include ':example:custom-fields'
+include ':example:custom'
+include ':example:extra-fields'

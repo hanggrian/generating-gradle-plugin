@@ -26,7 +26,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.8'
+        classpath 'com.hendraanggrian:buildconfig:0.9'
     }
 }
 ```
@@ -45,18 +45,21 @@ Usage
 Modify `BuildConfig` fields generation with `buildconfig` closure.
 
 ```gradle
-group = 'com.example' // project group
-version = '1.0'       // project version
+group 'com.example' // project group
+version '1.0'       // project version
 
 buildconfig {
-    name 'My App'      // `BuildConfig.NAME` value, default is project name
-    group 'my.app'     // `BuildConfig.GROUP` value, default is project group
-    version '2.0'      // `BuildConfig.VERSION` value, default is project version
-    debug true         // `BuildConfig.DEBUG` value
+    packageName 'my.app'    // package name of which R.class will be generated to, default is project group
+    className 'Res'         // generated class name, default is R
     
-    // add custom field specifying its type, name, and value
-    field String.class, "myString", "Hello world!"
-    field double.class, "myDecimal", 12.0
+    name 'My App'           // `BuildConfig.NAME` value, default is project name
+    group 'my.app'          // `BuildConfig.GROUP` value, default is project group
+    version '2.0'           // `BuildConfig.VERSION` value, default is project version
+    debug true              // `BuildConfig.DEBUG` value
+    
+    // add custom field specifying its name, type, and value
+    field "myString", String.class, "Hello world!"
+    field "myDecimal", double.class, 12.0
 }
 ```
 

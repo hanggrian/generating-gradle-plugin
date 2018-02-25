@@ -17,7 +17,7 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenCentral()
+        jcenter()
     }
     tasks.withType(Delete::class.java) {
         delete(File(projectDir, "out"))

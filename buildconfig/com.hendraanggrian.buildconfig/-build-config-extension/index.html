@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BuildConfigExtension - buildconfig</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">buildconfig</a>&nbsp;/&nbsp;<a href="../index.html">com.hendraanggrian.buildconfig</a>&nbsp;/&nbsp;<a href=".">BuildConfigExtension</a><br/>
+<br/>
+<h1>BuildConfigExtension</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">BuildConfigExtension</span></code>
+<p>Extension to customize BuildConfig generation, note that all properties are optional.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">BuildConfigExtension</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Extension to customize BuildConfig generation, note that all properties are optional.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="class-name.html">className</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">className</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p><code>buildconfig</code> generated class name.
+Default is <code>BuildConfig</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="debug.html">debug</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">debug</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Customize <code>BuildConfig.DEBUG</code> value.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="group.html">group</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">group</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Customize <code>BuildConfig.GROUP</code> value.
+Default is project group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Customize <code>BuildConfig.NAME</code> value.
+Default is project name.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="package-name.html">packageName</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">packageName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Package name of which <code>buildconfig</code> class will be generated to.
+Default is project group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="version.html">version</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">version</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Customize <code>BuildConfig.VERSION</code> value.
+Default is project version.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="field.html">field</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">field</span><span class="symbol">(</span><span class="identifier" id="com.hendraanggrian.buildconfig.BuildConfigExtension$field(kotlin.String, java.lang.Class((com.hendraanggrian.buildconfig.BuildConfigExtension.field.T)), com.hendraanggrian.buildconfig.BuildConfigExtension.field.T)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.hendraanggrian.buildconfig.BuildConfigExtension$field(kotlin.String, java.lang.Class((com.hendraanggrian.buildconfig.BuildConfigExtension.field.T)), com.hendraanggrian.buildconfig.BuildConfigExtension.field.T)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Class</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.hendraanggrian.buildconfig.BuildConfigExtension$field(kotlin.String, java.lang.Class((com.hendraanggrian.buildconfig.BuildConfigExtension.field.T)), com.hendraanggrian.buildconfig.BuildConfigExtension.field.T)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Add custom field specifying its type, name, and value.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

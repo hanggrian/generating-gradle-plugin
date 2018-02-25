@@ -1,7 +1,10 @@
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.tasks.JavaExec
 import org.gradle.kotlin.dsl.`kotlin-dsl`
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.creating
 import org.gradle.kotlin.dsl.kotlin
+import org.jetbrains.dokka.gradle.DokkaTask
 
 import org.junit.platform.gradle.plugin.FiltersExtension
 import org.junit.platform.gradle.plugin.EnginesExtension
@@ -11,31 +14,34 @@ plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
     dokka
+    `git-publish`
     `bintray-release`
     `junit-platform`
 }
 
-group = bintrayGroup
-version = bintrayPublish
+group = releaseGroup
+version = releaseVersion
 
 java.sourceSets {
-    getByName("main").java.srcDir("src")
-    getByName("test").java.srcDir("tests/src")
+    get("main").java.srcDir("src")
+    get("test").java.srcDir("tests/src")
 }
 
 gradlePlugin {
     (plugins) {
         "buildconfig" {
-            id = "buildconfig"
-            implementationClass = "com.hendraanggrian.buildconfig.BuildConfigPlugin"
+            id = releaseArtifact
+            implementationClass = "$releaseGroup.$releaseArtifact.BuildConfigPlugin"
         }
     }
 }
 
+val ktlint by configurations.creating
+
 dependencies {
     implementation(kotlin("stdlib", kotlinVersion))
     implementation(javapoet())
-
+    ktlint(ktlint())
     testCompile(kotlin("test", kotlinVersion))
     testCompile(kotlin("reflect", kotlinVersion))
     testCompile(spek("api", spekVersion)) {
@@ -48,33 +54,56 @@ dependencies {
     testCompile(junitPlatform("runner", junitPlatformVersion))
 }
 
+tasks {
+    val ktlint by creating(JavaExec::class) {
+        group = "verification"
+        inputs.dir("src")
+        outputs.dir("src")
+        description = "Check Kotlin code style."
+        classpath = configurations["ktlint"]
+        main = "com.github.shyiko.ktlint.Main"
+        args("src/**/*.kt")
+    }
+    get("check").dependsOn(ktlint)
+    "ktlintFormat"(JavaExec::class) {
+        group = "formatting"
+        inputs.dir("src")
+        outputs.dir("src")
+        description = "Fix Kotlin code style deviations."
+        classpath = configurations["ktlint"]
+        main = "com.github.shyiko.ktlint.Main"
+        args("-F", "src/**/*.kt")
+    }
+
+    val dokka by getting(DokkaTask::class) {
+        outputDirectory = "$buildDir/docs"
+        doFirst {
+            file(outputDirectory).deleteRecursively()
+            file("$buildDir/gitPublish").deleteRecursively()
+        }
+    }
+
+    gitPublish {
+        repoUri = releaseWeb
+        branch = "gh-pages"
+        contents.from(
+            "pages",
+            dokka.outputDirectory
+        )
+    }
+}
+
 publish {
-    userOrg = bintrayUser
-    groupId = bintrayGroup
-    artifactId = bintrayArtifact
-    publishVersion = bintrayPublish
-    desc = bintrayDesc
-    website = bintrayWeb
+    userOrg = releaseUser
+    groupId = releaseGroup
+    artifactId = releaseArtifact
+    publishVersion = releaseVersion
+    desc = releaseDesc
+    website = releaseWeb
 }
 
 configure<JUnitPlatformExtension> {
-    filters {
-        engines {
-            include("spek")
-        }
-    }
-}
-
-fun JUnitPlatformExtension.filters(setup: FiltersExtension.() -> Unit) {
-    when (this) {
-        is ExtensionAware -> extensions.getByType(FiltersExtension::class.java).setup()
-        else -> throw Exception("${this::class} must be an instance of ExtensionAware")
-    }
-}
-
-fun FiltersExtension.engines(setup: EnginesExtension.() -> Unit) {
-    when (this) {
-        is ExtensionAware -> extensions.getByType(EnginesExtension::class.java).setup()
-        else -> throw Exception("${this::class} must be an instance of ExtensionAware")
+    if (this is ExtensionAware) extensions.getByType(FiltersExtension::class.java).apply {
+        if (this is ExtensionAware) extensions.getByType(EnginesExtension::class.java).include("spek")
     }
 }

@@ -3,22 +3,22 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath files('../buildconfig-0.8.jar')
+        classpath files('../buildconfig-0.9.jar')
         classpath 'com.squareup:javapoet:1.10.0'
     }
 }
 
-group = "com.example"
-version = "1.0"
+group 'com.example'
+version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'buildconfig'
 
 buildconfig {
-    field String.class, "A_STRING", "Hello world!"
-    field double.class, "A_DOUBLE", 12.0
-    field int.class, "AN_INT", 9
+    field 'A_STRING', String.class, 'Hello world!'
+    field 'A_DOUBLE', double.class, 12.0
+    field 'AN_INT', int.class, 9
 }
 
 dependencies {

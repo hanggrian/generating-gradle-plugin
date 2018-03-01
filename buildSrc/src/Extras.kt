@@ -1,11 +1,11 @@
 const val releaseUser = "hendraanggrian"
 const val releaseGroup = "com.$releaseUser"
 const val releaseArtifact = "buildconfig"
-const val releaseVersion = "0.10"
+const val releaseVersion = "0.11"
 const val releaseDesc = "BuildConfig gradle plugin for Java projects"
 const val releaseWeb = "https://github.com/$releaseUser/$releaseArtifact-plugin"
 
-const val kotlinVersion = "1.2.21"
+const val kotlinVersion = "1.2.30"
 const val junitPlatformVersion = "1.0.0"
 const val spekVersion = "1.1.5"
 

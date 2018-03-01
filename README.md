@@ -5,9 +5,10 @@ Currently only supported with <b>IntelliJ IDEA</b>.
 
 ```java
 public final class BuildConfig {
-    public static final String NAME = "My App";
-    public static final String GROUP = "my.package";
+    public static final String APP_NAME = "My App";
+    public static final String GROUP_ID = "my.package";
     public static final String VERSION = "1.0";
+    public static final String DEBUG = true;
 
     private BuildConfig() {
     }
@@ -26,7 +27,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.9'
+        classpath 'com.hendraanggrian:buildconfig:0.10'
     }
 }
 ```
@@ -48,18 +49,17 @@ Modify `BuildConfig` fields generation with `buildconfig` closure.
 group 'com.example' // project group
 version '1.0'       // project version
 
-buildconfig {
+tasks.getByName("buildconfig") {
     packageName 'my.app'    // package name of which R.class will be generated to, default is project group
-    className 'Res'         // generated class name, default is R
     
-    name 'My App'           // `BuildConfig.NAME` value, default is project name
-    group 'my.app'          // `BuildConfig.GROUP` value, default is project group
+    appName 'My App'        // `BuildConfig.NAME` value, default is project name
+    groupId 'my.app'        // `BuildConfig.GROUP` value, default is project group
     version '2.0'           // `BuildConfig.VERSION` value, default is project version
     debug true              // `BuildConfig.DEBUG` value
     
     // add custom field specifying its name, type, and value
-    field "myString", String.class, "Hello world!"
-    field "myDecimal", double.class, 12.0
+    field String.class, "myString", "Hello world!"
+    field double.class, "myDecimal", 12.0
 }
 ```
 

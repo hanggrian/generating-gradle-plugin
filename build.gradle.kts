@@ -20,7 +20,7 @@ allprojects {
         jcenter()
     }
     tasks.withType(Delete::class.java) {
-        delete(File(projectDir, "out"))
+        delete(projectDir.resolve("out"))
     }
 }
 

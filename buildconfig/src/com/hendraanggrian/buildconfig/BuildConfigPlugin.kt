@@ -14,48 +14,39 @@ class BuildConfigPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         project = target
-        val extension = project.extensions.create(EXTENSION_NAME, BuildConfigExtension::class.java)
-        project.afterEvaluate {
-            extension.applyDefault(project)
 
-            val generateTask = extension.createGenerateTask()
-            val compileTask = generateTask.createCompileTask(extension.getTaskName("compile"))
-            val compiledClasses = project.files(compileTask.outputs.files.filter { !it.name.endsWith("dependency-cache") })
-            compiledClasses.builtBy(compileTask)
+        val generateTask = createGenerateTask()
+        val compileTask = generateTask.createCompileTask()
+        val compiledClasses = project.files(compileTask.outputs.files.filter { !it.name.endsWith("dependency-cache") })
+        compiledClasses.builtBy(compileTask)
 
-            val sourceSet = project.convention.getPlugin(JavaPluginConvention::class.java).sourceSets["main"]
-            sourceSet.compileClasspath += compiledClasses
-            compiledClasses.forEach { sourceSet.output.dir(it) }
+        val sourceSet = project.convention.getPlugin(JavaPluginConvention::class.java).sourceSets["main"]
+        sourceSet.compileClasspath += compiledClasses
+        compiledClasses.forEach { sourceSet.output.dir(it) }
 
-            require(project.plugins.hasPlugin("org.gradle.idea")) { "plugin 'idea' must be applied" }
-            val providedConfig = project.configurations.create(extension.getTaskName("provided"))
-            providedConfig.dependencies += project.dependencies.create(compiledClasses)
-            (project.extensions["idea"] as IdeaModel).module.scopes["PROVIDED"]!!["plus"]!! += providedConfig
-        }
+        require(project.plugins.hasPlugin("org.gradle.idea")) { "plugin 'idea' must be applied" }
+        val providedConfig = project.configurations.create("provided$CLASS_NAME")
+        providedConfig.dependencies += project.dependencies.create(compiledClasses)
+        (project.extensions["idea"] as IdeaModel).module.scopes["PROVIDED"]!!["plus"]!! += providedConfig
     }
 
-    private fun BuildConfigExtension.createGenerateTask(): GenerateBuildConfigTask = project.task(
-        mapOf("type" to GenerateBuildConfigTask::class.java),
-        getTaskName("generate"),
-        closureOf<GenerateBuildConfigTask> {
-            group = GROUP_NAME
-            writer = toWriter()
-            outputDirectory = project.buildDir.resolve("$GENERATED_DIRECTORY/$EXTENSION_NAME/src/main")
-        }) as GenerateBuildConfigTask
+    private fun createGenerateTask(): BuildConfigTask = project.task(
+        mapOf("type" to BuildConfigTask::class.java, "group" to GROUP_NAME),
+        "generate$CLASS_NAME") as BuildConfigTask
 
-    private fun GenerateBuildConfigTask.createCompileTask(taskName: String): JavaCompile = project.task(
-        mapOf("type" to JavaCompile::class.java, "dependsOn" to this),
-        taskName,
+    private fun BuildConfigTask.createCompileTask(): JavaCompile = project.task(
+        mapOf("type" to JavaCompile::class.java, "dependsOn" to this, "group" to GROUP_NAME),
+        "compile$CLASS_NAME",
         closureOf<JavaCompile> {
-            group = GROUP_NAME
             classpath = project.files()
             destinationDir = project.buildDir.resolve("$GENERATED_DIRECTORY/$EXTENSION_NAME/classes/main")
-            source(this@createCompileTask.outputDirectory)
+            source(this@createCompileTask.outputDir)
         }) as JavaCompile
 
     companion object {
         internal const val EXTENSION_NAME = "buildconfig"
-        private const val GROUP_NAME = "generation"
-        private const val GENERATED_DIRECTORY = "generated"
+        internal const val CLASS_NAME = "BuildConfig"
+        internal const val GROUP_NAME = "generation"
+        internal const val GENERATED_DIRECTORY = "generated"
     }
 }

@@ -1,0 +1,115 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BuildConfigTask - buildconfig</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">buildconfig</a>&nbsp;/&nbsp;<a href="../index.html">com.hendraanggrian.buildconfig</a>&nbsp;/&nbsp;<a href=".">BuildConfigTask</a><br/>
+<br/>
+<h1>BuildConfigTask</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">BuildConfigTask</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">DefaultTask</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">BuildConfigTask</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="app-name.html">appName</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">appName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Customize <code>BuildConfig.APP_NAME</code> value.
+Default is project name.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="debug.html">debug</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">debug</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Customize <code>BuildConfig.DEBUG</code> value.
+Default is false.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="fields.html">fields</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">fields</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html"><span class="identifier">MutableMap</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><span class="identifier">Class</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="group-id.html">groupId</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">groupId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Customize <code>BuildConfig.GROUP_ID</code> value.
+Default is project group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="output-dir.html">outputDir</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">outputDir</span><span class="symbol">: </span><span class="identifier">File</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="package-name.html">packageName</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">packageName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Package name of which <code>buildconfig</code> class will be generated to.
+Default is project group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="version.html">version</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">version</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Customize <code>BuildConfig.VERSION</code> value.
+Default is project version.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="field.html">field</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">field</span><span class="symbol">(</span><span class="identifier" id="com.hendraanggrian.buildconfig.BuildConfigTask$field(java.lang.Class((com.hendraanggrian.buildconfig.BuildConfigTask.field.T)), kotlin.String, com.hendraanggrian.buildconfig.BuildConfigTask.field.T)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Class</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.hendraanggrian.buildconfig.BuildConfigTask$field(java.lang.Class((com.hendraanggrian.buildconfig.BuildConfigTask.field.T)), kotlin.String, com.hendraanggrian.buildconfig.BuildConfigTask.field.T)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.hendraanggrian.buildconfig.BuildConfigTask$field(java.lang.Class((com.hendraanggrian.buildconfig.BuildConfigTask.field.T)), kotlin.String, com.hendraanggrian.buildconfig.BuildConfigTask.field.T)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Add custom field specifying its name, and value.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="generate.html">generate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">generate</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

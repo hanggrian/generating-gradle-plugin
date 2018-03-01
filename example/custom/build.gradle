@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath files('../buildconfig-0.9.jar')
+        classpath files('../buildconfig-0.10.jar')
         classpath 'com.squareup:javapoet:1.10.0'
     }
 }
@@ -15,16 +15,15 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'buildconfig'
 
-buildconfig {
-    packageName 'my.website'
-    className 'Build'
-
-    name 'Hello world!'
-    group 'my.website'
-    version '2.0'
-    debug true
-}
-
 dependencies {
     testImplementation 'junit:junit:4.12'
+}
+
+tasks.getByName('generateBuildConfig') {
+    packageName 'my.website'
+
+    appName 'Hello world!'
+    groupId 'my.website'
+    version '2.0'
+    debug true
 }

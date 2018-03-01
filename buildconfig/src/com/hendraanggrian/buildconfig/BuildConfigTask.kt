@@ -1,7 +1,6 @@
 package com.hendraanggrian.buildconfig
 
 import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.CLASS_NAME
-import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.EXTENSION_NAME
 import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.GENERATED_DIRECTORY
 import com.squareup.javapoet.FieldSpec.builder
 import com.squareup.javapoet.JavaFile.builder
@@ -14,8 +13,8 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.io.IOException
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.time.LocalDateTime.now
+import java.time.format.DateTimeFormatter.ofPattern
 import javax.lang.model.SourceVersion.isName
 import javax.lang.model.element.Modifier.FINAL
 import javax.lang.model.element.Modifier.PRIVATE
@@ -56,7 +55,7 @@ open class BuildConfigTask : DefaultTask() {
 
     @Input var fields: MutableMap<String, Pair<Class<*>, Any>> = mutableMapOf()
 
-    @OutputDirectory var outputDir: File = project.buildDir.resolve("$GENERATED_DIRECTORY/$EXTENSION_NAME/src/main")
+    @OutputDirectory var outputDir: File = project.buildDir.resolve("$GENERATED_DIRECTORY/buildconfig/src/main")
 
     @TaskAction
     @Throws(IOException::class)
@@ -73,7 +72,7 @@ open class BuildConfigTask : DefaultTask() {
                 fields.forEach { name, (type, value) -> add(type, name, value) }
             }
             .build())
-            .addFileComment("$EXTENSION_NAME generated this class at ${LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
+            .addFileComment("Generated at ${now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
             .build()
             .writeTo(outputDir)
     }
@@ -98,11 +97,11 @@ open class BuildConfigTask : DefaultTask() {
         }, value)
         .build())
 
-    companion object {
-        private const val APP_NAME = "APP_NAME"
-        private const val GROUP_ID = "GROUP_ID"
-        private const val VERSION = "VERSION"
-        private const val DEBUG = "DEBUG"
-        private val RESERVED_NAMES = arrayOf(APP_NAME, GROUP_ID, VERSION, DEBUG)
+    private companion object {
+        const val APP_NAME = "APP_NAME"
+        const val GROUP_ID = "GROUP_ID"
+        const val VERSION = "VERSION"
+        const val DEBUG = "DEBUG"
+        val RESERVED_NAMES = arrayOf(APP_NAME, GROUP_ID, VERSION, DEBUG)
     }
 }

@@ -1,0 +1,6 @@
+const val releaseUser = "hendraanggrian"
+const val releaseGroup = "com.$releaseUser"
+const val releaseArtifact = "buildconfig"
+const val releaseVersion = "0.12"
+const val releaseDesc = "BuildConfig gradle plugin for Java projects"
+const val releaseWeb = "https://github.com/$releaseUser/$releaseArtifact-plugin"

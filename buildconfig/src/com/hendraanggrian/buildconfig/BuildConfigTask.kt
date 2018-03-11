@@ -79,8 +79,9 @@ open class BuildConfigTask : DefaultTask() {
     }
 
     /**
-     * Add custom field specifying its name, and value.
+     * Add custom field specifying its type, name, and value.
      *
+     * @param type java class of value.
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
@@ -90,20 +91,21 @@ open class BuildConfigTask : DefaultTask() {
         fields[name] = type to value
     }
 
-    @Internal
-    internal fun isVersionNull(): Boolean = version == null
+    /**
+     * Add custom field by only specifying its name, and value.
+     * Convenient method for projects using Kotlin DSL Gradle scripts.
+     *
+     * @param name field name, must be a valid java variable name.
+     * @param value non-null field value.
+     */
+    inline fun <reified T : Any> field(name: String, value: T) = field(T::class.java, name, value)
 
-    internal fun version(version: String) {
+    @Internal
+    internal fun isBuildVersionNull(): Boolean = version == null
+
+    internal fun setBuildVersion(version: String) {
         this.version = version
     }
-
-    private fun TypeSpec.Builder.add(type: Class<*>, name: String, value: Any): TypeSpec.Builder = addField(builder(type, name, PUBLIC, STATIC, FINAL)
-        .initializer(when (type) {
-            String::class.java -> "\$S"
-            Char::class.java -> "'\$L'"
-            else -> "\$L"
-        }, value)
-        .build())
 
     private companion object {
         const val APP_NAME = "APP_NAME"
@@ -111,5 +113,13 @@ open class BuildConfigTask : DefaultTask() {
         const val VERSION = "VERSION"
         const val DEBUG = "DEBUG"
         val RESERVED_NAMES = arrayOf(APP_NAME, GROUP_ID, VERSION, DEBUG)
+
+        private fun TypeSpec.Builder.add(type: Class<*>, name: String, value: Any): TypeSpec.Builder = addField(builder(type, name, PUBLIC, STATIC, FINAL)
+            .initializer(when (type) {
+                String::class.java -> "\$S"
+                Char::class.java -> "'\$L'"
+                else -> "\$L"
+            }, value)
+            .build())
     }
 }

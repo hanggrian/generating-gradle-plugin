@@ -19,7 +19,7 @@ class BuildConfigPlugin : Plugin<Project> {
                         if (packageName == null) packageName = project.group.toString()
                         if (appName == null) appName = project.name.toString()
                         if (groupId == null) groupId = project.group.toString()
-                        if (isVersionNull()) version(project.version.toString())
+                        if (isBuildVersionNull()) setBuildVersion(project.version.toString())
                         if (debug == null) debug = false
                     }
                 }

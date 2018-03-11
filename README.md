@@ -27,7 +27,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.hendraanggrian:buildconfig:0.10'
+        classpath 'com.hendraanggrian:buildconfig:0.12'
     }
 }
 ```

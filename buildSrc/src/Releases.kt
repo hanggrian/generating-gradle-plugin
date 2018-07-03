@@ -1,6 +1,9 @@
-const val releaseUser = "hendraanggrian"
-const val releaseGroup = "com.$releaseUser"
-const val releaseArtifact = "buildconfig"
-const val releaseVersion = "0.12"
-const val releaseDesc = "BuildConfig gradle plugin for Java projects"
-const val releaseWeb = "https://github.com/$releaseUser/$releaseArtifact-plugin"
+const val RELEASE_USER = "hendraanggrian"
+const val RELEASE_ARTIFACT = "buildconfig-gradle-plugin"
+val RELEASE_GROUP = "com.$RELEASE_USER.${RELEASE_ARTIFACT.substringBefore('-')}"
+const val RELEASE_VERSION = "0.1"
+const val RELEASE_DESC = "BuildConfig gradle plugin for Java projects"
+const val RELEASE_WEBSITE = "https://github.com/$RELEASE_USER/$RELEASE_ARTIFACT"
+
+val bintrayUserEnv = System.getenv("BINTRAY_USER")
+val bintrayKeyEnv = System.getenv("BINTRAY_KEY")

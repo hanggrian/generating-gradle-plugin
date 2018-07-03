@@ -114,12 +114,13 @@ open class BuildConfigTask : DefaultTask() {
         const val DEBUG = "DEBUG"
         val RESERVED_NAMES = arrayOf(APP_NAME, GROUP_ID, VERSION, DEBUG)
 
-        private fun TypeSpec.Builder.add(type: Class<*>, name: String, value: Any): TypeSpec.Builder = addField(builder(type, name, PUBLIC, STATIC, FINAL)
-            .initializer(when (type) {
-                String::class.java -> "\$S"
-                Char::class.java -> "'\$L'"
-                else -> "\$L"
-            }, value)
-            .build())
+        fun TypeSpec.Builder.add(type: Class<*>, name: String, value: Any): TypeSpec.Builder =
+            addField(builder(type, name, PUBLIC, STATIC, FINAL)
+                .initializer(when (type) {
+                    String::class.java -> "\$S"
+                    Char::class.java -> "'\$L'"
+                    else -> "\$L"
+                }, value)
+                .build())
     }
 }

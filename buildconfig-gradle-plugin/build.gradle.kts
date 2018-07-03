@@ -16,23 +16,24 @@ plugins {
     `kotlin-dsl`
     dokka
     `git-publish`
+    bintray
     `bintray-release`
     `junit-platform`
 }
 
-group = releaseGroup
-version = releaseVersion
+group = RELEASE_GROUP
+version = RELEASE_VERSION
 
 java.sourceSets {
-    "main" { java.srcDir("src") }
-    "test" { java.srcDir("tests/src") }
+    get("main").java.srcDir("src")
+    get("test").java.srcDir("tests/src")
 }
 
 gradlePlugin {
     (plugins) {
-        "buildconfig" {
-            id = releaseArtifact
-            implementationClass = "$releaseGroup.$releaseArtifact.BuildConfigPlugin"
+        RELEASE_GROUP {
+            id = RELEASE_GROUP
+            implementationClass = "$RELEASE_GROUP.BuildConfigPlugin"
         }
     }
 }
@@ -40,11 +41,11 @@ gradlePlugin {
 val ktlint by configurations.creating
 
 dependencies {
-    implementation(kotlin("stdlib", kotlinVersion))
+    implementation(kotlin("stdlib", VERSION_KOTLIN))
     implementation(javapoet())
 
-    testImplementation(kotlin("test", kotlinVersion))
-    testImplementation(kotlin("reflect", kotlinVersion))
+    testImplementation(kotlin("test", VERSION_KOTLIN))
+    testImplementation(kotlin("reflect", VERSION_KOTLIN))
     testImplementation(spek("api")) {
         exclude("org.jetbrains.kotlin")
     }
@@ -59,7 +60,7 @@ dependencies {
 
 tasks {
     "ktlint"(JavaExec::class) {
-        get("check").dependsOn(this)
+        get("check").dependsOn(ktlint)
         group = VERIFICATION_GROUP
         inputs.dir("src")
         outputs.dir("src")
@@ -79,6 +80,7 @@ tasks {
     }
 
     val dokka by getting(DokkaTask::class) {
+        get("gitPublishCopy").dependsOn(this)
         outputDirectory = "$buildDir/docs"
         doFirst {
             file(outputDirectory).deleteRecursively()
@@ -86,23 +88,24 @@ tasks {
         }
     }
     gitPublish {
-        repoUri = releaseWeb
+        repoUri = RELEASE_WEBSITE
         branch = "gh-pages"
-        contents.from(
-            "pages",
-            dokka.outputDirectory
-        )
+        contents.from(dokka.outputDirectory)
     }
-    get("gitPublishCopy").dependsOn(dokka)
 }
 
 publish {
-    userOrg = releaseUser
-    groupId = releaseGroup
-    artifactId = releaseArtifact
-    publishVersion = releaseVersion
-    desc = releaseDesc
-    website = releaseWeb
+    bintrayUser = bintrayUserEnv
+    bintrayKey = bintrayKeyEnv
+    dryRun = false
+    repoName = RELEASE_ARTIFACT
+
+    userOrg = RELEASE_USER
+    groupId = RELEASE_GROUP
+    artifactId = RELEASE_ARTIFACT
+    publishVersion = RELEASE_VERSION
+    desc = RELEASE_DESC
+    website = RELEASE_WEBSITE
 }
 
 configure<JUnitPlatformExtension> {

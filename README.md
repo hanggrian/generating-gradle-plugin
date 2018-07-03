@@ -19,8 +19,6 @@ public final class BuildConfig {
 }
 ```
 
-Similarly, check out [r plugin][r] to generate `R` class.
-
 Download
 --------
 Add plugin to buildscript:
@@ -82,5 +80,3 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-[r]: https://github.com/hendraanggrian/r

@@ -1,16 +1,12 @@
-import org.gradle.api.tasks.Delete
-import org.gradle.kotlin.dsl.kotlin
-import java.io.File
-import java.nio.file.Files.delete
-
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath(kotlin("gradle-plugin", kotlinVersion))
+        classpath(kotlin("gradle-plugin", VERSION_KOTLIN))
         classpath(dokka())
         classpath(gitPublish())
+        classpath(bintray())
         classpath(bintrayRelease())
         classpath(junitPlatform("gradle-plugin"))
     }
@@ -30,10 +26,6 @@ tasks {
         delete(rootProject.buildDir)
     }
     "wrapper"(Wrapper::class) {
-        gradleVersion = "4.6"
+        gradleVersion = VERSION_GRADLE
     }
 }
-
-/** bintray upload snippet
-./gradlew bintrayUpload -PdryRun=false -PbintrayUser=hendraanggrian -PbintrayKey=
- */

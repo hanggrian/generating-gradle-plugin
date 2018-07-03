@@ -1,4 +1,4 @@
-include(":buildconfig")
+include(":$RELEASE_ARTIFACT")
 
 include(":example:simple")
 include(":example:custom")

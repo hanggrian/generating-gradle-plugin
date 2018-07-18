@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" group="buildSrc" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" group="buildSrc" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" group="buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" group="buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig.iml" />
@@ -26,19 +23,12 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_main.iml" group="buildsync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_test.iml" group="buildsync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom.iml" group="example/custom" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom.iml" group="example/custom" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom-fields/custom.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom-fields/custom.iml" group="example/custom" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom_main.iml" group="example/custom" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom_main.iml" group="example/custom" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom_test.iml" group="example/custom" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom_test.iml" group="example/custom" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example.iml" group="example" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example.iml" group="example" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields.iml" group="example/extra-fields" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields.iml" group="example/extra-fields" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_main.iml" group="example/extra-fields" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_main.iml" group="example/extra-fields" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_test.iml" group="example/extra-fields" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_test.iml" group="example/extra-fields" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties-example/r-properties-example.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties-example/r-properties-example.iml" group="r-properties-example" />
@@ -57,10 +47,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync/r-sync-r-sync_test.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync/r-sync-r-sync_test.iml" group="r-sync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync-example/rsync-example.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync-example/rsync-example.iml" group="rsync-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple.iml" group="example/simple" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple.iml" group="example/simple" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple_main.iml" group="example/simple" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple_main.iml" group="example/simple" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple_test.iml" group="example/simple" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple_test.iml" group="example/simple" />
     </modules>
   </component>

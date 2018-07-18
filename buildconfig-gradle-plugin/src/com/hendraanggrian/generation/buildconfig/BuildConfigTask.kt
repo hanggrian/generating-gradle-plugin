@@ -1,7 +1,7 @@
-package com.hendraanggrian.buildconfig
+package com.hendraanggrian.generation.buildconfig
 
-import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.CLASS_NAME
-import com.hendraanggrian.buildconfig.BuildConfigPlugin.Companion.GENERATED_DIRECTORY
+import com.hendraanggrian.generation.buildconfig.BuildConfigPlugin.Companion.CLASS_NAME
+import com.hendraanggrian.generation.buildconfig.BuildConfigPlugin.Companion.GENERATED_DIRECTORY
 import com.squareup.javapoet.FieldSpec.builder
 import com.squareup.javapoet.JavaFile.builder
 import com.squareup.javapoet.MethodSpec.constructorBuilder

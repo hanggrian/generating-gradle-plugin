@@ -13,7 +13,7 @@ version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'com.hendraanggrian.buildconfig'
+apply plugin: 'com.hendraanggrian.generation.buildconfig'
 
 dependencies {
     testImplementation 'junit:junit:4.12'

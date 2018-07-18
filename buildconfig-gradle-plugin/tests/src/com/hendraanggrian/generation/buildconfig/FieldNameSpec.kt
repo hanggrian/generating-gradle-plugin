@@ -1,4 +1,4 @@
-package com.hendraanggrian.buildconfig
+package com.hendraanggrian.generation.buildconfig
 
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given

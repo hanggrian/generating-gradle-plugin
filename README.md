@@ -29,7 +29,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.hendraanggrian.buildconfig:buildconfig-gradle-plugin:$version"
+        classpath "com.hendraanggrian.generation:buildconfig-gradle-plugin:$version"
     }
 }
 ```
@@ -38,7 +38,7 @@ then apply it in your module, along with idea plugin:
 
 ```gradle
 apply plugin: 'idea'
-apply plugin: 'com.hendraanggrian.buildconfig'
+apply plugin: 'com.hendraanggrian.generation.buildconfig'
 ```
 
 that's it, `BuildConfig` are now automatically generated after compilation with default behavior.

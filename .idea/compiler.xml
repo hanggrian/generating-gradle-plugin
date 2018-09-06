@@ -8,6 +8,8 @@
       <module name="buildconfig-example_test" target="1.8" />
       <module name="buildconfig-gradle-plugin-buildconfig-gradle-plugin_main" target="1.8" />
       <module name="buildconfig-gradle-plugin-buildconfig-gradle-plugin_test" target="1.8" />
+      <module name="buildconfig-gradle-plugin_buildSrc_main" target="1.8" />
+      <module name="buildconfig-gradle-plugin_buildSrc_test" target="1.8" />
       <module name="buildconfig_main" target="1.8" />
       <module name="buildconfig_test" target="1.8" />
       <module name="buildSrc_main" target="1.8" />

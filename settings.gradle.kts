@@ -1,5 +1,5 @@
-include(":$RELEASE_ARTIFACT")
+include(RELEASE_ARTIFACT)
 
-include(":example:simple")
-include(":example:custom")
-include(":example:extra-fields")
+include("samples:simple")
+include("samples:custom")
+include("samples:extra-fields")

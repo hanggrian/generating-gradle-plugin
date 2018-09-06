@@ -11,10 +11,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/buildconfig-gradle-plugin" />
-            <option value="$PROJECT_DIR$/example" />
-            <option value="$PROJECT_DIR$/example/custom" />
-            <option value="$PROJECT_DIR$/example/extra-fields" />
-            <option value="$PROJECT_DIR$/example/simple" />
+            <option value="$PROJECT_DIR$/samples" />
+            <option value="$PROJECT_DIR$/samples/custom" />
+            <option value="$PROJECT_DIR$/samples/extra-fields" />
+            <option value="$PROJECT_DIR$/samples/simple" />
           </set>
         </option>
       </GradleProjectSettings>

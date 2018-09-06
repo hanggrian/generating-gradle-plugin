@@ -1,3 +1,4 @@
+import org.codehaus.groovy.ast.tools.GeneralUtils.args
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.tasks.JavaExec
 import org.gradle.language.base.plugins.LifecycleBasePlugin.*
@@ -6,6 +7,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.creating
 import org.gradle.kotlin.dsl.kotlin
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.serialization.js.DynamicTypeDeserializer.id
 
 import org.junit.platform.gradle.plugin.FiltersExtension
 import org.junit.platform.gradle.plugin.EnginesExtension
@@ -24,21 +26,21 @@ plugins {
 group = RELEASE_GROUP
 version = RELEASE_VERSION
 
-java.sourceSets {
+sourceSets {
     get("main").java.srcDir("src")
     get("test").java.srcDir("tests/src")
 }
 
 gradlePlugin {
     (plugins) {
-        RELEASE_ARTIFACT {
+        register(RELEASE_ARTIFACT) {
             id = "$RELEASE_GROUP.buildconfig"
             implementationClass = "$RELEASE_GROUP.buildconfig.BuildConfigPlugin"
         }
     }
 }
 
-val ktlint by configurations.creating
+val ktlint by configurations.registering
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
@@ -55,31 +57,31 @@ dependencies {
     }
     testImplementation(junitPlatform("runner"))
 
-    ktlint(ktlint())
+    ktlint.get()(ktlint())
 }
 
 tasks {
-    "ktlint"(JavaExec::class) {
+    register("ktlint", JavaExec::class) {
         get("check").dependsOn(ktlint)
         group = VERIFICATION_GROUP
         inputs.dir("src")
         outputs.dir("src")
         description = "Check Kotlin code style."
-        classpath = ktlint
+        classpath(ktlint.get())
         main = "com.github.shyiko.ktlint.Main"
-        args("src/**/*.kt")
+        args("src/**.kt")
     }
-    "ktlintFormat"(JavaExec::class) {
+    register("ktlintformat", JavaExec::class) {
         group = "formatting"
         inputs.dir("src")
         outputs.dir("src")
         description = "Fix Kotlin code style deviations."
-        classpath = ktlint
+        classpath(ktlint.get())
         main = "com.github.shyiko.ktlint.Main"
-        args("-F", "src/**/*.kt")
+        args("-F", "src*.kt")
     }
 
-    val dokka by getting(DokkaTask::class) {
+    val dokka by existing(DokkaTask::class) {
         get("gitPublishCopy").dependsOn(this)
         outputDirectory = "$buildDir/docs"
         doFirst {
@@ -90,7 +92,7 @@ tasks {
     gitPublish {
         repoUri = RELEASE_WEBSITE
         branch = "gh-pages"
-        contents.from(dokka.outputDirectory)
+        contents.from(dokka.get().outputDirectory)
     }
 }
 

@@ -7,8 +7,8 @@ public class BuildConfigTest {
 
     @Test
     public void main() {
-        assertEquals(BuildConfig.APP_NAME, "extra-fields");
-        assertEquals(BuildConfig.GROUP_ID, "com.example");
+        assertEquals(BuildConfig.NAME, "extra-fields");
+        assertEquals(BuildConfig.GROUP, "com.example");
         assertEquals(BuildConfig.VERSION, "1.0");
 
         assertEquals(BuildConfig.A_STRING, "Hello world!");

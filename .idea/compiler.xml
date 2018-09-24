@@ -20,6 +20,12 @@
       <module name="buildsync-example_test" target="1.8" />
       <module name="buildsync_main" target="1.8" />
       <module name="buildsync_test" target="1.8" />
+      <module name="com.example-custom_main" target="1.8" />
+      <module name="com.example-custom_test" target="1.8" />
+      <module name="com.example-extra-fields_main" target="1.8" />
+      <module name="com.example-extra-fields_test" target="1.8" />
+      <module name="com.example-simple_main" target="1.8" />
+      <module name="com.example-simple_test" target="1.8" />
       <module name="custom-fields_main" target="1.8" />
       <module name="custom-fields_test" target="1.8" />
       <module name="custom-source-sets_main" target="1.8" />

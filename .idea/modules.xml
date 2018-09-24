@@ -2,25 +2,21 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_main.iml" group="buildSrc" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc_test.iml" group="buildSrc" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_main.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig-buildconfig_test.iml" group="buildconfig" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example~1.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-example/buildconfig-example~1.iml" group="buildconfig-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin.iml" group="buildconfig-gradle-plugin" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin.iml" group="buildconfig-gradle-plugin" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin_main.iml" group="buildconfig-gradle-plugin" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin_main.iml" group="buildconfig-gradle-plugin" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin_test.iml" group="buildconfig-gradle-plugin" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin/buildconfig-gradle-plugin-buildconfig-gradle-plugin_test.iml" group="buildconfig-gradle-plugin" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc_main.iml" group="buildconfig-gradle-plugin_buildSrc" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc_main.iml" group="buildconfig-gradle-plugin_buildSrc" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc_test.iml" group="buildconfig-gradle-plugin_buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-gradle-plugin_buildSrc_test.iml" group="buildconfig-gradle-plugin_buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildconfig/buildconfig_main.iml" group="buildconfig" />
@@ -29,20 +25,22 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync.iml" group="buildsync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_main.iml" group="buildsync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildsync/buildsync-buildsync_test.iml" group="buildsync" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/custom/com.example-custom.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/custom/com.example-custom.iml" group="samples/custom" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/custom/com.example-custom_main.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/custom/com.example-custom_main.iml" group="samples/custom" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/custom/com.example-custom_test.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/custom/com.example-custom_test.iml" group="samples/custom" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/extra-fields/com.example-extra-fields.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/extra-fields/com.example-extra-fields.iml" group="samples/extra-fields" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/extra-fields/com.example-extra-fields_main.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/extra-fields/com.example-extra-fields_main.iml" group="samples/extra-fields" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/extra-fields/com.example-extra-fields_test.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/extra-fields/com.example-extra-fields_test.iml" group="samples/extra-fields" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/simple/com.example-simple.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/simple/com.example-simple.iml" group="samples/simple" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/simple/com.example-simple_main.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/simple/com.example-simple_main.iml" group="samples/simple" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/simple/com.example-simple_test.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/simple/com.example-simple_test.iml" group="samples/simple" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/custom/custom.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/custom/custom.iml" group="samples/custom" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom-fields/custom.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom-fields/custom.iml" group="example/custom" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom.iml" group="example/custom" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/custom/custom_main.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/custom/custom_main.iml" group="samples/custom" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom_main.iml" group="example/custom" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/custom/custom_test.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/custom/custom_test.iml" group="samples/custom" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/custom/custom_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/custom/custom_test.iml" group="example/custom" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/example.iml" filepath="$PROJECT_DIR$/.idea/modules/example/example.iml" group="example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/extra-fields/extra-fields.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/extra-fields/extra-fields.iml" group="samples/extra-fields" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields.iml" group="example/extra-fields" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/extra-fields/extra-fields_main.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/extra-fields/extra-fields_main.iml" group="samples/extra-fields" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_main.iml" group="example/extra-fields" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/extra-fields/extra-fields_test.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/extra-fields/extra-fields_test.iml" group="samples/extra-fields" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/extra-fields/extra-fields_test.iml" group="example/extra-fields" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties-example/r-properties-example.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties-example/r-properties-example.iml" group="r-properties-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-properties-example/r-properties-example_main.iml" filepath="$PROJECT_DIR$/.idea/modules/r-properties-example/r-properties-example_main.iml" group="r-properties-example" />
@@ -60,12 +58,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync/r-sync-r-sync_test.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync/r-sync-r-sync_test.iml" group="r-sync" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/r-sync-example/rsync-example.iml" filepath="$PROJECT_DIR$/.idea/modules/r-sync-example/rsync-example.iml" group="rsync-example" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/samples.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/samples.iml" group="samples" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/samples.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/samples.iml" group="samples" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/simple/simple.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/simple/simple.iml" group="samples/simple" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple.iml" group="example/simple" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/simple/simple_main.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/simple/simple_main.iml" group="samples/simple" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple_main.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple_main.iml" group="example/simple" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/samples/simple/simple_test.iml" filepath="$PROJECT_DIR$/.idea/modules/samples/simple/simple_test.iml" group="samples/simple" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/simple/simple_test.iml" filepath="$PROJECT_DIR$/.idea/modules/example/simple/simple_test.iml" group="example/simple" />
     </modules>
   </component>
 </project>

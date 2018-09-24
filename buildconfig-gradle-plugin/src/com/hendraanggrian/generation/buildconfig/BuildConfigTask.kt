@@ -54,6 +54,30 @@ open class BuildConfigTask : DefaultTask() {
      */
     @Input var debug: Boolean? = null
 
+    /**
+     * Customize `BuildConfig.ARTIFACT` value.
+     * There is no default.
+     */
+    @Input var artifactId: String = ""
+
+    /**
+     * Customize `BuildConfig.AUTHOR` value.
+     * There is no default.
+     */
+    @Input var author: String = ""
+
+    /**
+     * Customize `BuildConfig.EMAIL` value.
+     * There is no default.
+     */
+    @Input var email: String = ""
+
+    /**
+     * Customize `BuildConfig.WEBSITE` value.
+     * There is no default.
+     */
+    @Input var website: String = ""
+
     @Input var fields: MutableMap<String, Pair<Class<*>, Any>> = mutableMapOf()
 
     @OutputDirectory var outputDirectroy: File = project.buildDir.resolve("$GENERATED_DIRECTORY/buildconfig/src/main")
@@ -70,6 +94,10 @@ open class BuildConfigTask : DefaultTask() {
                 add(String::class.java, GROUP, groupId!!)
                 add(String::class.java, VERSION, version!!)
                 add(Boolean::class.java, DEBUG, debug!!)
+                if (artifactId.isNotBlank()) add(String::class.java, ARTIFACT, artifactId)
+                if (author.isNotBlank()) add(String::class.java, AUTHOR, author)
+                if (email.isNotBlank()) add(String::class.java, EMAIL, email)
+                if (website.isNotBlank()) add(String::class.java, WEBSITE, website)
                 fields.forEach { name, (type, value) -> add(type, name, value) }
             }
             .build())
@@ -86,8 +114,8 @@ open class BuildConfigTask : DefaultTask() {
      * @param value non-null field value.
      */
     fun <T : Any> field(type: Class<T>, name: String, value: T) {
-        require(isName(name)) { "$name is not a valid java variable name" }
-        require(name !in RESERVED_NAMES) { "$name is reserved" }
+        require(isName(name)) { "$name is not a valid java variable name." }
+        require(name !in RESERVED_NAMES) { "$name is reserved, use typed functions instead." }
         fields[name] = type to value
     }
 
@@ -108,12 +136,16 @@ open class BuildConfigTask : DefaultTask() {
 
     private companion object {
         const val NAME = "NAME"
-        const val ARTIFACT = "ARTIFACT"
         const val GROUP = "GROUP"
         const val VERSION = "VERSION"
         const val DEBUG = "DEBUG"
 
-        val RESERVED_NAMES = arrayOf(NAME, ARTIFACT, GROUP, VERSION, DEBUG)
+        const val ARTIFACT = "ARTIFACT"
+        const val AUTHOR = "AUTHOR"
+        const val EMAIL = "EMAIL"
+        const val WEBSITE = "WEBSITE"
+
+        val RESERVED_NAMES = arrayOf(NAME, GROUP, VERSION, DEBUG)
 
         fun TypeSpec.Builder.add(type: Class<*>, name: String, value: Any): TypeSpec.Builder =
             addField(

@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath files('../buildconfig-gradle-plugin-0.3.jar')
+        classpath files('../buildconfig-gradle-plugin-0.4.jar')
         classpath 'com.squareup:javapoet:1.11.1'
     }
 }
@@ -19,8 +19,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-tasks.getByName("generateBuildConfig") {
-    field String.class, 'A_STRING', 'Hello world!'
-    field double.class, 'A_DOUBLE', 12.0
-    field int.class, 'AN_INT', 9
+tasks.getByName('generateBuildConfig') {
+    packageName 'my.website'
+
+    appName 'Hello world!'
+    groupId 'my.website'
+    version '2.0'
+    debug true
 }

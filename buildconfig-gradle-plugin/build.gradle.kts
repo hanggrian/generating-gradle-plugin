@@ -1,11 +1,8 @@
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.api.tasks.JavaExec
-import org.gradle.language.base.plugins.LifecycleBasePlugin
 import org.gradle.kotlin.dsl.`kotlin-dsl`
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.creating
 import org.gradle.kotlin.dsl.kotlin
-import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.serialization.js.DynamicTypeDeserializer.id
 
 import org.junit.platform.gradle.plugin.FiltersExtension
@@ -84,7 +81,7 @@ tasks {
         args("-F", "src/**/*.kt")
     }
 
-    val dokka by existing(DokkaTask::class) {
+    val dokka by existing(org.jetbrains.dokka.gradle.DokkaTask::class) {
         get("gitPublishCopy").dependsOn(this)
         outputDirectory = "$buildDir/docs"
         doFirst {

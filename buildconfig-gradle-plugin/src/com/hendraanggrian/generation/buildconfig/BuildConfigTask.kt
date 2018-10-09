@@ -1,7 +1,6 @@
 package com.hendraanggrian.generation.buildconfig
 
 import com.hendraanggrian.generation.buildconfig.BuildConfigPlugin.Companion.CLASS_NAME
-import com.hendraanggrian.generation.buildconfig.BuildConfigPlugin.Companion.GENERATED_DIRECTORY
 import com.squareup.javapoet.FieldSpec.builder
 import com.squareup.javapoet.JavaFile.builder
 import com.squareup.javapoet.MethodSpec.constructorBuilder
@@ -9,7 +8,6 @@ import com.squareup.javapoet.TypeSpec
 import com.squareup.javapoet.TypeSpec.classBuilder
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -28,31 +26,31 @@ open class BuildConfigTask : DefaultTask() {
      * Package name of which `buildconfig` class will be generated to.
      * Default is project group.
      */
-    @Input var packageName: String? = null
+    @Input var packageName: String = ""
 
     /**
      * Customize `BuildConfig.NAME` value.
      * Default is project name.
      */
-    @Input var appName: String? = null
+    @Input var appName: String = ""
 
     /**
      * Customize `BuildConfig.GROUP` value.
      * Default is project group.
      */
-    @Input var groupId: String? = null
+    @Input var groupId: String = ""
 
     /**
      * Customize `BuildConfig.VERSION` value.
      * Default is project version.
      */
-    @Input var version: String? = null
+    @Input var version: String = ""
 
     /**
      * Customize `BuildConfig.DEBUG` value.
      * Default is false.
      */
-    @Input var debug: Boolean? = null
+    @Input var debug: Boolean = false
 
     /**
      * Customize `BuildConfig.ARTIFACT` value.
@@ -80,20 +78,20 @@ open class BuildConfigTask : DefaultTask() {
 
     @Input var fields: MutableMap<String, Pair<Class<*>, Any>> = mutableMapOf()
 
-    @OutputDirectory var outputDirectroy: File = project.buildDir.resolve("$GENERATED_DIRECTORY/buildconfig/src/main")
+    @OutputDirectory lateinit var outputDir: File
 
     @TaskAction
     @Throws(IOException::class)
     fun generate() {
-        outputDirectroy.deleteRecursively()
+        outputDir.deleteRecursively()
         builder(packageName, classBuilder(CLASS_NAME)
             .addModifiers(PUBLIC, FINAL)
             .addMethod(constructorBuilder().addModifiers(PRIVATE).build())
             .apply {
-                add(String::class.java, NAME, appName!!)
-                add(String::class.java, GROUP, groupId!!)
-                add(String::class.java, VERSION, version!!)
-                add(Boolean::class.java, DEBUG, debug!!)
+                add(String::class.java, NAME, appName)
+                add(String::class.java, GROUP, groupId)
+                add(String::class.java, VERSION, version)
+                add(Boolean::class.java, DEBUG, debug)
                 if (artifactId.isNotBlank()) add(String::class.java, ARTIFACT, artifactId)
                 if (author.isNotBlank()) add(String::class.java, AUTHOR, author)
                 if (email.isNotBlank()) add(String::class.java, EMAIL, email)
@@ -103,7 +101,7 @@ open class BuildConfigTask : DefaultTask() {
             .build())
             .addFileComment("Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
             .build()
-            .writeTo(outputDirectroy)
+            .writeTo(outputDir)
     }
 
     /**
@@ -127,12 +125,6 @@ open class BuildConfigTask : DefaultTask() {
      * @param value non-null field value.
      */
     inline fun <reified T : Any> field(name: String, value: T) = field(T::class.java, name, value)
-
-    @Internal internal fun isBuildVersionNull(): Boolean = version == null
-
-    @Internal internal fun setBuildVersion(version: String) {
-        this.version = version
-    }
 
     private companion object {
         const val NAME = "NAME"

@@ -27,5 +27,6 @@ tasks {
     }
     register("wrapper", Wrapper::class) {
         gradleVersion = VERSION_GRADLE
+        distributionType = Wrapper.DistributionType.ALL
     }
 }

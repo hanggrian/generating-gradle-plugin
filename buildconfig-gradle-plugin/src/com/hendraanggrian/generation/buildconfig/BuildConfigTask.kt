@@ -76,7 +76,7 @@ open class BuildConfigTask : DefaultTask() {
      */
     @Input var website: String = ""
 
-    @Input var fields: MutableMap<String, Pair<Class<*>, Any>> = mutableMapOf()
+    @Input val fields: MutableMap<String, Pair<Class<*>, Any>> = mutableMapOf()
 
     @OutputDirectory lateinit var outputDir: File
 
@@ -106,6 +106,7 @@ open class BuildConfigTask : DefaultTask() {
 
     /**
      * Add custom field specifying its type, name, and value.
+     * Convenient method for projects using Groovy.
      *
      * @param type java class of value.
      * @param name field name, must be a valid java variable name.

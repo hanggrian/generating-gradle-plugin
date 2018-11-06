@@ -1,6 +1,6 @@
 include(RELEASE_ARTIFACT)
 
-File("demo")
+File("buildconfig-integration-tests")
     .walk()
     .filter { it.isDirectory }
-    .forEach { include("demo:${it.name}") }
+    .forEach { include("buildconfig-integration-tests:${it.name}") }

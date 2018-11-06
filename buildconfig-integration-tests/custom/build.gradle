@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath files('../buildconfig-gradle-plugin-0.4.jar')
+        classpath files('../buildconfig-gradle-plugin-0.1.jar')
         classpath 'com.squareup:javapoet:1.11.1'
     }
 }
@@ -13,7 +13,7 @@ version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'com.hendraanggrian.generation.buildconfig'
+apply plugin: 'com.hendraanggrian.generating.buildconfig'
 
 dependencies {
     testImplementation 'junit:junit:4.12'

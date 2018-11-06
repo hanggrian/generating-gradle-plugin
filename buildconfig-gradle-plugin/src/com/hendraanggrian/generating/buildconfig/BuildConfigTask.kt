@@ -1,6 +1,6 @@
-package com.hendraanggrian.generation.buildconfig
+package com.hendraanggrian.generating.buildconfig
 
-import com.hendraanggrian.generation.buildconfig.BuildConfigPlugin.Companion.CLASS_NAME
+import com.hendraanggrian.generating.buildconfig.BuildConfigPlugin.Companion.CLASS_NAME
 import com.squareup.javapoet.FieldSpec.builder
 import com.squareup.javapoet.JavaFile.builder
 import com.squareup.javapoet.MethodSpec.constructorBuilder
@@ -88,14 +88,22 @@ open class BuildConfigTask : DefaultTask() {
             .addModifiers(PUBLIC, FINAL)
             .addMethod(constructorBuilder().addModifiers(PRIVATE).build())
             .apply {
-                add(String::class.java, NAME, appName)
-                add(String::class.java, GROUP, groupId)
-                add(String::class.java, VERSION, version)
-                add(Boolean::class.java, DEBUG, debug)
-                if (artifactId.isNotBlank()) add(String::class.java, ARTIFACT, artifactId)
-                if (author.isNotBlank()) add(String::class.java, AUTHOR, author)
-                if (email.isNotBlank()) add(String::class.java, EMAIL, email)
-                if (website.isNotBlank()) add(String::class.java, WEBSITE, website)
+                add(String::class.java,
+                    NAME, appName)
+                add(String::class.java,
+                    GROUP, groupId)
+                add(String::class.java,
+                    VERSION, version)
+                add(Boolean::class.java,
+                    DEBUG, debug)
+                if (artifactId.isNotBlank()) add(String::class.java,
+                    ARTIFACT, artifactId)
+                if (author.isNotBlank()) add(String::class.java,
+                    AUTHOR, author)
+                if (email.isNotBlank()) add(String::class.java,
+                    EMAIL, email)
+                if (website.isNotBlank()) add(String::class.java,
+                    WEBSITE, website)
                 fields.forEach { name, (type, value) -> add(type, name, value) }
             }
             .build())
@@ -138,7 +146,12 @@ open class BuildConfigTask : DefaultTask() {
         const val EMAIL = "EMAIL"
         const val WEBSITE = "WEBSITE"
 
-        val RESERVED_NAMES = arrayOf(NAME, GROUP, VERSION, DEBUG)
+        val RESERVED_NAMES = arrayOf(
+            NAME,
+            GROUP,
+            VERSION,
+            DEBUG
+        )
 
         fun TypeSpec.Builder.add(type: Class<*>, name: String, value: Any): TypeSpec.Builder =
             addField(

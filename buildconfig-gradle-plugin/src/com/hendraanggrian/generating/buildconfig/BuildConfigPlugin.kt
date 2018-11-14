@@ -19,7 +19,7 @@ import org.gradle.plugins.ide.idea.model.IdeaModel
 /** Generate Android-like BuildConfig class with this plugin. */
 class BuildConfigPlugin : Plugin<Project> {
 
-    internal companion object {
+    companion object {
         const val CLASS_NAME = "BuildConfig"
         const val GROUP_NAME = "generating"
         const val GENERATED_DIRECTORY = "generated"

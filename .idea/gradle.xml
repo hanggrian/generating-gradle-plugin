@@ -16,12 +16,10 @@
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/buildconfig" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/buildconfig-integration-tests" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/classes" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/com" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/compileBuildConfig" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/compileTestJava" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/css" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/custom" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/example" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/extra-fields" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/generated" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/jar" />

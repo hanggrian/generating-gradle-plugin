@@ -1,11 +1,11 @@
 package com.hendraanggrian.generating.buildconfig
 
-import com.hendraanggrian.generating.buildconfig.BuildConfigPlugin.Companion.CLASS_NAME
-import com.squareup.javapoet.FieldSpec.builder
+import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.TypeSpec
 import org.gradle.api.DefaultTask
+import org.gradle.api.logging.LogLevel
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
@@ -13,7 +13,6 @@ import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
-import javax.lang.model.SourceVersion.isName
 import javax.lang.model.element.Modifier.FINAL
 import javax.lang.model.element.Modifier.PRIVATE
 import javax.lang.model.element.Modifier.PUBLIC
@@ -75,27 +74,33 @@ open class BuildConfigTask : DefaultTask() {
      */
     @Input var website: String = ""
 
-    @Input val fields: MutableMap<String, Pair<Class<*>, Any>> = mutableMapOf()
+    @Input val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
     @OutputDirectory lateinit var outputDir: File
 
     @TaskAction
     @Throws(IOException::class)
     fun generate() {
+        logger.log(LogLevel.INFO, "Deleting old BuildConfig")
         outputDir.deleteRecursively()
-        JavaFile.builder(packageName, TypeSpec.classBuilder(CLASS_NAME)
+
+        logger.log(LogLevel.INFO, "Preparing new BuildConfig")
+        outputDir.mkdirs()
+
+        logger.log(LogLevel.INFO, "Writing new BuildConfig")
+        JavaFile.builder(packageName, TypeSpec.classBuilder("BuildConfig")
             .addModifiers(PUBLIC, FINAL)
             .addMethod(MethodSpec.constructorBuilder().addModifiers(PRIVATE).build())
+            .addField(String::class.java, NAME, appName)
+            .addField(String::class.java, GROUP, groupId)
+            .addField(String::class.java, VERSION, version)
+            .addField(Boolean::class.java, DEBUG, debug)
             .apply {
-                add(String::class.java, NAME, appName)
-                add(String::class.java, GROUP, groupId)
-                add(String::class.java, VERSION, version)
-                add(Boolean::class.java, DEBUG, debug)
-                if (artifactId.isNotBlank()) add(String::class.java, ARTIFACT, artifactId)
-                if (desc.isNotBlank()) add(String::class.java, DESC, desc)
-                if (email.isNotBlank()) add(String::class.java, EMAIL, email)
-                if (website.isNotBlank()) add(String::class.java, WEBSITE, website)
-                fields.forEach { name, (type, value) -> add(type, name, value) }
+                if (artifactId.isNotBlank()) addField(String::class.java, ARTIFACT, artifactId)
+                if (desc.isNotBlank()) addField(String::class.java, DESC, desc)
+                if (email.isNotBlank()) addField(String::class.java, EMAIL, email)
+                if (website.isNotBlank()) addField(String::class.java, WEBSITE, website)
+                fields.forEach { (type, name, value) -> addField(type, name, value!!) }
             }
             .build())
             .addFileComment("Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
@@ -111,10 +116,8 @@ open class BuildConfigTask : DefaultTask() {
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
-    fun <T : Any> field(type: Class<T>, name: String, value: T) {
-        require(isName(name)) { "$name is not a valid java variable name." }
-        require(name !in RESERVED_NAMES) { "$name is reserved, use typed functions instead." }
-        fields[name] = type to value
+    fun <T> field(type: Class<T>, name: String, value: T) {
+        fields += BuildConfigField(type, name, value)
     }
 
     /**
@@ -124,9 +127,9 @@ open class BuildConfigTask : DefaultTask() {
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
-    inline fun <reified T : Any> field(name: String, value: T) = field(T::class.java, name, value)
+    inline fun <reified T> field(name: String, value: T) = field(T::class.java, name, value)
 
-    private companion object {
+    internal companion object {
         const val NAME = "NAME"
         const val GROUP = "GROUP"
         const val VERSION = "VERSION"
@@ -137,19 +140,16 @@ open class BuildConfigTask : DefaultTask() {
         const val EMAIL = "EMAIL"
         const val WEBSITE = "WEBSITE"
 
-        val RESERVED_NAMES = arrayOf(NAME, GROUP, VERSION, DEBUG)
-
-        fun TypeSpec.Builder.add(type: Class<*>, name: String, value: Any): TypeSpec.Builder =
-            addField(
-                builder(type, name, PUBLIC, STATIC, FINAL)
-                    .initializer(
-                        when (type) {
-                            String::class.java -> "\$S"
-                            Char::class.java -> "'\$L'"
-                            else -> "\$L"
-                        }, value
-                    )
-                    .build()
-            )
+        fun TypeSpec.Builder.addField(type: Class<*>, name: String, value: Any): TypeSpec.Builder = addField(
+            FieldSpec.builder(type, name, PUBLIC, STATIC, FINAL)
+                .initializer(
+                    when (type) {
+                        String::class.java -> "\$S"
+                        Char::class.java -> "'\$L'"
+                        else -> "\$L"
+                    }, value
+                )
+                .build()
+        )
     }
 }

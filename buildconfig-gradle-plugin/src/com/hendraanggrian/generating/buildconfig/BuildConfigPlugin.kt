@@ -20,15 +20,13 @@ import org.gradle.plugins.ide.idea.model.IdeaModel
 class BuildConfigPlugin : Plugin<Project> {
 
     companion object {
-        const val CLASS_NAME = "BuildConfig"
         const val GROUP_NAME = "generating"
-        const val GENERATED_DIRECTORY = "generated"
     }
 
     override fun apply(project: Project) {
         val generateBuildConfig by project.tasks.registering(BuildConfigTask::class) {
             group = GROUP_NAME
-            outputDir = project.buildDir.resolve("$GENERATED_DIRECTORY/buildconfig/src/main")
+            outputDir = project.buildDir.resolve("generated/buildconfig/src/main")
         }
         project.afterEvaluate {
             generateBuildConfig {
@@ -41,7 +39,7 @@ class BuildConfigPlugin : Plugin<Project> {
         val compileBuildConfig by project.tasks.registering(JavaCompile::class) {
             group = GROUP_NAME
             classpath = project.files()
-            destinationDir = project.buildDir.resolve("$GENERATED_DIRECTORY/buildconfig/classes/main")
+            destinationDir = project.buildDir.resolve("generated/buildconfig/classes/main")
 
             val generateBuildConfigTask = generateBuildConfig.get()
             dependsOn(generateBuildConfigTask)
@@ -61,7 +59,7 @@ class BuildConfigPlugin : Plugin<Project> {
 
         require(project.plugins.hasPlugin("org.gradle.idea")) { "plugin 'idea' must be applied" }
 
-        project.configurations.register("provided$CLASS_NAME") {
+        project.configurations.register("providedBuildConfig") {
             dependencies += project.dependencies.create(compiledClasses)
             project.extensions
                 .getByName<IdeaModel>("idea")

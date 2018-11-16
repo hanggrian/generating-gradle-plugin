@@ -39,6 +39,13 @@ dependencies {
 }
 
 tasks {
+    register("deploy") {
+        dependsOn("build")
+        projectDir.resolve("build/libs")?.listFiles()?.forEach {
+            it.renameTo(File(rootDir.resolve("buildconfig-integration-tests"), it.name))
+        }
+    }
+
     val ktlint by registering(JavaExec::class) {
         group = LifecycleBasePlugin.VERIFICATION_GROUP
         inputs.dir("src")

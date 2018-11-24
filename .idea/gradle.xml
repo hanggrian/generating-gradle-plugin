@@ -11,32 +11,10 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/buildconfig-gradle-plugin" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/binary" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/build" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/buildconfig" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/buildconfig-integration-tests" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/classes" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/compileBuildConfig" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/compileTestJava" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/css" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/custom" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/extra-fields" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/generated" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/jar" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/java" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/js" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/libs" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/main" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/my" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/packages" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/reports" />
             <option value="$PROJECT_DIR$/buildconfig-integration-tests/simple" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/src" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/test" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/test-results" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/tests" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/tmp" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/website" />
+            <option value="$PROJECT_DIR$/website" />
           </set>
         </option>
       </GradleProjectSettings>

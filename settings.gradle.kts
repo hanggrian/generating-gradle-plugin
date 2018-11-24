@@ -1,4 +1,8 @@
 include(RELEASE_ARTIFACT)
+include("website")
 includeDir("buildconfig-integration-tests")
 
-fun includeDir(dir: String) = File(dir).walk().filter { it.isDirectory }.forEach { include("$dir:${it.name}") }
+fun includeDir(name: String) = file(name)
+    .listFiles()
+    .filter { it.isDirectory }
+    .forEach { include("$name:${it.name}") }

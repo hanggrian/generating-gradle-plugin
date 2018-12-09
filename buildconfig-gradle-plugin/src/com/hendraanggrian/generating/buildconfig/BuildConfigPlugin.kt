@@ -26,7 +26,7 @@ class BuildConfigPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val generateBuildConfig by project.tasks.registering(BuildConfigTask::class) {
             group = GROUP_NAME
-            outputDir = project.buildDir.resolve("generated/buildconfig/src/main")
+            outputDirectory = project.buildDir.resolve("generated/buildconfig/src/main")
         }
         project.afterEvaluate {
             generateBuildConfig {
@@ -43,7 +43,7 @@ class BuildConfigPlugin : Plugin<Project> {
 
             val generateBuildConfigTask = generateBuildConfig.get()
             dependsOn(generateBuildConfigTask)
-            source(generateBuildConfigTask.outputDir)
+            source(generateBuildConfigTask.outputDirectory)
         }
 
         val compileBuildConfigTask = compileBuildConfig.get()
@@ -59,6 +59,7 @@ class BuildConfigPlugin : Plugin<Project> {
 
         require(project.plugins.hasPlugin("org.gradle.idea")) { "plugin 'idea' must be applied" }
 
+        @Suppress("UnstableApiUsage")
         project.configurations.register("providedBuildConfig") {
             dependencies += project.dependencies.create(compiledClasses)
             project.extensions

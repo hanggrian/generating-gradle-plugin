@@ -27,6 +27,11 @@ open class BuildConfigTask : DefaultTask() {
     @Input var packageName: String = ""
 
     /**
+     * Class name of BuildConfig, may be modified
+     */
+    @Input var className: String = "BuildConfig"
+
+    /**
      * Customize `BuildConfig.NAME` value.
      * Default is project name.
      */
@@ -76,19 +81,19 @@ open class BuildConfigTask : DefaultTask() {
 
     @Input val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
-    @OutputDirectory lateinit var outputDir: File
+    @OutputDirectory lateinit var outputDirectory: File
 
     @TaskAction
     @Throws(IOException::class)
     fun generate() {
-        logger.log(LogLevel.INFO, "Deleting old BuildConfig")
-        outputDir.deleteRecursively()
+        logger.log(LogLevel.INFO, "Deleting old $className")
+        outputDirectory.deleteRecursively()
 
-        logger.log(LogLevel.INFO, "Preparing new BuildConfig")
-        outputDir.mkdirs()
+        logger.log(LogLevel.INFO, "Preparing new $className")
+        outputDirectory.mkdirs()
 
-        logger.log(LogLevel.INFO, "Writing new BuildConfig")
-        JavaFile.builder(packageName, TypeSpec.classBuilder("BuildConfig")
+        logger.log(LogLevel.INFO, "Writing new $className")
+        JavaFile.builder(packageName, TypeSpec.classBuilder(className)
             .addModifiers(PUBLIC, FINAL)
             .addMethod(MethodSpec.constructorBuilder().addModifiers(PRIVATE).build())
             .addField(String::class.java, NAME, appName)
@@ -105,7 +110,7 @@ open class BuildConfigTask : DefaultTask() {
             .build())
             .addFileComment("Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
             .build()
-            .writeTo(outputDir)
+            .writeTo(outputDirectory)
     }
 
     /**

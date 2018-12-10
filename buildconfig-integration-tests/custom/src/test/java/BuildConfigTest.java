@@ -2,6 +2,7 @@ import my.website.CustomBuildConfig;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BuildConfigTest {
 
@@ -10,6 +11,6 @@ public class BuildConfigTest {
         assertEquals(CustomBuildConfig.NAME, "Hello world!");
         assertEquals(CustomBuildConfig.GROUP, "my.website");
         assertEquals(CustomBuildConfig.VERSION, "2.0");
-        assertEquals(CustomBuildConfig.DEBUG, true);
+        assertTrue(CustomBuildConfig.DEBUG);
     }
 }

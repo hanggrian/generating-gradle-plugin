@@ -1,4 +1,4 @@
-@file:Suppress("UnusedImport")
+@file:Suppress("UnusedImport", "unused", "UNUSED_VARIABLE")
 
 package com.hendraanggrian.generating.buildconfig
 
@@ -6,11 +6,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.compile.JavaCompile
-import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.registering
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.provideDelegate // ktlint-disable
@@ -28,6 +26,7 @@ class BuildConfigPlugin : Plugin<Project> {
             group = GROUP_NAME
             outputDirectory = project.buildDir.resolve("generated/buildconfig/src/main")
         }
+        val generateBuildConfigTask by generateBuildConfig
         project.afterEvaluate {
             generateBuildConfig {
                 if (packageName.isEmpty()) packageName = project.group.toString()
@@ -36,20 +35,19 @@ class BuildConfigPlugin : Plugin<Project> {
                 if (version.isEmpty()) version = project.version.toString()
             }
         }
+
         val compileBuildConfig by project.tasks.registering(JavaCompile::class) {
+            dependsOn(generateBuildConfigTask)
             group = GROUP_NAME
             classpath = project.files()
             destinationDir = project.buildDir.resolve("generated/buildconfig/classes/main")
-
-            val generateBuildConfigTask = generateBuildConfig.get()
-            dependsOn(generateBuildConfigTask)
             source(generateBuildConfigTask.outputDirectory)
         }
-
-        val compileBuildConfigTask = compileBuildConfig.get()
+        val compileBuildConfigTask by compileBuildConfig
         val compiledClasses = project
             .files(compileBuildConfigTask.outputs.files.filter { !it.name.endsWith("dependency-cache") })
-        compiledClasses.builtBy(compileBuildConfigTask)
+            .builtBy(compileBuildConfigTask)
+
         project.convention.getPlugin<JavaPluginConvention>().sourceSets {
             "main" {
                 compileClasspath += compiledClasses
@@ -57,10 +55,9 @@ class BuildConfigPlugin : Plugin<Project> {
             }
         }
 
-        require(project.plugins.hasPlugin("org.gradle.idea")) { "plugin 'idea' must be applied" }
+        require(project.plugins.hasPlugin("org.gradle.idea")) { "Plugin 'idea' must be applied" }
 
-        @Suppress("UnstableApiUsage")
-        project.configurations.register("providedBuildConfig") {
+        val providedBuildConfig by project.configurations.registering {
             dependencies += project.dependencies.create(compiledClasses)
             project.extensions
                 .getByName<IdeaModel>("idea")

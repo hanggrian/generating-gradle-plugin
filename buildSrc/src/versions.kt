@@ -1,5 +1,5 @@
-const val VERSION_GRADLE = "5.0"
-const val VERSION_KOTLIN = "1.3.10"
+const val VERSION_GRADLE = "5.1-rc-3"
+const val VERSION_KOTLIN = "1.3.11"
 
 internal const val VERSION_JAVAPOET = "1.11.1"
 internal const val VERSION_DOKKA = "0.9.17"

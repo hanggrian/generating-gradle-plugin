@@ -11,20 +11,10 @@ buildscript {
 group 'com.example'
 version '1.0'
 
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'com.hendraanggrian.generating.buildconfig'
 
 dependencies {
     testImplementation 'junit:junit:4.12'
-}
-
-tasks.getByName('generateBuildConfig') {
-    packageName 'my.website'
-    className 'CustomBuildConfig'
-
-    appName 'Hello world!'
-    groupId 'my.website'
-    version '2.0'
-    debug true
 }

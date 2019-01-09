@@ -59,10 +59,10 @@ class BuildConfigPlugin : Plugin<Project> {
 
         val providedBuildConfig by project.configurations.registering {
             dependencies += project.dependencies.create(compiledClasses)
-            project.extensions
-                .getByName<IdeaModel>("idea")
-                .module
-                .scopes["PROVIDED"]!!["plus"]!! += this
         }
+        project.extensions
+            .getByName<IdeaModel>("idea")
+            .module
+            .scopes["PROVIDED"]!!["plus"]!! += providedBuildConfig.get()
     }
 }

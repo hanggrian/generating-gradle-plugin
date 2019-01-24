@@ -1,10 +1,10 @@
-BuildConfig
-===========
 [![bintray](https://img.shields.io/badge/bintray-generating-brightgreen.svg)](https://bintray.com/hendraanggrian/generating)
 [![download](https://api.bintray.com/packages/hendraanggrian/generating/buildconfig-gradle-plugin/images/download.svg) ](https://bintray.com/hendraanggrian/generating/buildconfig-gradle-plugin/_latestVersion)
 [![build](https://travis-ci.com/hendraanggrian/buildconfig-gradle-plugin.svg)](https://travis-ci.com/hendraanggrian/buildconfig-gradle-plugin)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
+BuildConfig Gradle Plugin
+=========================
 Generate Android-like `BuildConfig` class on any JVM projects.
 Currently only supported with <b>IntelliJ IDEA</b>.
 

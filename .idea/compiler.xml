@@ -8,6 +8,14 @@
       <module name="com.example-extra-fields_test" target="1.8" />
       <module name="com.example-simple_main" target="1.8" />
       <module name="com.example-simple_test" target="1.8" />
+      <module name="custom_main" target="1.8" />
+      <module name="custom_test" target="1.8" />
+      <module name="extra-fields_main" target="1.8" />
+      <module name="extra-fields_test" target="1.8" />
+      <module name="library_main" target="1.8" />
+      <module name="library_test" target="1.8" />
+      <module name="simple_main" target="1.8" />
+      <module name="simple_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

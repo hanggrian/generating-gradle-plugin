@@ -16,17 +16,19 @@ import org.gradle.plugins.ide.idea.model.IdeaModel
 
 /** Generate Android-like BuildConfig class with this plugin. */
 class BuildConfigPlugin : Plugin<Project> {
-
-    companion object {
-        const val GROUP_NAME = "generating"
+    private companion object {
+        const val GROUP_NAME = "buildconfig"
+        const val GENERATED_DIR = "generated/$GROUP_NAME"
     }
 
     override fun apply(project: Project) {
         val generateBuildConfig by project.tasks.registering(BuildConfigTask::class) {
             group = GROUP_NAME
-            outputDirectory = project.buildDir.resolve("generated/buildconfig/src/main")
+            outputDirectory = project.buildDir.resolve("$GENERATED_DIR/src/main").absolutePath
         }
         val generateBuildConfigTask by generateBuildConfig
+
+        // project properties will return correct values after evaluated
         project.afterEvaluate {
             generateBuildConfig {
                 if (packageName.isEmpty()) packageName = project.group.toString()
@@ -40,7 +42,7 @@ class BuildConfigPlugin : Plugin<Project> {
             dependsOn(generateBuildConfigTask)
             group = GROUP_NAME
             classpath = project.files()
-            destinationDir = project.buildDir.resolve("generated/buildconfig/classes/main")
+            destinationDir = project.buildDir.resolve("$GENERATED_DIR/classes/main")
             source(generateBuildConfigTask.outputDirectory)
         }
         val compileBuildConfigTask by compileBuildConfig
@@ -60,9 +62,10 @@ class BuildConfigPlugin : Plugin<Project> {
         val providedBuildConfig by project.configurations.registering {
             dependencies += project.dependencies.create(compiledClasses)
         }
+        val providedBuildConfigConfig by providedBuildConfig
         project.extensions
             .getByName<IdeaModel>("idea")
             .module
-            .scopes["PROVIDED"]!!["plus"]!! += providedBuildConfig.get()
+            .scopes["PROVIDED"]!!["plus"]!! += providedBuildConfigConfig
     }
 }

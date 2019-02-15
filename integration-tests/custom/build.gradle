@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath files('../buildconfig-gradle-plugin-0.5.jar')
+        classpath files('../buildconfig-gradle-plugin-0.5-rc1.jar')
         classpath 'com.squareup:javapoet:1.11.1'
     }
 }
@@ -17,4 +17,14 @@ apply plugin: 'com.hendraanggrian.generating.buildconfig'
 
 dependencies {
     testImplementation 'junit:junit:4.12'
+}
+
+tasks.getByName('generateBuildConfig') {
+    packageName 'my.website'
+    className 'CustomBuildConfig'
+
+    appName 'Hello world!'
+    groupId 'my.website'
+    version '2.0'
+    debug true
 }

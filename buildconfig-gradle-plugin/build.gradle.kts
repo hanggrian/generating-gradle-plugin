@@ -27,7 +27,7 @@ val ktlint by configurations.registering
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
-    implementation(javapoet())
+    implementation(hendraanggrian("javapoet-dsl", "0.2-rc1"))
 
     testImplementation(kotlin("test", VERSION_KOTLIN))
     testImplementation(junit())
@@ -80,7 +80,6 @@ publish {
     bintrayUser = BINTRAY_USER
     bintrayKey = BINTRAY_KEY
     dryRun = false
-    repoName = RELEASE_REPO
 
     userOrg = RELEASE_USER
     groupId = RELEASE_GROUP

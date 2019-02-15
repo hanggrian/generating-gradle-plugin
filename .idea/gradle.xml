@@ -10,11 +10,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/buildconfig-gradle-plugin" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/custom" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/extra-fields" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/library" />
-            <option value="$PROJECT_DIR$/buildconfig-integration-tests/simple" />
             <option value="$PROJECT_DIR$/website" />
           </set>
         </option>

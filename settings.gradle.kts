@@ -1,6 +1,6 @@
 include(RELEASE_ARTIFACT)
 include("website")
-// includeDir("integration-tests")
+includeDir("integration-tests")
 
 fun includeDir(name: String) = file(name)
     .listFiles()

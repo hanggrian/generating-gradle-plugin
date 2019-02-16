@@ -27,10 +27,10 @@ val ktlint by configurations.registering
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
-    implementation(hendraanggrian("javapoet-dsl", "0.2-rc1"))
+    implementation(hendraanggrian("javapoet-dsl", "0.2"))
 
     testImplementation(kotlin("test", VERSION_KOTLIN))
-    testImplementation(junit())
+    testImplementation(kotlin("test-junit", VERSION_KOTLIN))
 
     ktlint {
         invoke(ktlint())
@@ -41,7 +41,7 @@ tasks {
     register("deploy") {
         dependsOn("build")
         projectDir.resolve("build/libs")?.listFiles()?.forEach {
-            it.renameTo(File(rootDir.resolve("buildconfig-integration-tests"), it.name))
+            it.renameTo(File(rootDir.resolve("integration-tests"), it.name))
         }
     }
 

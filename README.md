@@ -1,4 +1,4 @@
-[![bintray](https://img.shields.io/badge/bintray-generating-brightgreen.svg)](https://bintray.com/hendraanggrian/generating)
+[![bintray](https://img.shields.io/badge/bintray-maven-brightgreen.svg)](https://bintray.com/hendraanggrian/maven)
 [![download](https://api.bintray.com/packages/hendraanggrian/generating/buildconfig-gradle-plugin/images/download.svg) ](https://bintray.com/hendraanggrian/generating/buildconfig-gradle-plugin/_latestVersion)
 [![build](https://travis-ci.com/hendraanggrian/buildconfig-gradle-plugin.svg)](https://travis-ci.com/hendraanggrian/buildconfig-gradle-plugin)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
@@ -39,7 +39,7 @@ then apply it in your module, along with idea plugin:
 
 ```gradle
 apply plugin: 'idea'
-apply plugin: 'com.hendraanggrian.generating.buildconfig'
+apply plugin: 'com.hendraanggrian.buildconfig'
 ```
 
 that's it, `BuildConfig` are now automatically generated after compilation with default behavior.

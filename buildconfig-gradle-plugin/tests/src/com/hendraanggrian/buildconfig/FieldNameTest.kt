@@ -1,4 +1,4 @@
-package com.hendraanggrian.generating.buildconfig
+package com.hendraanggrian.buildconfig
 
 import org.junit.Test
 import javax.lang.model.SourceVersion

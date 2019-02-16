@@ -1,4 +1,4 @@
-package com.hendraanggrian.generating.buildconfig
+package com.hendraanggrian.buildconfig
 
 import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.DefaultTask
@@ -10,7 +10,6 @@ import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
-import javax.lang.model.element.Modifier
 
 open class BuildConfigTask : DefaultTask() {
     internal companion object {
@@ -84,11 +83,11 @@ open class BuildConfigTask : DefaultTask() {
      */
     @Input var website: String = ""
 
-    @Input val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
-
     @Input lateinit var outputDirectory: String
 
     val outputDir: File @OutputDirectory get() = project.projectDir.resolve(outputDirectory)
+
+    private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
     @TaskAction
     @Throws(IOException::class)
@@ -102,11 +101,11 @@ open class BuildConfigTask : DefaultTask() {
 
         logger.log(LogLevel.INFO, "Writing new $className")
         buildJavaFile(packageName) {
-            comment("Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}")
+            comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
             type(className) {
-                modifiers(Modifier.PUBLIC, Modifier.FINAL)
+                modifiers = public + final
                 constructor {
-                    modifiers(Modifier.PRIVATE)
+                    modifiers = private
                 }
                 field(NAME, appName)
                 field(GROUP, groupId)
@@ -118,6 +117,7 @@ open class BuildConfigTask : DefaultTask() {
                 if (website.isNotBlank()) field(WEBSITE, website)
                 fields.forEach { (type, name, value) ->
                     field(type, name) {
+                        modifiers = public + static + final
                         initializer(
                             when (type) {
                                 String::class.java -> "\$S"

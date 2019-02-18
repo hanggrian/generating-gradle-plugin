@@ -83,9 +83,18 @@ open class BuildConfigTask : DefaultTask() {
      */
     @Input var website: String = ""
 
-    @Input lateinit var outputDirectory: String
+    /**
+     * Directory of which BuildConfig class will be generated to.
+     * Default is `build/generated` relative to project directory.
+     */
+    @OutputDirectory lateinit var outputDir: File
 
-    val outputDir: File @OutputDirectory get() = project.projectDir.resolve(outputDirectory)
+    /** Convenient method to modify output directory with file path. */
+    var outputDirectory: String
+        @OutputDirectory get() = outputDir.absolutePath
+        set(value) {
+            outputDir = project.projectDir.resolve(value)
+        }
 
     private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 

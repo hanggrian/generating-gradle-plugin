@@ -1,5 +1,5 @@
 [![bintray](https://img.shields.io/badge/bintray-maven-brightgreen.svg)](https://bintray.com/hendraanggrian/maven)
-[![download](https://api.bintray.com/packages/hendraanggrian/generating/buildconfig-gradle-plugin/images/download.svg) ](https://bintray.com/hendraanggrian/generating/buildconfig-gradle-plugin/_latestVersion)
+[![download](https://api.bintray.com/packages/hendraanggrian/maven/buildconfig-gradle-plugin/images/download.svg)](https://bintray.com/hendraanggrian/maven/buildconfig-gradle-plugin/_latestVersion)
 [![build](https://travis-ci.com/hendraanggrian/buildconfig-gradle-plugin.svg)](https://travis-ci.com/hendraanggrian/buildconfig-gradle-plugin)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
@@ -30,7 +30,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.hendraanggrian.generating:buildconfig-gradle-plugin:$version"
+        classpath "com.hendraanggrian:buildconfig-gradle-plugin:$version"
     }
 }
 ```

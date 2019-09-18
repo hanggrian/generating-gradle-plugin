@@ -3,7 +3,7 @@ package com.hendraanggrian.buildconfig
 import java.io.Serializable
 import javax.lang.model.SourceVersion
 
-class BuildConfigField<T>(
+internal class BuildConfigField<T>(
     private val type: Class<T>,
     private val name: String,
     private val value: T

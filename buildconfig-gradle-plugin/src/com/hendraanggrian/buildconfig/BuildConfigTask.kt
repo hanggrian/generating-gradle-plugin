@@ -10,6 +10,7 @@ import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
+import javax.lang.model.element.Modifier
 
 open class BuildConfigTask : DefaultTask() {
     internal companion object {
@@ -111,10 +112,10 @@ open class BuildConfigTask : DefaultTask() {
         logger.log(LogLevel.INFO, "Writing new $className")
         buildJavaFile(packageName) {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
-            type(className) {
-                modifiers = public + final
-                constructor {
-                    modifiers = private
+            addClass(className) {
+                addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                methods.addConstructor {
+                    addModifiers(Modifier.PRIVATE)
                 }
                 field(NAME, appName)
                 field(GROUP, groupId)
@@ -124,8 +125,8 @@ open class BuildConfigTask : DefaultTask() {
                 if (desc.isNotBlank()) field(DESC, desc)
                 if (email.isNotBlank()) field(EMAIL, email)
                 if (website.isNotBlank()) field(WEBSITE, website)
-                fields.forEach { (type, name, value) ->
-                    field(type, name) {
+                this@BuildConfigTask.fields.forEach { (type, name, value) ->
+                    fields.add(type, name) {
                         modifiers = public + static + final
                         initializer(
                             when (type) {
@@ -159,5 +160,6 @@ open class BuildConfigTask : DefaultTask() {
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
-    inline fun <reified T> field(name: String, value: T) = field(T::class.java, name, value)
+    inline fun <reified T> field(name: String, value: T): Unit =
+        field(T::class.java, name, value)
 }

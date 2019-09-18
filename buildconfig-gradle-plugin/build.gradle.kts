@@ -2,7 +2,6 @@ plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
     dokka
-    bintray
     `bintray-release`
 }
 
@@ -27,7 +26,7 @@ val ktlint by configurations.registering
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
-    implementation(hendraanggrian("javapoet-dsl", "0.2"))
+    implementation(hendraanggrian("javapoet-ktx", VERSION_JAVAPOETKTX))
 
     testImplementation(kotlin("test", VERSION_KOTLIN))
     testImplementation(kotlin("test-junit", VERSION_KOTLIN))
@@ -51,7 +50,7 @@ tasks {
         outputs.dir("src")
         description = "Check Kotlin code style."
         classpath(configurations["ktlint"])
-        main = "com.github.shyiko.ktlint.Main"
+        main = "com.pinterest.ktlint.Main"
         args("src/**/*.kt")
     }
     "check" {
@@ -63,7 +62,7 @@ tasks {
         outputs.dir("src")
         description = "Fix Kotlin code style deviations."
         classpath(configurations["ktlint"])
-        main = "com.github.shyiko.ktlint.Main"
+        main = "com.pinterest.ktlint.Main"
         args("-F", "src/**/*.kt")
     }
 

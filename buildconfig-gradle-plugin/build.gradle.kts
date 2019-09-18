@@ -28,7 +28,6 @@ dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
     implementation(hendraanggrian("javapoet-ktx", VERSION_JAVAPOETKTX))
 
-    testImplementation(kotlin("test", VERSION_KOTLIN))
     testImplementation(kotlin("test-junit", VERSION_KOTLIN))
 
     ktlint {
@@ -39,8 +38,10 @@ dependencies {
 tasks {
     register("deploy") {
         dependsOn("build")
-        projectDir.resolve("build/libs")?.listFiles()?.forEach {
-            it.renameTo(File(rootDir.resolve("integration-tests"), it.name))
+        projectDir.resolve("build/libs/$RELEASE_ARTIFACT-$RELEASE_VERSION.jar").let {
+            if (it.exists()) {
+                it.renameTo(rootDir.resolve("integration-tests/${it.name}"))
+            }
         }
     }
 
@@ -75,6 +76,7 @@ tasks {
     }
 }
 
+publishKotlinFix()
 publish {
     bintrayUser = BINTRAY_USER
     bintrayKey = BINTRAY_KEY

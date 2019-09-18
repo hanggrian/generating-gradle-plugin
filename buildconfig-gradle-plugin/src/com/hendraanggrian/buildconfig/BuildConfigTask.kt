@@ -1,16 +1,18 @@
 package com.hendraanggrian.buildconfig
 
 import com.hendraanggrian.javapoet.buildJavaFile
+import com.hendraanggrian.javapoet.final
+import com.hendraanggrian.javapoet.private
+import com.hendraanggrian.javapoet.public
+import com.hendraanggrian.javapoet.static
+import java.io.File
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter.ofPattern
+import kotlin.reflect.KClass
 import org.gradle.api.DefaultTask
-import org.gradle.api.logging.LogLevel
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import java.io.File
-import java.io.IOException
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter.ofPattern
-import javax.lang.model.element.Modifier
 
 open class BuildConfigTask : DefaultTask() {
     internal companion object {
@@ -97,42 +99,49 @@ open class BuildConfigTask : DefaultTask() {
             outputDir = project.projectDir.resolve(value)
         }
 
-    private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
+    private val buildConfigFields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
     @TaskAction
-    @Throws(IOException::class)
     fun generate() {
-        logger.log(LogLevel.INFO, "Deleting old $className")
+        logger.info("Deleting old $className")
         val outputDir = outputDir
         outputDir.deleteRecursively()
 
-        logger.log(LogLevel.INFO, "Preparing new $className")
+        logger.info("Preparing new $className")
         outputDir.mkdirs()
 
-        logger.log(LogLevel.INFO, "Writing new $className")
+        logger.info("Writing new $className")
         buildJavaFile(packageName) {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
             addClass(className) {
-                addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                addModifiers(public, final)
                 methods.addConstructor {
-                    addModifiers(Modifier.PRIVATE)
+                    addModifiers(private)
                 }
-                field(NAME, appName)
-                field(GROUP, groupId)
-                field(VERSION, version)
-                field(DEBUG, debug)
-                if (artifactId.isNotBlank()) field(ARTIFACT, artifactId)
-                if (desc.isNotBlank()) field(DESC, desc)
-                if (email.isNotBlank()) field(EMAIL, email)
-                if (website.isNotBlank()) field(WEBSITE, website)
-                this@BuildConfigTask.fields.forEach { (type, name, value) ->
+                addField(NAME, appName)
+                addField(GROUP, groupId)
+                addField(VERSION, version)
+                addField(DEBUG, debug)
+                if (artifactId.isNotBlank()) {
+                    addField(ARTIFACT, artifactId)
+                }
+                if (desc.isNotBlank()) {
+                    addField(DESC, desc)
+                }
+                if (email.isNotBlank()) {
+                    addField(EMAIL, email)
+                }
+                if (website.isNotBlank()) {
+                    addField(WEBSITE, website)
+                }
+                buildConfigFields.forEach { (type, name, value) ->
                     fields.add(type, name) {
-                        modifiers = public + static + final
+                        addModifiers(public, static, final)
                         initializer(
                             when (type) {
-                                String::class.java -> "\$S"
-                                Char::class.java -> "'\$L'"
-                                else -> "\$L"
+                                String::class.java -> "%S"
+                                Char::class.java -> "'%L'"
+                                else -> "%L"
                             }, value!!
                         )
                     }
@@ -149,9 +158,20 @@ open class BuildConfigTask : DefaultTask() {
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
-    fun <T> field(type: Class<T>, name: String, value: T) {
-        fields += BuildConfigField(type, name, value)
+    fun <T> addField(type: Class<T>, name: String, value: T) {
+        buildConfigFields += BuildConfigField(type, name, value)
     }
+
+    /**
+     * Add custom field specifying its type, name, and value.
+     * Convenient method for projects using Groovy.
+     *
+     * @param type java class of value.
+     * @param name field name, must be a valid java variable name.
+     * @param value non-null field value.
+     */
+    fun <T : Any> addField(type: KClass<T>, name: String, value: T) =
+        addField(type.java, name, value)
 
     /**
      * Add custom field by only specifying its name, and value.
@@ -160,6 +180,6 @@ open class BuildConfigTask : DefaultTask() {
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
-    inline fun <reified T> field(name: String, value: T): Unit =
-        field(T::class.java, name, value)
+    inline fun <reified T : Any> addField(name: String, value: T): Unit =
+        addField(T::class, name, value)
 }

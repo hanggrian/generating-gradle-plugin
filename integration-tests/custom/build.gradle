@@ -4,8 +4,8 @@ buildscript {
     }
     dependencies {
         classpath files('../buildconfig-gradle-plugin-0.1.jar')
-        classpath 'com.hendraanggrian:javapoet-dsl:0.2'
-        classpath 'org.jetbrains.kotlin:kotlin-stdlib:1.3.21'
+        classpath 'com.hendraanggrian:javapoet-ktx:0.2'
+        classpath 'org.jetbrains.kotlin:kotlin-stdlib:1.3.50'
     }
 }
 

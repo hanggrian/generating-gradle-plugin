@@ -101,6 +101,11 @@ open class BuildConfigTask : DefaultTask() {
 
     private val buildConfigFields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
+    init {
+        // always consider this task out of date
+        outputs.upToDateWhen { false }
+    }
+
     @TaskAction
     fun generate() {
         logger.info("Deleting old $className")

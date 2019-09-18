@@ -1,12 +1,12 @@
 [![bintray](https://img.shields.io/badge/bintray-maven-brightgreen.svg)](https://bintray.com/hendraanggrian/maven)
 [![download](https://api.bintray.com/packages/hendraanggrian/maven/buildconfig-gradle-plugin/images/download.svg)](https://bintray.com/hendraanggrian/maven/buildconfig-gradle-plugin/_latestVersion)
 [![build](https://travis-ci.com/hendraanggrian/buildconfig-gradle-plugin.svg)](https://travis-ci.com/hendraanggrian/buildconfig-gradle-plugin)
-[![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 BuildConfig Gradle Plugin
 =========================
 Generate Android-like `BuildConfig` class on any JVM projects.
-Currently only supported with <b>IntelliJ IDEA</b>.
+Currently only supported with **IntelliJ IDEA**.
 
 ```java
 public final class BuildConfig {
@@ -52,7 +52,7 @@ Modify `BuildConfig` fields generation with `buildconfig` closure.
 group 'com.example' // project group
 version '1.0'       // project version
 
-tasks.getByName("buildconfig") {
+tasks.getByName('buildconfig') {
     packageName 'my.app'    // package name of which R.class will be generated to, default is project group
 
     appName 'My App'        // `BuildConfig.NAME` value, default is project name
@@ -61,8 +61,8 @@ tasks.getByName("buildconfig") {
     debug true              // `BuildConfig.DEBUG` value
 
     // add custom field specifying its name, type, and value
-    field String.class, "myString", "Hello world!"
-    field double.class, "myDecimal", 12.0
+    addField String.class, "myString", "Hello world!"
+    addField double.class, "myDecimal", 12.0
 }
 ```
 

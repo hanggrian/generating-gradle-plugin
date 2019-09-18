@@ -1,4 +1,4 @@
 $dokka.format:html
 $dokka.linkExtension:html
 
-com.hendraanggrian.generating.buildconfig
+com.hendraanggrian.buildconfig

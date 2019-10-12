@@ -1,13 +1,10 @@
 package com.hendraanggrian.buildconfig
 
 import com.hendraanggrian.javapoet.buildJavaFile
-import com.hendraanggrian.javapoet.final
-import com.hendraanggrian.javapoet.private
-import com.hendraanggrian.javapoet.public
-import com.hendraanggrian.javapoet.static
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
+import javax.lang.model.element.Modifier
 import kotlin.reflect.KClass
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
@@ -119,9 +116,9 @@ open class BuildConfigTask : DefaultTask() {
         buildJavaFile(packageName) {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
             addClass(className) {
-                addModifiers(public, final)
+                addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 methods.addConstructor {
-                    addModifiers(private)
+                    addModifiers(Modifier.PRIVATE)
                 }
                 addField(NAME, appName)
                 addField(GROUP, groupId)
@@ -141,7 +138,7 @@ open class BuildConfigTask : DefaultTask() {
                 }
                 buildConfigFields.forEach { (type, name, value) ->
                     fields.add(type, name) {
-                        addModifiers(public, static, final)
+                        addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                         initializer(
                             when (type) {
                                 String::class.java -> "%S"

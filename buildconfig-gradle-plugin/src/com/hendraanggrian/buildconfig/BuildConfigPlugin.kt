@@ -23,6 +23,7 @@ class BuildConfigPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val generateBuildConfig by project.tasks.registering(BuildConfigTask::class) {
             group = GROUP_NAME
+            description = "Generate Android-like BuildConfig class."
             outputDirectory = project.buildDir.resolve("$GENERATED_DIR/src/main").absolutePath
         }
         val generateBuildConfigTask by generateBuildConfig
@@ -40,6 +41,7 @@ class BuildConfigPlugin : Plugin<Project> {
         val compileBuildConfig by project.tasks.registering(JavaCompile::class) {
             dependsOn(generateBuildConfigTask)
             group = GROUP_NAME
+            description = "Compiles BuildConfig source file."
             classpath = project.files()
             destinationDir = project.buildDir.resolve("$GENERATED_DIR/classes/main")
             source(generateBuildConfigTask.outputDirectory)

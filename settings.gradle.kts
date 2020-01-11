@@ -1,4 +1,4 @@
-include(RELEASE_ARTIFACT)
+include("buildconfig-gradle-plugin")
 include("website")
 // includeDir("integration-tests")
 

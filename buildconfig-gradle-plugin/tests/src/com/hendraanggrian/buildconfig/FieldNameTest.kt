@@ -7,8 +7,7 @@ import kotlin.test.assertTrue
 
 class FieldNameTest {
 
-    @Test
-    fun names() {
+    @Test fun names() {
         assertFalse(SourceVersion.isName(""))
         assertTrue(SourceVersion.isName("hello"))
         assertFalse(SourceVersion.isName("1hello"))

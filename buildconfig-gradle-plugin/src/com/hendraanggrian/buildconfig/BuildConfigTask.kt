@@ -1,15 +1,15 @@
 package com.hendraanggrian.buildconfig
 
 import com.hendraanggrian.javapoet.buildJavaFile
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
 import javax.lang.model.element.Modifier
 import kotlin.reflect.KClass
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
 
 open class BuildConfigTask : DefaultTask() {
     internal companion object {

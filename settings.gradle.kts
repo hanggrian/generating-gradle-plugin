@@ -1,8 +1,8 @@
 include(RELEASE_ARTIFACT)
 include("website")
-includeDir("integration-tests")
+// includeDir("integration-tests")
 
-fun includeDir(name: String) = file(name)
-    .listFiles()
+fun includeDir(dir: String) = file(dir)
+    .listFiles()!!
     .filter { it.isDirectory }
-    .forEach { include("$name:${it.name}") }
+    .forEach { include("$dir:${it.name}") }

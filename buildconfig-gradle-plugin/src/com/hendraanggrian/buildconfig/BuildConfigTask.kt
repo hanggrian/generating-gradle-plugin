@@ -1,15 +1,15 @@
 package com.hendraanggrian.buildconfig
 
 import com.hendraanggrian.javapoet.buildJavaFile
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
 import javax.lang.model.element.Modifier
 import kotlin.reflect.KClass
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
 
 open class BuildConfigTask : DefaultTask() {
     internal companion object {
@@ -91,7 +91,7 @@ open class BuildConfigTask : DefaultTask() {
 
     /** Convenient method to modify output directory with file path. */
     var outputDirectory: String
-        @OutputDirectory get() = outputDir.absolutePath
+        @Input get() = outputDir.absolutePath
         set(value) {
             outputDir = project.projectDir.resolve(value)
         }
@@ -103,8 +103,7 @@ open class BuildConfigTask : DefaultTask() {
         outputs.upToDateWhen { false }
     }
 
-    @TaskAction
-    fun generate() {
+    @TaskAction fun generate() {
         logger.info("Deleting old $className")
         val outputDir = outputDir
         outputDir.deleteRecursively()
@@ -172,8 +171,7 @@ open class BuildConfigTask : DefaultTask() {
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
-    fun <T : Any> addField(type: KClass<T>, name: String, value: T) =
-        addField(type.java, name, value)
+    fun <T : Any> addField(type: KClass<T>, name: String, value: T) = addField(type.java, name, value)
 
     /**
      * Add custom field by only specifying its name, and value.
@@ -182,6 +180,5 @@ open class BuildConfigTask : DefaultTask() {
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
-    inline fun <reified T : Any> addField(name: String, value: T): Unit =
-        addField(T::class, name, value)
+    inline fun <reified T : Any> addField(name: String, value: T): Unit = addField(T::class, name, value)
 }

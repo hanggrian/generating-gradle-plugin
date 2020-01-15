@@ -95,6 +95,16 @@ open class BuildConfigTask : DefaultTask() {
     }
 
     @TaskAction fun generate() {
+        logger.info("Checking requirements")
+        require(packageName.isNotBlank()) { "Package name cannot be empty" }
+        require(className.isNotBlank()) { "Class name cannot be empty" }
+
+        logger.info("Deleting old $className")
+        val outputDir = outputDir
+        outputDir.deleteRecursively()
+        outputDir.mkdirs()
+
+        logger.info("Preparing new $className")
         addField(BuildConfigField.NAME, appName)
         addField(BuildConfigField.GROUP, groupId)
         addField(BuildConfigField.VERSION, version)
@@ -103,16 +113,7 @@ open class BuildConfigTask : DefaultTask() {
         if (desc.isNotBlank()) addField(BuildConfigField.DESC, desc)
         if (email.isNotBlank()) addField(BuildConfigField.EMAIL, email)
         if (website.isNotBlank()) addField(BuildConfigField.WEBSITE, website)
-
-        logger.info("Deleting old $className")
-        val outputDir = outputDir
-        outputDir.deleteRecursively()
-
-        logger.info("Preparing new $className")
-        outputDir.mkdirs()
-
-        logger.info("Writing new $className")
-        buildJavaFile(packageName) {
+        val javaFile = buildJavaFile(packageName) {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
             addClass(className) {
                 addModifiers(Modifier.PUBLIC, Modifier.FINAL)
@@ -130,7 +131,10 @@ open class BuildConfigTask : DefaultTask() {
                     }
                 }
             }
-        }.writeTo(outputDir)
+        }
+
+        logger.info("Writing new $className")
+        javaFile.writeTo(outputDir)
     }
 
     /**

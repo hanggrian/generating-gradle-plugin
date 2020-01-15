@@ -17,7 +17,7 @@ gradlePlugin {
     (plugins) {
         register(RELEASE_ARTIFACT) {
             id = "$RELEASE_GROUP.buildconfig"
-            implementationClass = "$RELEASE_GROUP.buildconfig.BuildConfigPlugin"
+            implementationClass = "$id.BuildConfigPlugin"
         }
     }
 }

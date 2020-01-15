@@ -11,92 +11,83 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
+/** A task that writes `BuildConfig` class based on configuration made within the task. */
 open class BuildConfigTask : DefaultTask() {
-    internal companion object {
-        const val NAME = "NAME"
-        const val GROUP = "GROUP"
-        const val VERSION = "VERSION"
-        const val DEBUG = "DEBUG"
-
-        const val ARTIFACT = "ARTIFACT"
-        const val DESC = "DESC"
-        const val EMAIL = "EMAIL"
-        const val WEBSITE = "WEBSITE"
-    }
 
     /**
-     * Package name of which `buildconfig` class will be generated to.
-     * Default is project group.
+     * Package name of which `BuildConfig` class will be generated to, cannot be empty.
+     * If left empty or unmodified, project group will be assigned as value.
      */
     @Input var packageName: String = ""
 
     /**
-     * Class name of BuildConfig, may be modified
+     * Generated class name, cannot be empty.
+     * Default value is `BuildConfig`.
      */
     @Input var className: String = "BuildConfig"
 
     /**
-     * Customize `BuildConfig.NAME` value.
-     * Default is project name.
+     * Mandatory field `BuildConfig.NAME` value.
+     * If left empty or unmodified, project name will be assigned as value.
      */
     @Input var appName: String = ""
 
     /**
-     * Customize `BuildConfig.GROUP` value.
-     * Default is project group.
+     * Mandatory field `BuildConfig.GROUP` value.
+     * If left empty or unmodified, project group will be assigned as value.
      */
     @Input var groupId: String = ""
 
     /**
-     * Customize `BuildConfig.VERSION` value.
-     * Default is project version.
+     * Mandatory field `BuildConfig.VERSION` value.
+     * If left empty or unmodified, project version will be assigned as value.
      */
     @Input var version: String = ""
 
     /**
-     * Customize `BuildConfig.DEBUG` value.
-     * Default is false.
+     * Mandatory field `BuildConfig.VERSION` value.
+     * Default value is `false`.
      */
     @Input var debug: Boolean = false
 
     /**
-     * Customize `BuildConfig.ARTIFACT` value.
-     * There is no default.
+     * Optional field `BuildConfig.NAME` value.
+     * If left empty or unmodified, field generation will be skipped.
      */
     @Input var artifactId: String = ""
 
     /**
-     * Customize `BuildConfig.DESC` value.
-     * There is no default.
+     * Optional field `BuildConfig.DESC` value.
+     * If left empty or unmodified, field generation will be skipped.
      */
     @Input var desc: String = ""
 
     /**
-     * Customize `BuildConfig.EMAIL` value.
-     * There is no default.
+     * Optional field `BuildConfig.EMAIL` value.
+     * If left empty or unmodified, field generation will be skipped.
      */
     @Input var email: String = ""
 
     /**
-     * Customize `BuildConfig.WEBSITE` value.
-     * There is no default.
+     * Optional field `BuildConfig.WEBSITE` value.
+     * If left empty or unmodified, field generation will be skipped.
      */
     @Input var website: String = ""
 
     /**
-     * Directory of which BuildConfig class will be generated to.
+     * Directory of which `BuildConfig` class will be generated to.
      * Default is `build/generated` relative to project directory.
      */
     @OutputDirectory lateinit var outputDir: File
 
-    /** Convenient method to modify output directory with file path. */
+    /** Convenient method to modify output directory relative to project directory. */
     var outputDirectory: String
         @Input get() = outputDir.absolutePath
         set(value) {
             outputDir = project.projectDir.resolve(value)
         }
 
-    private val buildConfigFields: MutableSet<BuildConfigField<*>> = mutableSetOf()
+    private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
     init {
         // always consider this task out of date
@@ -104,6 +95,15 @@ open class BuildConfigTask : DefaultTask() {
     }
 
     @TaskAction fun generate() {
+        addField(BuildConfigField.NAME, appName)
+        addField(BuildConfigField.GROUP, groupId)
+        addField(BuildConfigField.VERSION, version)
+        addField(BuildConfigField.DEBUG, debug)
+        if (artifactId.isNotBlank()) addField(BuildConfigField.ARTIFACT, artifactId)
+        if (desc.isNotBlank()) addField(BuildConfigField.DESC, desc)
+        if (email.isNotBlank()) addField(BuildConfigField.EMAIL, email)
+        if (website.isNotBlank()) addField(BuildConfigField.WEBSITE, website)
+
         logger.info("Deleting old $className")
         val outputDir = outputDir
         outputDir.deleteRecursively()
@@ -116,26 +116,8 @@ open class BuildConfigTask : DefaultTask() {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
             addClass(className) {
                 addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                methods.addConstructor {
-                    addModifiers(Modifier.PRIVATE)
-                }
-                addField(NAME, appName)
-                addField(GROUP, groupId)
-                addField(VERSION, version)
-                addField(DEBUG, debug)
-                if (artifactId.isNotBlank()) {
-                    addField(ARTIFACT, artifactId)
-                }
-                if (desc.isNotBlank()) {
-                    addField(DESC, desc)
-                }
-                if (email.isNotBlank()) {
-                    addField(EMAIL, email)
-                }
-                if (website.isNotBlank()) {
-                    addField(WEBSITE, website)
-                }
-                buildConfigFields.forEach { (type, name, value) ->
+                methods.addConstructor { addModifiers(Modifier.PRIVATE) }
+                this@BuildConfigTask.fields.forEach { (type, name, value) ->
                     fields.add(type, name) {
                         addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                         initializer(
@@ -153,30 +135,28 @@ open class BuildConfigTask : DefaultTask() {
 
     /**
      * Add custom field specifying its type, name, and value.
-     * Convenient method for projects using Groovy.
      *
-     * @param type java class of value.
+     * @param type Java class of value.
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
     fun <T> addField(type: Class<T>, name: String, value: T) {
-        buildConfigFields += BuildConfigField(type, name, value)
+        fields += BuildConfigField(type, name, value)
     }
 
     /**
-     * Add custom field specifying its type, name, and value.
-     * Convenient method for projects using Groovy.
+     * Add custom field specifying its Kotlin type, name, and value.
      *
-     * @param type java class of value.
+     * @param type Kotlin class of value.
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */
     fun <T : Any> addField(type: KClass<T>, name: String, value: T) = addField(type.java, name, value)
 
     /**
-     * Add custom field by only specifying its name, and value.
-     * Convenient method for projects using Kotlin DSL Gradle scripts.
+     * Add custom field specifying its reified type, name, and value.
      *
+     * @param T reified class of value.
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
      */

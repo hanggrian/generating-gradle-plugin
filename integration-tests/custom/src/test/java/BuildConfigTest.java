@@ -12,5 +12,8 @@ public class BuildConfigTest {
         assertEquals(CustomBuildConfig.GROUP, "my.website");
         assertEquals(CustomBuildConfig.VERSION, "2.0");
         assertTrue(CustomBuildConfig.DEBUG);
+        assertEquals(CustomBuildConfig.A_STRING, "Hello world!");
+        assertEquals(CustomBuildConfig.A_DOUBLE, 12.0, 0.0);
+        assertEquals(CustomBuildConfig.AN_INT, 9);
     }
 }

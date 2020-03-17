@@ -119,8 +119,7 @@ open class BuildConfigTask : DefaultTask() {
                 addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 methods.addConstructor { addModifiers(Modifier.PRIVATE) }
                 this@BuildConfigTask.fields.forEach { (type, name, value) ->
-                    fields.add(type, name) {
-                        addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    fields.add(type, name, Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL) {
                         initializer(
                             when (type) {
                                 String::class.java -> "%S"

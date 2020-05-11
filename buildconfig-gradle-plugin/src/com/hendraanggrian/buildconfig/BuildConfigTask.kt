@@ -153,8 +153,10 @@ open class BuildConfigTask : DefaultTask() {
      * @param type Kotlin class of value.
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
+     * @return `true` if the field has been added, `false` if the field is already exist.
      */
-    fun <T : Any> addField(type: KClass<T>, name: String, value: T) = addField(type.java, name, value)
+    fun <T : Any> addField(type: KClass<T>, name: String, value: T): Unit =
+        addField(type.java, name, value)
 
     /**
      * Add custom field specifying its reified type, name, and value.
@@ -162,6 +164,8 @@ open class BuildConfigTask : DefaultTask() {
      * @param T reified class of value.
      * @param name field name, must be a valid java variable name.
      * @param value non-null field value.
+     * @return `true` if the field has been added, `false` if the field is already exist.
      */
-    inline fun <reified T : Any> addField(name: String, value: T): Unit = addField(T::class, name, value)
+    inline fun <reified T : Any> addField(name: String, value: T): Unit =
+        addField(T::class, name, value)
 }

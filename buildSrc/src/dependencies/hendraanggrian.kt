@@ -1,4 +1,4 @@
-const val VERSION_JAVAPOETKTX = "0.5"
+const val VERSION_JAVAPOETKTX = "0.6"
 
 fun Dependencies.hendraanggrian(module: String, version: String) = "com.hendraanggrian:$module:$version"
 

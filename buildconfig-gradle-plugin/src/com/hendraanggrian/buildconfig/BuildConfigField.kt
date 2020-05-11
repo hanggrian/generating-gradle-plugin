@@ -8,12 +8,12 @@ internal data class BuildConfigField<T>(val type: Class<T>, val name: String, va
 
     /** Non-custom field names. */
     companion object {
-        // Mandatory
+        // mandatory
         const val NAME = "NAME"
         const val GROUP = "GROUP"
         const val VERSION = "VERSION"
         const val DEBUG = "DEBUG"
-        // Optional
+        // optional
         const val ARTIFACT = "ARTIFACT"
         const val DESC = "DESC"
         const val EMAIL = "EMAIL"

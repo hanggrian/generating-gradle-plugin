@@ -1,15 +1,15 @@
 package com.hendraanggrian.buildconfig
 
 import com.hendraanggrian.javapoet.buildJavaFile
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
 import javax.lang.model.element.Modifier
 import kotlin.reflect.KClass
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
 
 /** A task that writes `BuildConfig` class based on configuration made within the task. */
 open class BuildConfigTask : DefaultTask() {
@@ -125,7 +125,8 @@ open class BuildConfigTask : DefaultTask() {
                                 String::class.java -> "%S"
                                 Char::class.java -> "'%L'"
                                 else -> "%L"
-                            }, value!!
+                            },
+                            value!!
                         )
                     }
                 }

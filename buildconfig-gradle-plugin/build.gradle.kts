@@ -41,7 +41,7 @@ tasks {
     register("deploy") {
         mustRunAfter("build")
         doLast {
-            val from = projectDir.resolve("build/libs").listFiles()!!.first()
+            val from = buildDir.resolve("libs").listFiles()!!.first()
             val to = rootDir.resolve("integration-tests/${from.name}")
             val toPath = to.toPath()
             if (to.exists()) {

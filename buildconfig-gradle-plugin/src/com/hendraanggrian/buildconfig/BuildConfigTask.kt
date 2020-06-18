@@ -3,6 +3,7 @@ package com.hendraanggrian.buildconfig
 import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -16,9 +17,9 @@ open class BuildConfigTask : DefaultTask() {
 
     /**
      * Package name of which `BuildConfig` class will be generated to, cannot be empty.
-     * If left empty or unmodified, project group will be assigned as value.
+     * If left null, project group will be assigned as value.
      */
-    @Input var packageName: String = ""
+    @Input var packageName: String? = null
 
     /**
      * Generated class name, cannot be empty.
@@ -28,21 +29,21 @@ open class BuildConfigTask : DefaultTask() {
 
     /**
      * Mandatory field `BuildConfig.NAME` value.
-     * If left empty or unmodified, project name will be assigned as value.
+     * If left null, project name will be assigned as value.
      */
-    @Input var appName: String = ""
+    @Input var appName: String? = null
 
     /**
      * Mandatory field `BuildConfig.GROUP` value.
-     * If left empty or unmodified, project group will be assigned as value.
+     * If left null, project group will be assigned as value.
      */
-    @Input var groupId: String = ""
+    @Input var groupId: String? = null
 
     /**
      * Mandatory field `BuildConfig.VERSION` value.
-     * If left empty or unmodified, project version will be assigned as value.
+     * If left null, project version will be assigned as value.
      */
-    @Input var version: String = ""
+    @Input var version: String? = null
 
     /**
      * Mandatory field `BuildConfig.VERSION` value.
@@ -52,27 +53,27 @@ open class BuildConfigTask : DefaultTask() {
 
     /**
      * Optional field `BuildConfig.NAME` value.
-     * If left empty or unmodified, field generation will be skipped.
+     * If left null, field generation will be skipped.
      */
-    @Input var artifactId: String = ""
+    @Optional @Input var artifactId: String? = null
 
     /**
      * Optional field `BuildConfig.DESC` value.
-     * If left empty or unmodified, field generation will be skipped.
+     * If left null, field generation will be skipped.
      */
-    @Input var desc: String = ""
+    @Optional @Input var desc: String? = null
 
     /**
      * Optional field `BuildConfig.EMAIL` value.
-     * If left empty or unmodified, field generation will be skipped.
+     * If left null, field generation will be skipped.
      */
-    @Input var email: String = ""
+    @Optional @Input var email: String? = null
 
     /**
      * Optional field `BuildConfig.WEBSITE` value.
-     * If left empty or unmodified, field generation will be skipped.
+     * If left null, field generation will be skipped.
      */
-    @Input var website: String = ""
+    @Optional @Input var website: String? = null
 
     /**
      * Directory of which `BuildConfig` class will be generated to.
@@ -90,30 +91,30 @@ open class BuildConfigTask : DefaultTask() {
     private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
     init {
-        // always consider this task out of date
-        outputs.upToDateWhen { false }
+        outputs.upToDateWhen { false } // always consider this task out of date
     }
 
     @TaskAction fun generate() {
-        logger.info("Checking requirements")
-        require(packageName.isNotBlank()) { "Package name cannot be empty" }
+        logger.info("Generating BuildConfig:")
+
+        require(packageName!!.isNotBlank()) { "Package name cannot be empty" }
         require(className.isNotBlank()) { "Class name cannot be empty" }
 
-        logger.info("Deleting old $className")
-        val outputDir = outputDir
-        outputDir.deleteRecursively()
+        if (outputDir.exists()) {
+            logger.info("  Existing source deleted")
+            outputDir.deleteRecursively()
+        }
         outputDir.mkdirs()
 
-        logger.info("Preparing new $className")
-        addField(BuildConfigField.NAME, appName)
-        addField(BuildConfigField.GROUP, groupId)
-        addField(BuildConfigField.VERSION, version)
+        addField(BuildConfigField.NAME, appName!!)
+        addField(BuildConfigField.GROUP, groupId!!)
+        addField(BuildConfigField.VERSION, version!!)
         addField(BuildConfigField.DEBUG, debug)
-        if (artifactId.isNotBlank()) addField(BuildConfigField.ARTIFACT, artifactId)
-        if (desc.isNotBlank()) addField(BuildConfigField.DESC, desc)
-        if (email.isNotBlank()) addField(BuildConfigField.EMAIL, email)
-        if (website.isNotBlank()) addField(BuildConfigField.WEBSITE, website)
-        val javaFile = buildJavaFile(packageName) {
+        if (artifactId != null) addField(BuildConfigField.ARTIFACT, artifactId!!)
+        if (desc != null) addField(BuildConfigField.DESC, desc!!)
+        if (email != null) addField(BuildConfigField.EMAIL, email!!)
+        if (website != null) addField(BuildConfigField.WEBSITE, website!!)
+        val javaFile = buildJavaFile(packageName!!) {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
             addClass(className) {
                 addModifiers(Modifier.PUBLIC, Modifier.FINAL)
@@ -133,8 +134,8 @@ open class BuildConfigTask : DefaultTask() {
             }
         }
 
-        logger.info("Writing new $className")
         javaFile.writeTo(outputDir)
+        logger.info("  Source generated")
     }
 
     /**
@@ -146,6 +147,7 @@ open class BuildConfigTask : DefaultTask() {
      */
     fun <T> addField(type: Class<T>, name: String, value: T) {
         fields += BuildConfigField(type, name, value)
+        logger.debug("$name = $value")
     }
 
     /**
@@ -168,5 +170,5 @@ open class BuildConfigTask : DefaultTask() {
      * @return `true` if the field has been added, `false` if the field is already exist.
      */
     inline fun <reified T : Any> addField(name: String, value: T): Unit =
-        addField(T::class, name, value)
+        addField(T::class.java, name, value)
 }

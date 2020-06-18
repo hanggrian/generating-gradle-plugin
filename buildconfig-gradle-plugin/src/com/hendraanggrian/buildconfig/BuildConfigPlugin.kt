@@ -31,10 +31,10 @@ class BuildConfigPlugin : Plugin<Project> {
         // project properties will return correct values after evaluated
         project.afterEvaluate {
             generateBuildConfig {
-                if (packageName.isEmpty()) packageName = project.group.toString()
-                if (appName.isEmpty()) appName = project.name
-                if (groupId.isEmpty()) groupId = project.group.toString()
-                if (version.isEmpty()) version = project.version.toString()
+                if (packageName == null) packageName = project.group.toString()
+                if (appName == null) appName = project.name
+                if (groupId == null) groupId = project.group.toString()
+                if (version == null) version = project.version.toString()
             }
         }
 

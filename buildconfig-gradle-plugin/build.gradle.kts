@@ -2,7 +2,7 @@ group = RELEASE_GROUP
 version = RELEASE_VERSION
 
 plugins {
-    //`java-gradle-plugin`
+    `java-gradle-plugin`
     `kotlin-dsl`
     dokka
     `maven-publish`
@@ -18,14 +18,14 @@ sourceSets {
     }
 }
 
-/*gradlePlugin {
-    (plugins) {
+gradlePlugin {
+    plugins {
         register(RELEASE_ARTIFACT) {
-            id = "$RELEASE_GROUP.packr"
-            implementationClass = "$id.PackrPlugin"
+            id = "$RELEASE_GROUP.buildconfig"
+            implementationClass = "$id.BuildConfigPlugin"
         }
     }
-}*/
+}
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
@@ -39,7 +39,7 @@ tasks {
     val deploy by registering {
         dependsOn("build")
         projectDir.resolve("build/libs").listFiles()?.forEach {
-            it.renameTo(File(rootDir.resolve("example"), it.name))
+            it.renameTo(File(rootDir.resolve("integration-tests"), it.name))
         }
     }
     dokkaJavadoc {

@@ -15,9 +15,9 @@ internal data class BuildConfigField<T>(val type: Class<T>, val name: String, va
         const val DEBUG = "DEBUG"
         // optional
         const val ARTIFACT = "ARTIFACT"
-        const val DESC = "DESC"
+        const val DESC = "DESC" // Description is reserved by `DefaultTask`
         const val EMAIL = "EMAIL"
-        const val WEBSITE = "WEBSITE"
+        const val URL = "URL"
     }
 
     init {

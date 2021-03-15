@@ -1,11 +1,16 @@
+@file:Suppress("UnstableApiUsage")
+
 package io.github.hendraanggrian.buildconfig
 
 import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.DefaultTask
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.kotlin.dsl.property
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
@@ -19,74 +24,89 @@ open class BuildConfigTask : DefaultTask() {
      * Package name of which `BuildConfig` class will be generated to, cannot be empty.
      * If left null, project group will be assigned as value.
      */
-    @Input var packageName: String? = null
+    @Input
+    val packageName: Property<String> = project.objects.property<String>()
+        .convention(project.group.toString())
 
     /**
      * Generated class name, cannot be empty.
      * Default value is `BuildConfig`.
      */
-    @Input var className: String = "BuildConfig"
+    @Input
+    val className: Property<String> = project.objects.property<String>()
+        .convention("BuildConfig")
 
     /**
      * Mandatory field `BuildConfig.NAME` value.
      * If left null, project name will be assigned as value.
      */
-    @Input var appName: String? = null
+    @Input
+    val appName: Property<String> = project.objects.property<String>()
+        .convention(project.name)
 
     /**
      * Mandatory field `BuildConfig.GROUP` value.
      * If left null, project group will be assigned as value.
      */
-    @Input var groupId: String? = null
+    @Input
+    val groupId: Property<String> = project.objects.property<String>()
+        .convention(project.group.toString())
 
     /**
      * Mandatory field `BuildConfig.VERSION` value.
      * If left null, project version will be assigned as value.
      */
-    @Input var version: String? = null
+    @Input
+    val version: Property<String> = project.objects.property<String>()
+        .convention(project.version.toString())
 
     /**
      * Mandatory field `BuildConfig.VERSION` value.
      * Default value is `false`.
      */
-    @Input var debug: Boolean = false
+    @Input
+    val debug: Property<Boolean> = project.objects.property<Boolean>()
+        .convention(false)
 
     /**
      * Optional field `BuildConfig.NAME` value.
      * If left null, field generation will be skipped.
      */
-    @Optional @Input var artifactId: String? = null
+    @Optional
+    @Input
+    val artifactId: Property<String> = project.objects.property()
 
     /**
      * Optional field `BuildConfig.DESC` value.
      * If left null, field generation will be skipped.
      */
-    @Optional @Input var desc: String? = null
+    @Optional
+    @Input
+    val desc: Property<String> = project.objects.property()
 
     /**
      * Optional field `BuildConfig.EMAIL` value.
      * If left null, field generation will be skipped.
      */
-    @Optional @Input var email: String? = null
+    @Optional
+    @Input
+    val email: Property<String> = project.objects.property()
 
     /**
-     * Optional field `BuildConfig.WEBSITE` value.
+     * Optional field `BuildConfig.URL` value.
      * If left null, field generation will be skipped.
      */
-    @Optional @Input var website: String? = null
+    @Optional
+    @Input
+    val url: Property<String> = project.objects.property()
 
     /**
      * Directory of which `BuildConfig` class will be generated to.
-     * Default is `build/generated` relative to project directory.
+     * Default is `build/generated/buildconfig` relative to project directory.
      */
-    @OutputDirectory lateinit var outputDir: File
-
-    /** Convenient method to modify output directory relative to project directory. */
-    var outputDirectory: String
-        @Input get() = outputDir.absolutePath
-        set(value) {
-            outputDir = project.projectDir.resolve(value)
-        }
+    @OutputDirectory
+    val outputDirectory: Property<File> = project.objects.property<File>()
+        .convention(project.buildDir.resolve("generated/buildconfig"))
 
     private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
@@ -94,29 +114,38 @@ open class BuildConfigTask : DefaultTask() {
         outputs.upToDateWhen { false } // always consider this task out of date
     }
 
-    @TaskAction fun generate() {
+    @TaskAction
+    fun generate() {
         logger.info("Generating BuildConfig:")
 
-        require(packageName!!.isNotBlank()) { "Package name cannot be empty" }
-        require(className.isNotBlank()) { "Class name cannot be empty" }
+        require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
+        require(className.get().isNotBlank()) { "Class name cannot be empty" }
 
-        if (outputDir.exists()) {
+        if (outputDirectory.get().exists()) {
             logger.info("  Existing source deleted")
-            outputDir.deleteRecursively()
+            outputDirectory.get().deleteRecursively()
         }
-        outputDir.mkdirs()
+        outputDirectory.get().mkdirs()
 
-        addField(BuildConfigField.NAME, appName!!)
-        addField(BuildConfigField.GROUP, groupId!!)
-        addField(BuildConfigField.VERSION, version!!)
-        addField(BuildConfigField.DEBUG, debug)
-        if (artifactId != null) addField(BuildConfigField.ARTIFACT, artifactId!!)
-        if (desc != null) addField(BuildConfigField.DESC, desc!!)
-        if (email != null) addField(BuildConfigField.EMAIL, email!!)
-        if (website != null) addField(BuildConfigField.WEBSITE, website!!)
-        val javaFile = buildJavaFile(packageName!!) {
+        addField(BuildConfigField.NAME, appName.get())
+        addField(BuildConfigField.GROUP, groupId.get())
+        addField(BuildConfigField.VERSION, version.get())
+        addField(BuildConfigField.DEBUG, debug.get())
+        if (artifactId.isPresent) {
+            addField(BuildConfigField.ARTIFACT, artifactId.get())
+        }
+        if (desc.isPresent) {
+            addField(BuildConfigField.DESC, desc.get())
+        }
+        if (email.isPresent) {
+            addField(BuildConfigField.EMAIL, email.get())
+        }
+        if (url.isPresent) {
+            addField(BuildConfigField.URL, url.get())
+        }
+        val javaFile = buildJavaFile(packageName.get()) {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
-            addClass(className) {
+            addClass(className.get()) {
                 addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 methods.addConstructor { addModifiers(Modifier.PRIVATE) }
                 this@BuildConfigTask.fields.forEach { (type, name, value) ->
@@ -134,9 +163,15 @@ open class BuildConfigTask : DefaultTask() {
             }
         }
 
-        javaFile.writeTo(outputDir)
+        javaFile.writeTo(outputSrcDir)
         logger.info("  Source generated")
     }
+
+    internal val outputSrcDir: File
+        @Internal get() = outputDirectory.get().resolve("src/main")
+
+    internal val outputClassesDir: File
+        @Internal get() = outputDirectory.get().resolve("classes/main")
 
     /**
      * Add custom field specifying its type, name, and value.

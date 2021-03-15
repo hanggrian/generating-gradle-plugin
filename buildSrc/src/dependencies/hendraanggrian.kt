@@ -1,8 +1,15 @@
-const val VERSION_JAVAPOETKTX = "0.6"
+const val VERSION_JAVAPOETKTX = "0.1-SNAPSHOT"
 
-fun Dependencies.hendraanggrian(module: String, version: String) = "com.hendraanggrian:$module:$version"
+fun org.gradle.api.artifacts.dsl.DependencyHandler.hendraanggrian(
+    module: String,
+    version: String
+) = "io.github.hendraanggrian:$module:$version"
 
-fun Dependencies.hendraanggrian(repo: String, module: String, version: String) =
-    "com.hendraanggrian.$repo:$module:$version"
+fun org.gradle.api.artifacts.dsl.DependencyHandler.hendraanggrian(
+    repo: String,
+    module: String,
+    version: String
+) = "io.github.hendraanggrian.$repo:$module:$version"
 
-fun Plugins.hendraanggrian(module: String) = id("com.hendraanggrian.$module")
+fun org.gradle.plugin.use.PluginDependenciesSpec.hendraanggrian(module: String) =
+    id("io.github.hendraanggrian.$module")

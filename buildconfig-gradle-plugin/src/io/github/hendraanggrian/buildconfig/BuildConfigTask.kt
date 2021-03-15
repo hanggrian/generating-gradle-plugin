@@ -1,4 +1,4 @@
-package com.hendraanggrian.buildconfig
+package io.github.hendraanggrian.buildconfig
 
 import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.DefaultTask

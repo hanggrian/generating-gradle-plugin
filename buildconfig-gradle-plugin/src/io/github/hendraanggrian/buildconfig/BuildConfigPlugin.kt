@@ -1,4 +1,4 @@
-package com.hendraanggrian.buildconfig
+package io.github.hendraanggrian.buildconfig
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

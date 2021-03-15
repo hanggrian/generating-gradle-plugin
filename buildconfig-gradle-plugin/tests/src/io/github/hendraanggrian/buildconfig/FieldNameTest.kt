@@ -1,4 +1,4 @@
-package com.hendraanggrian.buildconfig
+package io.github.hendraanggrian.buildconfig
 
 import javax.lang.model.SourceVersion
 import kotlin.test.Test

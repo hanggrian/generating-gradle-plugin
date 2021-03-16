@@ -20,5 +20,5 @@ apply plugin: 'idea'
 apply plugin: 'io.github.hendraanggrian.buildconfig'
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
 }

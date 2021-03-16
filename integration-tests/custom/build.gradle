@@ -20,15 +20,17 @@ apply plugin: 'idea'
 apply plugin: 'io.github.hendraanggrian.buildconfig'
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
 }
 
 tasks.getByName('generateBuildConfig') {
     packageName.set('my.website')
     className.set('CustomBuildConfig')
+    // outputDirectory.set(new File(buildDir, 'generated/mybuildconfig'))
 
     appName.set('Hello world!')
     groupId.set('my.website')
+    artifactId.set("my-app")
     version.set('2.0')
     debug.set(true)
 

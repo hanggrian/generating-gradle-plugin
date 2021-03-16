@@ -8,7 +8,6 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.property
 import java.io.File
@@ -100,15 +99,8 @@ open class BuildConfigTask : DefaultTask() {
     @Input
     val url: Property<String> = project.objects.property()
 
-    /**
-     * Directory of which `BuildConfig` class will be generated to.
-     * Default is `build/generated/buildconfig` relative to project directory.
-     */
-    @OutputDirectory
-    val outputDirectory: Property<File> = project.objects.property<File>()
-        .convention(project.buildDir.resolve("generated/buildconfig"))
-
     private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
+    private val outputDir: File = project.buildDir.resolve("generated/buildconfig")
 
     init {
         outputs.upToDateWhen { false } // always consider this task out of date
@@ -121,11 +113,11 @@ open class BuildConfigTask : DefaultTask() {
         require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
         require(className.get().isNotBlank()) { "Class name cannot be empty" }
 
-        if (outputDirectory.get().exists()) {
+        if (outputDir.exists()) {
             logger.info("  Existing source deleted")
-            outputDirectory.get().deleteRecursively()
+            outputDir.deleteRecursively()
         }
-        outputDirectory.get().mkdirs()
+        outputDir.mkdirs()
 
         addField(BuildConfigField.NAME, appName.get())
         addField(BuildConfigField.GROUP, groupId.get())
@@ -167,11 +159,8 @@ open class BuildConfigTask : DefaultTask() {
         logger.info("  Source generated")
     }
 
-    internal val outputSrcDir: File
-        @Internal get() = outputDirectory.get().resolve("src/main")
-
-    internal val outputClassesDir: File
-        @Internal get() = outputDirectory.get().resolve("classes/main")
+    internal val outputSrcDir: File @Internal get() = outputDir.resolve("src/main")
+    internal val outputClassesDir: File @Internal get() = outputDir.resolve("classes/main")
 
     /**
      * Add custom field specifying its type, name, and value.

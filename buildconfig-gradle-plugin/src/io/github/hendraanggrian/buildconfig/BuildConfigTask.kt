@@ -49,7 +49,7 @@ open class BuildConfigTask : DefaultTask() {
      */
     @Input
     val groupId: Property<String> = project.objects.property<String>()
-        .convention(project.group.toString())
+        .convention(packageName)
 
     /**
      * Mandatory field `BuildConfig.VERSION` value.
@@ -100,7 +100,7 @@ open class BuildConfigTask : DefaultTask() {
     val url: Property<String> = project.objects.property()
 
     private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
-    private val outputDir: File = project.buildDir.resolve("generated/buildconfig")
+    private val outputDir: File = project.buildDir.resolve("generated${File.separator}buildconfig")
 
     init {
         outputs.upToDateWhen { false } // always consider this task out of date

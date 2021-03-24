@@ -13,8 +13,10 @@ sourceSets {
     getByName("main") {
         java.srcDir("src")
     }
-    getByName("test") {
-        java.srcDir("tests/src")
+    create("functionalTest") {
+        java.srcDir("functional-tests/src")
+        compileClasspath += sourceSets.main.get().output + configurations.testRuntimeClasspath
+        runtimeClasspath += output + compileClasspath
     }
 }
 
@@ -25,12 +27,14 @@ gradlePlugin {
             implementationClass = "$id.BuildConfigPlugin"
         }
     }
+    testSourceSets(sourceSets["functionalTest"])
 }
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
     implementation(hendraanggrian("javapoet-ktx", VERSION_JAVAPOETKTX))
-    testImplementation(kotlin("test-junit", VERSION_KOTLIN))
+    "functionalTestImplementation"(gradleTestKit())
+    "functionalTestImplementation"(kotlin("test-junit", VERSION_KOTLIN))
 }
 
 ktlint()
@@ -39,9 +43,19 @@ tasks {
     val deploy by registering {
         dependsOn("build")
         projectDir.resolve("build/libs").listFiles()?.forEach {
-            it.renameTo(File(rootDir.resolve("integration-tests"), it.name))
+            it.renameTo(File(rootDir.resolve("example"), it.name))
         }
     }
+
+    val functionalTest by registering(Test::class) {
+        description = "Runs the functional tests."
+        group = LifecycleBasePlugin.VERIFICATION_GROUP
+        testClassesDirs = sourceSets["functionalTest"].output.classesDirs
+        classpath = sourceSets["functionalTest"].runtimeClasspath
+        mustRunAfter(test)
+    }
+    check { dependsOn(functionalTest) }
+
     dokkaJavadoc {
         dokkaSourceSets {
             "main" {

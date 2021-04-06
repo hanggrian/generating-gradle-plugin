@@ -2,7 +2,7 @@
 
 package io.github.hendraanggrian.buildconfig
 
-import com.hendraanggrian.javapoet.buildJavaFile
+import io.github.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input

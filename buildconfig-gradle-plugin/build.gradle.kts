@@ -5,15 +5,14 @@ plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
     dokka
-    `maven-publish`
-    signing
+    `gradle-publish`
 }
 
 sourceSets {
-    getByName("main") {
+    main {
         java.srcDir("src")
     }
-    create("functionalTest") {
+    register("functionalTest") {
         java.srcDir("functional-tests/src")
         compileClasspath += sourceSets.main.get().output + configurations.testRuntimeClasspath
         runtimeClasspath += output + compileClasspath
@@ -21,12 +20,6 @@ sourceSets {
 }
 
 gradlePlugin {
-    plugins {
-        register(RELEASE_ARTIFACT) {
-            id = "$RELEASE_GROUP.buildconfig"
-            implementationClass = "$id.BuildConfigPlugin"
-        }
-    }
     testSourceSets(sourceSets["functionalTest"])
 }
 
@@ -55,27 +48,9 @@ tasks {
         mustRunAfter(test)
     }
     check { dependsOn(functionalTest) }
-
-    dokkaJavadoc {
-        dokkaSourceSets {
-            "main" {
-                sourceLink {
-                    localDirectory.set(projectDir.resolve("src"))
-                    remoteUrl.set(getReleaseSourceUrl())
-                    remoteLineSuffix.set("#L")
-                }
-            }
-        }
-    }
-    val dokkaJar by registering(Jar::class) {
-        archiveClassifier.set("javadoc")
-        from(dokkaJavadoc)
-        dependsOn(dokkaJavadoc)
-    }
-    val sourcesJar by registering(Jar::class) {
-        archiveClassifier.set("sources")
-        from(sourceSets.main.get().allSource)
-    }
 }
 
-publishJvm()
+publishPlugin(
+    "BuildConfig Gradle Plugin",
+    "$RELEASE_GROUP.$RELEASE_ARTIFACT.BuildConfigPlugin"
+)

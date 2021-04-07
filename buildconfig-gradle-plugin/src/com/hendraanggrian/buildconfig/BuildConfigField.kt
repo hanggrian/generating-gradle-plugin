@@ -1,4 +1,4 @@
-package io.github.hendraanggrian.buildconfig
+package com.hendraanggrian.buildconfig
 
 import java.io.Serializable
 import javax.lang.model.SourceVersion

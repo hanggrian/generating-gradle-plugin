@@ -1,4 +1,4 @@
-package io.github.hendraanggrian.buildconfig
+package com.hendraanggrian.buildconfig
 
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
@@ -44,9 +44,9 @@ class BuildConfigTaskTest {
             plugins {
                 java
                 idea
-                id("io.github.hendraanggrian.buildconfig")
+                id("com.hendraanggrian.buildconfig")
             }
-            tasks.getByName<io.github.hendraanggrian.buildconfig.BuildConfigTask>("generateBuildConfig") {
+            tasks.getByName<com.hendraanggrian.buildconfig.BuildConfigTask>("generateBuildConfig") {
                 packageName.set("com.example")
                 version.set("1.0")
             }
@@ -76,9 +76,9 @@ class BuildConfigTaskTest {
             plugins {
                 java
                 idea
-                id("io.github.hendraanggrian.buildconfig")
+                id("com.hendraanggrian.buildconfig")
             }
-            tasks.getByName<io.github.hendraanggrian.buildconfig.BuildConfigTask>("generateBuildConfig") {
+            tasks.getByName<com.hendraanggrian.buildconfig.BuildConfigTask>("generateBuildConfig") {
                 packageName.set("mypackage")
                 className.set("Build")
                 appName.set("My App")

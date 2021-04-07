@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath files('../buildconfig-gradle-plugin-0.1-SNAPSHOT.jar')
-        classpath 'io.github.hendraanggrian:javapoet-ktx:0.1-SNAPSHOT'
+        classpath 'com.hendraanggrian:javapoet-ktx:0.1-SNAPSHOT'
         classpath 'org.jetbrains.kotlin:kotlin-stdlib:1.4.30'
     }
 }
@@ -17,7 +17,7 @@ version '1.0'
 
 apply plugin: 'java-library'
 apply plugin: 'idea'
-apply plugin: 'io.github.hendraanggrian.buildconfig'
+apply plugin: 'com.hendraanggrian.buildconfig'
 
 dependencies {
     testImplementation 'junit:junit:4.13.1'

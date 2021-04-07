@@ -1,6 +1,6 @@
 include("buildconfig-gradle-plugin")
 include("website")
-includeDir("example")
+//includeDir("example")
 
 fun includeDir(dir: String) = file(dir)
     .listFiles()!!

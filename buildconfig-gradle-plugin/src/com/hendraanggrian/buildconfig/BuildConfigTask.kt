@@ -1,8 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
-package io.github.hendraanggrian.buildconfig
+package com.hendraanggrian.buildconfig
 
-import io.github.hendraanggrian.javapoet.buildJavaFile
+import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input

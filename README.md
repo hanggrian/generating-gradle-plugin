@@ -30,7 +30,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.github.hendraanggrian:buildconfig-gradle-plugin:$version"
+        classpath "com.hendraanggrian:buildconfig-gradle-plugin:$version"
     }
 }
 ```

@@ -1,4 +1,4 @@
-include("buildconfig-gradle-plugin")
+include("buildconfig")
 include("website")
 //includeDir("example")
 

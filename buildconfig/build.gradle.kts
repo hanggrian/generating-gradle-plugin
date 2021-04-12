@@ -20,6 +20,14 @@ sourceSets {
 }
 
 gradlePlugin {
+    plugins {
+        register(RELEASE_ARTIFACT) {
+            id = "$RELEASE_GROUP.$RELEASE_ARTIFACT"
+            implementationClass = "$id.BuildConfigPlugin"
+            displayName = "BuildConfig Gradle Plugin"
+            description = RELEASE_DESCRIPTION
+        }
+    }
     testSourceSets(sourceSets["functionalTest"])
 }
 
@@ -33,7 +41,7 @@ dependencies {
 ktlint()
 
 tasks {
-    val deploy by registering {
+    register("deploy") {
         dependsOn("build")
         projectDir.resolve("build/libs").listFiles()?.forEach {
             it.renameTo(File(rootDir.resolve("example"), it.name))
@@ -50,7 +58,4 @@ tasks {
     check { dependsOn(functionalTest) }
 }
 
-publishPlugin(
-    "BuildConfig Gradle Plugin",
-    "$RELEASE_GROUP.$RELEASE_ARTIFACT.BuildConfigPlugin"
-)
+publishPlugin()

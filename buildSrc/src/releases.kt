@@ -1,5 +1,5 @@
 const val RELEASE_GROUP = "com.hendraanggrian"
-const val RELEASE_ARTIFACT = "buildconfig"
+const val RELEASE_ARTIFACT = "buildconfig-gradle-plugin"
 const val RELEASE_VERSION = "0.1-SNAPSHOT"
 const val RELEASE_DESCRIPTION = "BuildConfig gradle plugin for Java projects"
 const val RELEASE_GITHUB = "https://github.com/hendraanggrian/$RELEASE_ARTIFACT"

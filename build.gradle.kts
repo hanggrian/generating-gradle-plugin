@@ -1,23 +1,19 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven(REPOSITORIES_GIT_PUBLISH)
-        maven(REPOSITORIES_GRADLE_PORTAL)
+        gradlePluginPortal()
     }
     dependencies {
         classpath(kotlin("gradle-plugin", VERSION_KOTLIN))
-        classpath(dokka())
-        classpath(gitPublish())
-        classpath(gradlePublish())
+        classpath(dokka)
+        classpath(`git-publish`)
+        classpath(`gradle-publish`)
     }
 }
 
 allprojects {
     repositories {
         mavenCentral()
-        maven(REPOSITORIES_OSSRH_SNAPSHOTS)
-    }
-    tasks.withType<Delete> {
-        delete(projectDir.resolve("out"))
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     }
 }

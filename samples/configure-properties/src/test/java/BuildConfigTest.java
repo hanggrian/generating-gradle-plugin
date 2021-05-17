@@ -8,7 +8,7 @@ public class BuildConfigTest {
 
     @Test
     public void main() {
-        assertEquals(BuildConfig.NAME, "library");
+        assertEquals(BuildConfig.NAME, "configure-properties");
         assertEquals(BuildConfig.GROUP, "com.example");
         assertEquals(BuildConfig.VERSION, "1.0");
         assertFalse(BuildConfig.DEBUG);

@@ -5,10 +5,10 @@ import com.hendraanggrian.generating.adapters.CssAdapter
 import com.hendraanggrian.generating.adapters.JsonAdapter
 import com.hendraanggrian.generating.adapters.PathAdapter
 import com.hendraanggrian.generating.adapters.PropertiesAdapter
+import com.hendraanggrian.generating.internal.AbstractGenerateTask
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.Action
-import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
@@ -26,15 +26,7 @@ import java.time.format.DateTimeFormatter.ofPattern
 import javax.lang.model.element.Modifier
 
 /** A task that writes `R` class. */
-open class RTask : DefaultTask() {
-
-    /**
-     * Package name of which `R` class will be generated to, cannot be empty.
-     * If left null, project group will be assigned as value.
-     */
-    @Input
-    val packageName: Property<String> = project.objects.property<String>()
-        .convention(project.group.toString())
+open class GenerateRTask : AbstractGenerateTask() {
 
     /**
      * Generated class name, cannot be empty.
@@ -149,6 +141,10 @@ open class RTask : DefaultTask() {
     /** Generate R class given provided options. */
     @TaskAction
     fun generate() {
+        if (!enabled.get()) {
+            logger.info("R disabled")
+            return
+        }
         logger.info("Generating R:")
 
         val resourcesDir = resourcesDirectory.get().asFile

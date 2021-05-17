@@ -1,0 +1,6 @@
+.button {
+    -fx-accent: -accent;
+    -fx-focus-color: -accent;
+    -fx-default-button: -accent;
+    -fx-background-color: white;
+}

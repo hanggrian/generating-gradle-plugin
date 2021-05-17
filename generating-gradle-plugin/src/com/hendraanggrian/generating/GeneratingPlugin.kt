@@ -25,9 +25,9 @@ class GeneratingPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         project.pluginManager.apply("org.gradle.idea")
-        hasJavaPlugin = project.pluginManager.hasPlugin("java")
+        hasJavaPlugin = project.pluginManager.hasPlugin("java") || project.pluginManager.hasPlugin("java-library")
 
-        val generateBuildConfig by project.tasks.registering(BuildConfigTask::class) {
+        val generateBuildConfig by project.tasks.registering(GenerateBuildConfigTask::class) {
             group = GROUP_NAME
             description = "Generate Android-like BuildConfig class."
         }
@@ -40,7 +40,7 @@ class GeneratingPlugin : Plugin<Project> {
             source(generateBuildConfig.get().outputSrcDir)
         }
 
-        val generateR by project.tasks.registering(RTask::class) {
+        val generateR by project.tasks.registering(GenerateRTask::class) {
             group = GROUP_NAME
             description = "Generate Android-like R class."
         }

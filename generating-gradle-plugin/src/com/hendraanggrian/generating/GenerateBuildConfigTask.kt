@@ -1,7 +1,7 @@
 package com.hendraanggrian.generating
 
+import com.hendraanggrian.generating.internal.AbstractGenerateTask
 import com.hendraanggrian.javapoet.buildJavaFile
-import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
@@ -15,15 +15,7 @@ import javax.lang.model.element.Modifier
 import kotlin.reflect.KClass
 
 /** A task that writes `BuildConfig` class based on configuration made within the task. */
-open class BuildConfigTask : DefaultTask() {
-
-    /**
-     * Package name of which `BuildConfig` class will be generated to, cannot be empty.
-     * If left null, project group will be assigned as value.
-     */
-    @Input
-    val packageName: Property<String> = project.objects.property<String>()
-        .convention(project.group.toString())
+open class GenerateBuildConfigTask : AbstractGenerateTask() {
 
     /**
      * Generated class name, cannot be empty.
@@ -106,6 +98,10 @@ open class BuildConfigTask : DefaultTask() {
 
     @TaskAction
     fun generate() {
+        if (!enabled.get()) {
+            logger.info("BuildConfig disabled")
+            return
+        }
         logger.info("Generating BuildConfig:")
 
         require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
@@ -138,7 +134,7 @@ open class BuildConfigTask : DefaultTask() {
             addClass(className.get()) {
                 addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 methods.addConstructor { addModifiers(Modifier.PRIVATE) }
-                this@BuildConfigTask.fields.forEach { (type, name, value) ->
+                this@GenerateBuildConfigTask.fields.forEach { (type, name, value) ->
                     fields.add(type, name, Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL) {
                         initializer(
                             when (type) {

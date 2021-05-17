@@ -21,4 +21,4 @@ fun Dependencies.hendraanggrian(repo: String, module: String, version: String) =
 
 fun Dependencies.jsonSimple() = "com.googlecode.json-simple:json-simple:1.1.1"
 
-fun Dependencies.phCss() = "com.helger:ph-css:6.2.2"
+fun Dependencies.phCss() = "com.helger:ph-css:6.2.3"

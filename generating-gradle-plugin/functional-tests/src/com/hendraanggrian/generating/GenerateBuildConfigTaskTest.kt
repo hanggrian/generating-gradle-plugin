@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @Ignore
-class BuildConfigTaskTest {
+class GenerateBuildConfigTaskTest {
 
     @Rule @JvmField val testProjectDir = TemporaryFolder()
     private lateinit var settingsFile: File

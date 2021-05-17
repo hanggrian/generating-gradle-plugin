@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets
  * @param isWriteElementTypeSelector determine whether adapter should write element type selector, default is false.
  * @param isWriteClassSelector determine whether adapter should write class selector, default is true.
  * @param isWriteIdSelector determine whether adapter should write ID selector, default is true.
- * @see RTask.configureCss
+ * @see GenerateRTask.configureCss
  */
 data class CssSettings(
     var charset: Charset = StandardCharsets.UTF_8,
@@ -51,7 +51,7 @@ data class CssSettings(
  * Settings for customizing the field generation of json file.
  * @param isRecursive determine whether adapter should also write inner json object, default is false.
  * @param isWriteArray extended property of [isRecursive] that will also write inner json array, default is true.
- * @see RTask.configureJson
+ * @see GenerateRTask.configureJson
  */
 data class JsonSettings(
     var isRecursive: Boolean = false,
@@ -72,7 +72,7 @@ data class JsonSettings(
 /**
  * Settings for customizing the field generation of properties file.
  * @param isWriteResourceBundle determine whether adapter should also write resource bundle, default is false.
- * @see RTask.configureProperties
+ * @see GenerateRTask.configureProperties
  */
 data class PropertiesSettings(
     var isWriteResourceBundle: Boolean = false

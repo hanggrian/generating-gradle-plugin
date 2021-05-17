@@ -6,9 +6,10 @@ buildscript {
         }
     }
     dependencies {
-        classpath files('../buildconfig-gradle-plugin-0.1-SNAPSHOT.jar')
+        classpath files('../generating-gradle-plugin-0.1-SNAPSHOT.jar')
         classpath 'com.hendraanggrian:javapoet-ktx:0.1-SNAPSHOT'
-        classpath 'org.jetbrains.kotlin:kotlin-stdlib:1.4.30'
+        classpath 'com.helger:ph-css:6.2.3'
+        classpath 'com.googlecode.json-simple:json-simple:1.1.1'
     }
 }
 
@@ -16,8 +17,7 @@ group 'com.example'
 version '1.0'
 
 apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'com.hendraanggrian.buildconfig'
+apply plugin: 'com.hendraanggrian.generating'
 
 dependencies {
     testImplementation 'junit:junit:4.13.1'
@@ -38,3 +38,5 @@ tasks.getByName('generateBuildConfig') {
     addField double.class, 'A_DOUBLE', 12.0
     addField int.class, 'AN_INT', 9
 }
+
+tasks.generateR.setEnabled(false)

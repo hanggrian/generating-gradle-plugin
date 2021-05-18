@@ -25,6 +25,6 @@ dependencies {
 
 tasks.generateR {
     configureProperties {
-        writeResourceBundle true
+        writeResourceBundle = true
     }
 }

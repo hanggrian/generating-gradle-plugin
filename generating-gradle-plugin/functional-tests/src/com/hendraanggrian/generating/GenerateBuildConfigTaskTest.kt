@@ -7,12 +7,10 @@ import org.junit.rules.TemporaryFolder
 import java.io.File
 import java.io.IOException
 import kotlin.test.BeforeTest
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-@Ignore
 class GenerateBuildConfigTaskTest {
 
     @Rule @JvmField val testProjectDir = TemporaryFolder()
@@ -45,20 +43,16 @@ class GenerateBuildConfigTaskTest {
             version = "1.0"
             plugins {
                 java
-                idea
-                id("com.hendraanggrian.buildconfig")
+                id("com.hendraanggrian.generating")
             }
-            tasks.getByName<com.hendraanggrian.buildconfig.BuildConfigTask>("generateBuildConfig") {
-                packageName.set("com.example")
-                version.set("1.0")
+            tasks.generateR {
+                setEnabled(false)
             }
             """.trimIndent()
         )
         runner.withArguments("compileBuildConfig").build().let {
             assertEquals(TaskOutcome.SUCCESS, it.task(":compileBuildConfig")!!.outcome)
-            val lines = testProjectDir.root.resolve("build")
-                .resolve("generated${File.separator}buildconfig${File.separator}src${File.separator}main")
-                .resolve("com${File.separator}example${File.separator}BuildConfig.java")
+            val lines = testProjectDir.root.resolve("build/generated/buildconfig/src/main/com/example/BuildConfig.java")
                 .readLines()
             assertTrue("package com.example;" in lines, "invalid package")
             assertTrue("public final class BuildConfig {" in lines, "invalid class")
@@ -77,10 +71,9 @@ class GenerateBuildConfigTaskTest {
             version = "1.0"
             plugins {
                 java
-                idea
-                id("com.hendraanggrian.buildconfig")
+                id("com.hendraanggrian.generating")
             }
-            tasks.getByName<com.hendraanggrian.buildconfig.BuildConfigTask>("generateBuildConfig") {
+            tasks.generateBuildConfig {
                 packageName.set("mypackage")
                 className.set("Build")
                 appName.set("My App")
@@ -91,13 +84,14 @@ class GenerateBuildConfigTaskTest {
                 email.set("me@mail.com")
                 url.set("https://my.website")
             }
+            tasks.generateR {
+                setEnabled(false)
+            }
             """.trimIndent()
         )
         runner.withArguments("compileBuildConfig").build().let {
             assertEquals(TaskOutcome.SUCCESS, it.task(":compileBuildConfig")!!.outcome)
-            val lines = testProjectDir.root.resolve("build")
-                .resolve("generated${File.separator}buildconfig${File.separator}src${File.separator}main")
-                .resolve("mypackage${File.separator}Build.java")
+            val lines = testProjectDir.root.resolve("build/generated/buildconfig/src/main/mypackage/Build.java")
                 .readLines()
             assertTrue("" in lines, "invalid class")
             assertTrue("package mypackage;" in lines, "invalid package")

@@ -1,10 +1,16 @@
 package com.hendraanggrian.generating.internal
 
+import com.hendraanggrian.generating.GenerateBuildConfigTask
+import com.hendraanggrian.generating.GenerateRTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.kotlin.dsl.property
 
+/**
+ * Base task for [GenerateBuildConfigTask] and [GenerateRTask].
+ * There is also `className` property which has different convention for each task.
+ */
 abstract class AbstractGenerateTask : DefaultTask() {
 
     /**
@@ -19,6 +25,5 @@ abstract class AbstractGenerateTask : DefaultTask() {
      * If left null, project group will be assigned as value.
      */
     @Input
-    val packageName: Property<String> = project.objects.property<String>()
-        .convention(project.group.toString())
+    val packageName: Property<String> = project.objects.property()
 }

@@ -72,9 +72,9 @@ open class GenerateRTask : AbstractGenerateTask() {
         this.exclusions.set(exclusions.map { project.projectDir.resolve(it) })
     }
 
-    private var cssSettings: CssSettings? = null
-    private var propertiesSettings: PropertiesSettings? = null
-    private var jsonSettings: JsonSettings? = null
+    private var css: RCssConfiguration? = null
+    private var properties: RPropertiesConfiguration? = null
+    private var json: RJsonConfiguration? = null
     private val outputDir: File = project.buildDir.resolve("generated${File.separator}r")
 
     init {
@@ -83,59 +83,59 @@ open class GenerateRTask : AbstractGenerateTask() {
 
     /** Enable CSS files support with default configuration. */
     fun configureCss() {
-        var settings = cssSettings
-        if (settings == null) {
-            settings = CssSettings()
-            cssSettings = settings
+        var configuration = css
+        if (configuration == null) {
+            configuration = DefaultRCssConfiguration()
+            css = configuration
         }
     }
 
     /** Enable CSS files support with customized [configuration]. */
-    fun configureCss(configuration: Action<CssSettings>) {
+    fun configureCss(configuration: Action<RCssConfiguration>) {
         configureCss()
-        configuration(cssSettings!!)
+        configuration(css!!)
     }
 
     /** Enable CSS files support with customized [configuration] in Kotlin DSL. */
-    inline fun css(noinline configuration: CssSettings.() -> Unit): Unit =
+    inline fun css(noinline configuration: RCssConfiguration.() -> Unit): Unit =
         configureCss(configuration)
 
     /** Enable properties files support with default configuration. */
     fun configureProperties() {
-        var settings = propertiesSettings
-        if (settings == null) {
-            settings = PropertiesSettings()
-            propertiesSettings = settings
+        var configuration = properties
+        if (configuration == null) {
+            configuration = DefaultRPropertiesConfiguration()
+            properties = configuration
         }
     }
 
     /** Enable properties files support with customized [configuration]. */
-    fun configureProperties(configuration: Action<PropertiesSettings>) {
+    fun configureProperties(configuration: Action<RPropertiesConfiguration>) {
         configureProperties()
-        configuration(propertiesSettings!!)
+        configuration(properties!!)
     }
 
     /** Enable properties files support with customized [configuration] in Kotlin DSL. */
-    inline fun properties(noinline configuration: PropertiesSettings.() -> Unit): Unit =
+    inline fun properties(noinline configuration: RPropertiesConfiguration.() -> Unit): Unit =
         configureProperties(configuration)
 
     /** Enable json files support with default configuration. */
     fun configureJson() {
-        var settings = jsonSettings
-        if (settings == null) {
-            settings = JsonSettings()
-            jsonSettings = settings
+        var configuration = json
+        if (configuration == null) {
+            configuration = DefaultRJsonConfiguration()
+            json = configuration
         }
     }
 
     /** Enable json files support with customized [configuration]. */
-    fun configureJson(configuration: Action<JsonSettings>) {
+    fun configureJson(configuration: Action<RJsonConfiguration>) {
         configureJson()
-        configuration(jsonSettings!!)
+        configuration(json!!)
     }
 
     /** Enable json files support with customized [configuration] in Kotlin DSL. */
-    inline fun json(noinline configuration: JsonSettings.() -> Unit): Unit =
+    inline fun json(noinline configuration: RJsonConfiguration.() -> Unit): Unit =
         configureJson(configuration)
 
     /** Generate R class given provided options. */
@@ -169,9 +169,9 @@ open class GenerateRTask : AbstractGenerateTask() {
                 methods.addConstructor { addModifiers(Modifier.PRIVATE) }
                 processDir(
                     listOfNotNull(
-                        cssSettings?.let { CssAdapter(it, shouldUppercaseField.get(), logger) },
-                        jsonSettings?.let { JsonAdapter(it, shouldUppercaseField.get(), logger) },
-                        propertiesSettings?.let {
+                        css?.let { CssAdapter(it, shouldUppercaseField.get(), logger) },
+                        json?.let { JsonAdapter(it, shouldUppercaseField.get(), logger) },
+                        properties?.let {
                             PropertiesAdapter(it, shouldLowercaseClass.get(), shouldUppercaseField.get(), logger)
                         }
                     ),

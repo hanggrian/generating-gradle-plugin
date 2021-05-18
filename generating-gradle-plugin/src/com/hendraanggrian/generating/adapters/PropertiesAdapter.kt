@@ -1,6 +1,6 @@
 package com.hendraanggrian.generating.adapters
 
-import com.hendraanggrian.generating.PropertiesSettings
+import com.hendraanggrian.generating.RPropertiesConfiguration
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import org.gradle.api.logging.Logger
 import java.io.File
@@ -12,7 +12,7 @@ import javax.lang.model.element.Modifier
  * The file path itself will be written with underscore prefix.
  */
 internal class PropertiesAdapter(
-    private val settings: PropertiesSettings,
+    private val configuration: RPropertiesConfiguration,
     private val isLowercaseClass: Boolean,
     isUppercaseField: Boolean,
     logger: Logger
@@ -22,7 +22,7 @@ internal class PropertiesAdapter(
         logger.debug("File '${file.name}' is recognized as properties.")
         if (file.extension == "properties") {
             when {
-                settings.isWriteResourceBundle && file.isResourceBundle() -> {
+                configuration.isWriteResourceBundle && file.isResourceBundle() -> {
                     var className = file.resourceBundleName
                     if (isLowercaseClass) {
                         className = className.toLowerCase()

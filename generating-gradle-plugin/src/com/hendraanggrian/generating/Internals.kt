@@ -1,5 +1,9 @@
 package com.hendraanggrian.generating
 
+import com.helger.css.ECSSVersion
+import java.io.Serializable
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import javax.lang.model.SourceVersion
 
 /** Check if string is a valid Java field name. */
@@ -34,4 +38,45 @@ internal fun String.toJavaNameOrNull(): String? {
         result.isJavaName() -> result
         else -> null
     }
+}
+
+/** Represents a single field within `BuildConfig` class. */
+internal data class BuildConfigField<T>(val type: Class<T>, val name: String, val value: T) : Serializable {
+    /** Non-custom field names. */
+    companion object {
+        // mandatory
+        const val NAME = "NAME"
+        const val GROUP = "GROUP"
+        const val VERSION = "VERSION"
+        const val DEBUG = "DEBUG"
+        // optional
+        const val ARTIFACT = "ARTIFACT"
+        const val DESC = "DESC" // Description is reserved by `DefaultTask`
+        const val EMAIL = "EMAIL"
+        const val URL = "URL"
+    }
+
+    init {
+        check(SourceVersion.isName(name)) { "$name is not a valid java variable name" }
+    }
+
+    override fun hashCode(): Int = name.hashCode()
+    override fun equals(other: Any?): Boolean = other != null && other is BuildConfigField<*> && other.name == name
+}
+
+internal class DefaultRCssConfiguration : RCssConfiguration {
+    override var charset: Charset = StandardCharsets.UTF_8
+    override var cssVersion: ECSSVersion = ECSSVersion.CSS30
+    override var isWriteElementTypeSelector: Boolean = false
+    override var isWriteClassSelector: Boolean = true
+    override var isWriteIdSelector: Boolean = true
+}
+
+internal class DefaultRJsonConfiguration : RJsonConfiguration {
+    override var isRecursive: Boolean = false
+    override var isWriteArray: Boolean = true
+}
+
+internal class DefaultRPropertiesConfiguration : RPropertiesConfiguration {
+    override var isWriteResourceBundle: Boolean = false
 }

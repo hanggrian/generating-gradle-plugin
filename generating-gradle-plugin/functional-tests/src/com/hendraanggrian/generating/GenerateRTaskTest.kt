@@ -13,7 +13,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-@Ignore
 class GenerateRTaskTest {
 
     @Rule @JvmField val testProjectDir = TemporaryFolder()
@@ -52,20 +51,16 @@ class GenerateRTaskTest {
             version = "1.0"
             plugins {
                 java
-                idea
-                id("com.hendraanggrian.respath")
+                id("com.hendraanggrian.generating")
             }
-            tasks.getByName<com.hendraanggrian.respath.ResPathTask>("generateR") {
+            tasks.generateR {
                 configureProperties()
-                packageName.set("com.example")
             }
             """.trimIndent()
         )
         runner.withArguments("compileR").build().let {
             assertEquals(TaskOutcome.SUCCESS, it.task(":compileR")!!.outcome)
-            val lines = testProjectDir.root.resolve("build")
-                .resolve("generated/r/src/main")
-                .resolve("com/example/R.java")
+            val lines = testProjectDir.root.resolve("build/generated/r/src/main/com/example/R.java")
                 .readLines()
             assertTrue("package com.example;" in lines, "invalid package")
             assertTrue("public final class R {" in lines, "invalid class")
@@ -82,10 +77,9 @@ class GenerateRTaskTest {
             version = "1.0"
             plugins {
                 java
-                idea
-                id("com.hendraanggrian.respath")
+                id("com.hendraanggrian.generating")
             }
-            tasks.getByName<com.hendraanggrian.respath.ResPathTask>("generateR") {
+            tasks.generateR {
                 configureProperties()
                 packageName.set("mypackage")
                 className.set("R2")
@@ -96,9 +90,7 @@ class GenerateRTaskTest {
         )
         runner.withArguments("compileR").build().let {
             assertEquals(TaskOutcome.SUCCESS, it.task(":compileR")!!.outcome)
-            val lines = testProjectDir.root.resolve("build")
-                .resolve("generated/r/src/main")
-                .resolve("mypackage/R2.java")
+            val lines = testProjectDir.root.resolve("build/generated/r/src/main/mypackage/R2.java")
                 .readLines()
             assertTrue("package mypackage;" in lines, "invalid package")
             assertTrue("public final class r2 {" in lines, "invalid class")

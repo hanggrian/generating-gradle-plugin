@@ -21,11 +21,11 @@ class GeneratingPlugin : Plugin<Project> {
         const val GROUP_NAME = PLUGIN_NAME
     }
 
-    private var hasJavaPlugin: Boolean = false
-
     override fun apply(project: Project) {
+        require(project.pluginManager.hasPlugin("java") || project.pluginManager.hasPlugin("java-library")) {
+            "Generating Plugin requires `java` or `java-library`."
+        }
         project.pluginManager.apply("org.gradle.idea")
-        hasJavaPlugin = project.pluginManager.hasPlugin("java") || project.pluginManager.hasPlugin("java-library")
 
         val generateBuildConfig by project.tasks.registering(GenerateBuildConfigTask::class) {
             group = GROUP_NAME
@@ -54,9 +54,16 @@ class GeneratingPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
-            if (hasJavaPlugin) {
+            generateBuildConfig {
+                packageName.convention(project.group.toString())
+                appName.convention(project.name)
+                groupId.convention(project.group.toString())
+                version.convention(project.version.toString())
+            }
+            generateR {
+                packageName.convention(project.group.toString())
                 val sourceSets = project.extensions.getByName<SourceSetContainer>("sourceSets")
-                generateR { resourcesDirectory.set(sourceSets["main"].resources.srcDirs.last()) }
+                resourcesDirectory.set(sourceSets["main"].resources.srcDirs.last())
             }
         }
 

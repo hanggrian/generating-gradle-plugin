@@ -30,24 +30,21 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
      * If left null, project name will be assigned as value.
      */
     @Input
-    val appName: Property<String> = project.objects.property<String>()
-        .convention(project.name)
+    val appName: Property<String> = project.objects.property()
 
     /**
      * Mandatory field `BuildConfig.GROUP` value.
      * If left null, project group will be assigned as value.
      */
     @Input
-    val groupId: Property<String> = project.objects.property<String>()
-        .convention(packageName)
+    val groupId: Property<String> = project.objects.property()
 
     /**
      * Mandatory field `BuildConfig.VERSION` value.
      * If left null, project version will be assigned as value.
      */
     @Input
-    val version: Property<String> = project.objects.property<String>()
-        .convention(project.version.toString())
+    val version: Property<String> = project.objects.property()
 
     /**
      * Mandatory field `BuildConfig.VERSION` value.

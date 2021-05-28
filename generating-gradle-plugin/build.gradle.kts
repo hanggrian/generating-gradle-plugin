@@ -27,7 +27,7 @@ gradlePlugin {
         val generatingPlugin by plugins.registering {
             id = "$RELEASE_GROUP.generating"
             implementationClass = "$RELEASE_GROUP.generating.GeneratingPlugin"
-            displayName = "Generating Plugin"
+            displayName = "Generating plugin"
             description = RELEASE_DESCRIPTION
         }
     }
@@ -61,4 +61,8 @@ pluginBundle {
     vcsUrl = "$RELEASE_GITHUB.git"
     description = RELEASE_DESCRIPTION
     tags = listOf("generating", "buildconfig", "r")
+    mavenCoordinates {
+        groupId = RELEASE_GROUP
+        artifactId = RELEASE_ARTIFACT
+    }
 }

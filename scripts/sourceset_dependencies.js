@@ -1,1 +1,1 @@
-sourceset_dependencies = '{":buildconfig-gradle-plugin:dokkaHtml/main": []}'
+sourceset_dependencies='{":generating-gradle-plugin:dokkaHtml/main":[]}'

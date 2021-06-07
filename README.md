@@ -1,10 +1,11 @@
 [![version](https://img.shields.io/maven-metadata/v?label=plugin-portal&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/com.hendraanggrian.generating)
-[![build](https://travis-ci.com/hendraanggrian/generating-gradle-plugin.svg)](https://travis-ci.com/hendraanggrian/generating-gradle-plugin)
-[![analysis](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
-[![license](https://img.shields.io/github/license/hendraanggrian/generating-gradle-plugin)](https://www.apache.org/licenses/LICENSE-2.0)
+[![build](https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin)](https://travis-ci.com/hendraanggrian/generating-gradle-plugin)
+[![analysis](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081)](https://ktlint.github.io)
+[![license](https://img.shields.io/github/license/hendraanggrian/generating-gradle-plugin)](https://github.com/hendraanggrian/generating-gradle-plugin/blob/main/LICENSE)
 
 Generating Gradle Plugin
 ========================
+
 Generate Android-like `BuildConfig` and `R` class on any JVM projects.
 Currently only supported with **IntelliJ IDEA**.
 
@@ -30,6 +31,7 @@ public final class R {
 
 Download
 --------
+
 Using plugins DSL:
 
 ```gradle
@@ -55,6 +57,7 @@ apply plugin: 'com.hendraanggrian.generating'
 
 Usage
 -----
+
 ### BuildConfig
 Modify `BuildConfig` class generation with `generateBuildConfig` task.
 

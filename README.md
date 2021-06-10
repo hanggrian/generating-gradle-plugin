@@ -59,6 +59,7 @@ Usage
 -----
 
 ### BuildConfig
+
 Modify `BuildConfig` class generation with `generateBuildConfig` task.
 
 ```gradle
@@ -80,6 +81,7 @@ tasks.generateBuildConfig {
 ```
 
 ### R
+
 Modify `R` class generation with `generateR` task.
 
 ```gradle

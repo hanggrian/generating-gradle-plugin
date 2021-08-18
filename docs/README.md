@@ -47,7 +47,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath("com.hendraanggrian:generating-gradle-plugin:${version}")
+        classpath("com.hendraanggrian:generating-gradle-plugin:$version")
     }
 }
 

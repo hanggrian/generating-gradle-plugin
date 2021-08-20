@@ -35,7 +35,7 @@ Using plugins DSL:
 
 ```gradle
 plugins {
-    id('com.hendraanggrian.generating') version "${version}"
+    id('com.hendraanggrian.generating') version "$version"
 }
 ```
 

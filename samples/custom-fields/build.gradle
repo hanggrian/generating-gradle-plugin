@@ -2,13 +2,13 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
         }
     }
     dependencies {
-        classpath files('../generating-gradle-plugin-0.1.jar')
+        classpath files('../generating-gradle-plugin-0.2.jar')
         classpath 'com.hendraanggrian:javapoet-ktx:0.1-SNAPSHOT'
-        classpath 'com.helger:ph-css:6.2.3'
+        classpath 'com.helger:ph-css:6.4.0'
         classpath 'com.googlecode.json-simple:json-simple:1.1.1'
     }
 }
@@ -20,10 +20,10 @@ apply plugin: 'java'
 apply plugin: 'com.hendraanggrian.generating'
 
 dependencies {
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
 }
 
-tasks.getByName('generateBuildConfig') {
+tasks.generateBuildConfig {
     packageName.set('my.website')
     className.set('CustomBuildConfig')
     // outputDirectory.set(new File(buildDir, 'generated/mybuildconfig'))
@@ -40,3 +40,7 @@ tasks.getByName('generateBuildConfig') {
 }
 
 tasks.generateR.setEnabled(false)
+
+tasks.withType(Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

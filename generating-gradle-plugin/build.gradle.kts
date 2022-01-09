@@ -9,8 +9,6 @@ plugins {
     `gradle-publish`
 }
 
-idea
-
 sourceSets {
     main {
         java.srcDir("src")

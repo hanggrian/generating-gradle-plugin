@@ -96,10 +96,6 @@ open class GenerateRTask : AbstractGenerateTask() {
         configuration(css!!)
     }
 
-    /** Enable CSS files support with customized [configuration] in Kotlin DSL. */
-    inline fun css(noinline configuration: RCssConfiguration.() -> Unit): Unit =
-        configureCss(configuration)
-
     /** Enable properties files support with default configuration. */
     fun configureProperties() {
         var configuration = properties
@@ -115,10 +111,6 @@ open class GenerateRTask : AbstractGenerateTask() {
         configuration(properties!!)
     }
 
-    /** Enable properties files support with customized [configuration] in Kotlin DSL. */
-    inline fun properties(noinline configuration: RPropertiesConfiguration.() -> Unit): Unit =
-        configureProperties(configuration)
-
     /** Enable json files support with default configuration. */
     fun configureJson() {
         var configuration = json
@@ -133,10 +125,6 @@ open class GenerateRTask : AbstractGenerateTask() {
         configureJson()
         configuration(json!!)
     }
-
-    /** Enable json files support with customized [configuration] in Kotlin DSL. */
-    inline fun json(noinline configuration: RJsonConfiguration.() -> Unit): Unit =
-        configureJson(configuration)
 
     /** Generate R class given provided options. */
     @TaskAction

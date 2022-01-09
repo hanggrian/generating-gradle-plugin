@@ -14,7 +14,7 @@ import org.gradle.kotlin.dsl.property
 abstract class AbstractGenerateTask : DefaultTask() {
 
     /**
-     * Determine whether or not write this class.
+     * Determine whether write this class.
      */
     @Input
     val enabled: Property<Boolean> = project.objects.property<Boolean>()

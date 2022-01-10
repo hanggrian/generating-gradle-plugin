@@ -6,6 +6,12 @@ $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/Abst
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/enabled/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/enabled.html
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/packageName/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/package-name.html
 $dokka.location:com.hendraanggrian.generating////PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/index.html
+$dokka.location:com.hendraanggrian.generating/CssRSpec///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-css-r-spec/index.html
+$dokka.location:com.hendraanggrian.generating/CssRSpec/charset/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-css-r-spec/charset.html
+$dokka.location:com.hendraanggrian.generating/CssRSpec/cssVersion/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-css-r-spec/css-version.html
+$dokka.location:com.hendraanggrian.generating/CssRSpec/writeClassSelector/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-css-r-spec/write-class-selector.html
+$dokka.location:com.hendraanggrian.generating/CssRSpec/writeElementTypeSelector/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-css-r-spec/write-element-type-selector.html
+$dokka.location:com.hendraanggrian.generating/CssRSpec/writeIdSelector/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-css-r-spec/write-id-selector.html
 $dokka.location:com.hendraanggrian.generating/GenerateBuildConfigTask///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-build-config-task/index.html
 $dokka.location:com.hendraanggrian.generating/GenerateBuildConfigTask/GenerateBuildConfigTask/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-build-config-task/-generate-build-config-task.html
 $dokka.location:com.hendraanggrian.generating/GenerateBuildConfigTask/addField/#java.lang.Class[TypeParam(bounds=[kotlin.Any?])]#kotlin.String#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-build-config-task/add-field.html
@@ -22,15 +28,15 @@ $dokka.location:com.hendraanggrian.generating/GenerateBuildConfigTask/url/#/Poin
 $dokka.location:com.hendraanggrian.generating/GenerateRTask///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/index.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/GenerateRTask/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/-generate-r-task.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/className/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/class-name.html
-$dokka.location:com.hendraanggrian.generating/GenerateRTask/css/#org.gradle.api.Action[com.hendraanggrian.generating.RCssSpec]/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/css.html
+$dokka.location:com.hendraanggrian.generating/GenerateRTask/css/#org.gradle.api.Action[com.hendraanggrian.generating.CssRSpec]/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/css.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/enableCss/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/enable-css.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/enableJson/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/enable-json.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/enableProperties/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/enable-properties.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/exclude/#kotlin.Array[kotlin.String]/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/exclude.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/exclusions/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/exclusions.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/generate/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/generate.html
-$dokka.location:com.hendraanggrian.generating/GenerateRTask/json/#org.gradle.api.Action[com.hendraanggrian.generating.RJsonSpec]/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/json.html
-$dokka.location:com.hendraanggrian.generating/GenerateRTask/properties/#org.gradle.api.Action[com.hendraanggrian.generating.RPropertiesSpec]/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/properties.html
+$dokka.location:com.hendraanggrian.generating/GenerateRTask/json/#org.gradle.api.Action[com.hendraanggrian.generating.JsonRSpec]/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/json.html
+$dokka.location:com.hendraanggrian.generating/GenerateRTask/properties/#org.gradle.api.Action[com.hendraanggrian.generating.PropertiesRSpec]/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/properties.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/resourcesDir/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/resources-dir.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/resourcesDirectory/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/resources-directory.html
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/shouldLowercaseClass/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/should-lowercase-class.html
@@ -44,17 +50,11 @@ $dokka.location:com.hendraanggrian.generating/GeneratingPlugin.Companion/GENERAT
 $dokka.location:com.hendraanggrian.generating/GeneratingPlugin///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/index.html
 $dokka.location:com.hendraanggrian.generating/GeneratingPlugin/GeneratingPlugin/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/-generating-plugin.html
 $dokka.location:com.hendraanggrian.generating/GeneratingPlugin/apply/#org.gradle.api.Project/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/apply.html
-$dokka.location:com.hendraanggrian.generating/RCssSpec///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-css-spec/index.html
-$dokka.location:com.hendraanggrian.generating/RCssSpec/charset/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-css-spec/charset.html
-$dokka.location:com.hendraanggrian.generating/RCssSpec/cssVersion/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-css-spec/css-version.html
-$dokka.location:com.hendraanggrian.generating/RCssSpec/writeClassSelector/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-css-spec/write-class-selector.html
-$dokka.location:com.hendraanggrian.generating/RCssSpec/writeElementTypeSelector/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-css-spec/write-element-type-selector.html
-$dokka.location:com.hendraanggrian.generating/RCssSpec/writeIdSelector/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-css-spec/write-id-selector.html
-$dokka.location:com.hendraanggrian.generating/RJsonSpec///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-json-spec/index.html
-$dokka.location:com.hendraanggrian.generating/RJsonSpec/recursive/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-json-spec/recursive.html
-$dokka.location:com.hendraanggrian.generating/RJsonSpec/writeArray/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-json-spec/write-array.html
-$dokka.location:com.hendraanggrian.generating/RPropertiesSpec///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-properties-spec/index.html
-$dokka.location:com.hendraanggrian.generating/RPropertiesSpec/writeResourceBundle/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-r-properties-spec/write-resource-bundle.html
+$dokka.location:com.hendraanggrian.generating/JsonRSpec///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-json-r-spec/index.html
+$dokka.location:com.hendraanggrian.generating/JsonRSpec/recursive/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-json-r-spec/recursive.html
+$dokka.location:com.hendraanggrian.generating/JsonRSpec/writeArray/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-json-r-spec/write-array.html
+$dokka.location:com.hendraanggrian.generating/PropertiesRSpec///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-properties-r-spec/index.html
+$dokka.location:com.hendraanggrian.generating/PropertiesRSpec/writeResourceBundle/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-properties-r-spec/write-resource-bundle.html
 com.hendraanggrian.generating
 com.hendraanggrian.generating.internal
 

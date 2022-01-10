@@ -33,6 +33,13 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
     val appName: Property<String> = project.objects.property()
 
     /**
+     * Mandatory field `BuildConfig.VERSION` value.
+     * If left null, project version will be assigned as value.
+     */
+    @Input
+    val appVersion: Property<String> = project.objects.property()
+
+    /**
      * Mandatory field `BuildConfig.GROUP` value.
      * If left null, project group will be assigned as value.
      */
@@ -40,35 +47,12 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
     val groupId: Property<String> = project.objects.property()
 
     /**
-     * Mandatory field `BuildConfig.VERSION` value.
-     * If left null, project version will be assigned as value.
-     */
-    @Input
-    val version: Property<String> = project.objects.property()
-
-    /**
-     * Mandatory field `BuildConfig.VERSION` value.
+     * Mandatory field `BuildConfig.DEBUG` value.
      * Default value is `false`.
      */
     @Input
     val debug: Property<Boolean> = project.objects.property<Boolean>()
         .convention(false)
-
-    /**
-     * Optional field `BuildConfig.NAME` value.
-     * If left null, field generation will be skipped.
-     */
-    @Optional
-    @Input
-    val artifactId: Property<String> = project.objects.property()
-
-    /**
-     * Optional field `BuildConfig.DESC` value.
-     * If left null, field generation will be skipped.
-     */
-    @Optional
-    @Input
-    val desc: Property<String> = project.objects.property()
 
     /**
      * Optional field `BuildConfig.EMAIL` value.
@@ -87,7 +71,7 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
     val url: Property<String> = project.objects.property()
 
     private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
-    private val outputDir: File = project.buildDir.resolve("generated${File.separator}buildconfig")
+    private val outputDir: File = project.buildDir.resolve("generated/buildconfig")
 
     init {
         outputs.upToDateWhen { false } // always consider this task out of date
@@ -111,15 +95,9 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
         outputDir.mkdirs()
 
         addField(BuildConfigField.NAME, appName.get())
+        addField(BuildConfigField.VERSION, appVersion.get())
         addField(BuildConfigField.GROUP, groupId.get())
-        addField(BuildConfigField.VERSION, version.get())
         addField(BuildConfigField.DEBUG, debug.get())
-        if (artifactId.isPresent) {
-            addField(BuildConfigField.ARTIFACT, artifactId.get())
-        }
-        if (desc.isPresent) {
-            addField(BuildConfigField.DESC, desc.get())
-        }
         if (email.isPresent) {
             addField(BuildConfigField.EMAIL, email.get())
         }

@@ -29,9 +29,8 @@ tasks.generateBuildConfig {
     // outputDirectory.set(new File(buildDir, 'generated/mybuildconfig'))
 
     appName.set('Hello world!')
+    appVersion.set('2.0')
     groupId.set('my.website')
-    artifactId.set("my-app")
-    version.set('2.0')
     debug.set(true)
 
     addField String.class, 'A_STRING', 'Hello world!'

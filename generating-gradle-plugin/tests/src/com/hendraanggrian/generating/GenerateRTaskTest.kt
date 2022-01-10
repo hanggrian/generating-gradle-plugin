@@ -54,14 +54,13 @@ class GenerateRTaskTest {
                 id("com.hendraanggrian.generating")
             }
             tasks.generateR {
-                configureProperties()
+                enableProperties()
             }
             """.trimIndent()
         )
         runner.withArguments("compileR").build().let {
             assertEquals(TaskOutcome.SUCCESS, it.task(":compileR")!!.outcome)
-            val lines = testProjectDir.root.resolve("build/generated/r/src/main/com/example/R.java")
-                .readLines()
+            val lines = testProjectDir.root.resolve("build/generated/r/src/main/com/example/R.java").readLines()
             assertTrue("package com.example;" in lines, "invalid package")
             assertTrue("public final class R {" in lines, "invalid class")
             assertTrue("  public static final String key = \"key\";" in lines, "invalid properties")
@@ -80,7 +79,7 @@ class GenerateRTaskTest {
                 id("com.hendraanggrian.generating")
             }
             tasks.generateR {
-                configureProperties()
+                enableProperties()
                 packageName.set("mypackage")
                 className.set("R2")
                 shouldUppercaseField.set(true)
@@ -90,8 +89,7 @@ class GenerateRTaskTest {
         )
         runner.withArguments("compileR").build().let {
             assertEquals(TaskOutcome.SUCCESS, it.task(":compileR")!!.outcome)
-            val lines = testProjectDir.root.resolve("build/generated/r/src/main/mypackage/R2.java")
-                .readLines()
+            val lines = testProjectDir.root.resolve("build/generated/r/src/main/mypackage/R2.java").readLines()
             assertTrue("package mypackage;" in lines, "invalid package")
             assertTrue("public final class r2 {" in lines, "invalid class")
             assertTrue("  public static final String KEY = \"key\";" in lines, "invalid properties")

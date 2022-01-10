@@ -8,7 +8,7 @@ public class BuildConfigTest {
 
     @Test
     public void main() {
-        assertEquals(BuildConfig.NAME, "configure-css");
+        assertEquals(BuildConfig.NAME, "enable-properties");
         assertEquals(BuildConfig.GROUP, "com.example");
         assertEquals(BuildConfig.VERSION, "1.0");
         assertFalse(BuildConfig.DEBUG);

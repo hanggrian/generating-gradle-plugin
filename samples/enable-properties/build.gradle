@@ -24,7 +24,9 @@ dependencies {
 }
 
 tasks.generateR {
-    configureCss()
+    properties {
+        writeResourceBundle.set(true)
+    }
 }
 
 tasks.withType(Jar) {

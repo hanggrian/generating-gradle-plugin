@@ -1,6 +1,9 @@
 package com.hendraanggrian.generating
 
 import com.helger.css.ECSSVersion
+import org.gradle.api.Project
+import org.gradle.api.provider.Property
+import org.gradle.kotlin.dsl.property
 import java.io.Serializable
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
@@ -42,16 +45,16 @@ internal fun String.toJavaNameOrNull(): String? {
 
 /** Represents a single field within `BuildConfig` class. */
 internal data class BuildConfigField<T>(val type: Class<T>, val name: String, val value: T) : Serializable {
+
     /** Non-custom field names. */
     companion object {
         // mandatory
         const val NAME = "NAME"
-        const val GROUP = "GROUP"
         const val VERSION = "VERSION"
         const val DEBUG = "DEBUG"
+        const val GROUP = "GROUP"
+
         // optional
-        const val ARTIFACT = "ARTIFACT"
-        const val DESC = "DESC" // Description is reserved by `DefaultTask`
         const val EMAIL = "EMAIL"
         const val URL = "URL"
     }
@@ -64,19 +67,35 @@ internal data class BuildConfigField<T>(val type: Class<T>, val name: String, va
     override fun equals(other: Any?): Boolean = other != null && other is BuildConfigField<*> && other.name == name
 }
 
-internal class DefaultRCssConfiguration : RCssConfiguration {
-    override var charset: Charset = StandardCharsets.UTF_8
-    override var cssVersion: ECSSVersion = ECSSVersion.CSS30
-    override var isWriteElementTypeSelector: Boolean = false
-    override var isWriteClassSelector: Boolean = true
-    override var isWriteIdSelector: Boolean = true
+internal class DefaultCssRSpec(project: Project) : CssRSpec {
+
+    override var charset: Property<Charset> = project.objects.property<Charset>()
+        .convention(StandardCharsets.UTF_8)
+
+    override var cssVersion: Property<ECSSVersion> = project.objects.property<ECSSVersion>()
+        .convention(ECSSVersion.CSS30)
+
+    override var writeElementTypeSelector: Property<Boolean> = project.objects.property<Boolean>()
+        .convention(false)
+
+    override var writeClassSelector: Property<Boolean> = project.objects.property<Boolean>()
+        .convention(true)
+
+    override var writeIdSelector: Property<Boolean> = project.objects.property<Boolean>()
+        .convention(true)
 }
 
-internal class DefaultRJsonConfiguration : RJsonConfiguration {
-    override var isRecursive: Boolean = false
-    override var isWriteArray: Boolean = true
+internal class DefaultJsonRSpec(project: Project) : JsonRSpec {
+
+    override var recursive: Property<Boolean> = project.objects.property<Boolean>()
+        .convention(false)
+
+    override var writeArray: Property<Boolean> = project.objects.property<Boolean>()
+        .convention(true)
 }
 
-internal class DefaultRPropertiesConfiguration : RPropertiesConfiguration {
-    override var isWriteResourceBundle: Boolean = false
+internal class DefaultPropertiesRSpec(project: Project) : PropertiesRSpec {
+
+    override var writeResourceBundle: Property<Boolean> = project.objects.property<Boolean>()
+        .convention(false)
 }

@@ -77,10 +77,9 @@ class GenerateBuildConfigTaskTest {
                 packageName.set("mypackage")
                 className.set("Build")
                 appName.set("My App")
+                appVersion.set("2.0")
                 groupId.set("my.website")
-                version.set("2.0")
                 debug.set(true)
-                desc.set("Awesome app")
                 email.set("me@mail.com")
                 url.set("https://my.website")
             }
@@ -97,10 +96,9 @@ class GenerateBuildConfigTaskTest {
             assertTrue("package mypackage;" in lines, "invalid package")
             assertTrue("public final class Build {" in lines, "invalid class")
             assertTrue("  public static final String NAME = \"My App\";" in lines, "invalid name")
-            assertTrue("  public static final String GROUP = \"my.website\";" in lines, "invalid group")
             assertTrue("  public static final String VERSION = \"2.0\";" in lines, "invalid version")
             assertTrue("  public static final Boolean DEBUG = true;" in lines, "invalid debug")
-            assertTrue("  public static final String DESC = \"Awesome app\";" in lines, "invalid version")
+            assertTrue("  public static final String GROUP = \"my.website\";" in lines, "invalid group")
             assertTrue("  public static final String EMAIL = \"me@mail.com\";" in lines, "invalid version")
             assertTrue("  public static final String URL = \"https://my.website\";" in lines, "invalid version")
         }

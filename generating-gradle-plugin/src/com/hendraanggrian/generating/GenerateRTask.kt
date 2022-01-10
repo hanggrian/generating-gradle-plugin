@@ -9,7 +9,6 @@ import com.hendraanggrian.generating.internal.AbstractGenerateTask
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.Action
-import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Input
@@ -57,7 +56,7 @@ open class GenerateRTask : AbstractGenerateTask() {
      * Default is resources folder in main module.
      */
     @InputDirectory
-    val resourcesDirectory: DirectoryProperty = project.objects.directoryProperty()
+    val resourcesDirectory: Property<File> = project.objects.property()
 
     /**
      * Collection of files (or directories) that are ignored from this task.
@@ -67,63 +66,48 @@ open class GenerateRTask : AbstractGenerateTask() {
     val exclusions: SetProperty<File> = project.objects.setProperty<File>()
         .convention(emptySet())
 
-    /** Convenient method to set exclusions relative to project directory. */
-    fun exclude(vararg exclusions: String) {
-        this.exclusions.set(exclusions.map { project.projectDir.resolve(it) })
-    }
-
-    private var css: RCssConfiguration? = null
-    private var properties: RPropertiesConfiguration? = null
-    private var json: RJsonConfiguration? = null
-    private val outputDir: File = project.buildDir.resolve("generated${File.separator}r")
+    private var cssSpec: Property<CssRSpec> = project.objects.property()
+    private var propertiesSpec: Property<PropertiesRSpec> = project.objects.property()
+    private var jsonSpec: Property<JsonRSpec> = project.objects.property()
+    private val outputDir: File = project.buildDir.resolve("generated/r")
 
     init {
         outputs.upToDateWhen { false } // always consider this task out of date
     }
 
-    /** Enable CSS files support with default configuration. */
-    fun configureCss() {
-        var configuration = css
-        if (configuration == null) {
-            configuration = DefaultRCssConfiguration()
-            css = configuration
-        }
+    /** Returns [resourcesDirectory] represented as [File]. */
+    val resourcesDir: File @InputDirectory get() = resourcesDirectory.get()
+
+    /** Add [exclusions] with vararg arguments, relative to project directory. */
+    fun exclude(vararg excludes: String) {
+        exclusions.addAll(excludes.map { project.projectDir.resolve(it) })
     }
 
-    /** Enable CSS files support with customized [configuration]. */
-    fun configureCss(configuration: Action<RCssConfiguration>) {
-        configureCss()
-        configuration(css!!)
+    /** Enable CSS files support with default configuration. */
+    fun enableCss() = cssSpec.set(DefaultCssRSpec(project))
+
+    /** Enable CSS files support with customized [action]. */
+    fun css(action: Action<CssRSpec>) {
+        enableCss()
+        action(cssSpec.get())
     }
 
     /** Enable properties files support with default configuration. */
-    fun configureProperties() {
-        var configuration = properties
-        if (configuration == null) {
-            configuration = DefaultRPropertiesConfiguration()
-            properties = configuration
-        }
-    }
+    fun enableProperties() = propertiesSpec.set(DefaultPropertiesRSpec(project))
 
-    /** Enable properties files support with customized [configuration]. */
-    fun configureProperties(configuration: Action<RPropertiesConfiguration>) {
-        configureProperties()
-        configuration(properties!!)
+    /** Enable properties files support with customized [action]. */
+    fun properties(action: Action<PropertiesRSpec>) {
+        enableProperties()
+        action(propertiesSpec.get())
     }
 
     /** Enable json files support with default configuration. */
-    fun configureJson() {
-        var configuration = json
-        if (configuration == null) {
-            configuration = DefaultRJsonConfiguration()
-            json = configuration
-        }
-    }
+    fun enableJson() = jsonSpec.set(DefaultJsonRSpec(project))
 
-    /** Enable json files support with customized [configuration]. */
-    fun configureJson(configuration: Action<RJsonConfiguration>) {
-        configureJson()
-        configuration(json!!)
+    /** Enable json files support with customized [action]. */
+    fun json(action: Action<JsonRSpec>) {
+        enableJson()
+        action(jsonSpec.get())
     }
 
     /** Generate R class given provided options. */
@@ -135,7 +119,7 @@ open class GenerateRTask : AbstractGenerateTask() {
         }
         logger.info("Generating R:")
 
-        val resourcesDir = resourcesDirectory.get().asFile
+        val resourcesDir = resourcesDirectory.get()
         require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
         require(className.get().isNotBlank()) { "Class name cannot be empty" }
         require(resourcesDir.exists() && resourcesDir.isDirectory) { "Resources folder not found" }
@@ -157,9 +141,9 @@ open class GenerateRTask : AbstractGenerateTask() {
                 methods.addConstructor { addModifiers(Modifier.PRIVATE) }
                 processDir(
                     listOfNotNull(
-                        css?.let { CssAdapter(it, shouldUppercaseField.get(), logger) },
-                        json?.let { JsonAdapter(it, shouldUppercaseField.get(), logger) },
-                        properties?.let {
+                        cssSpec.orNull?.let { CssAdapter(it, shouldUppercaseField.get(), logger) },
+                        jsonSpec.orNull?.let { JsonAdapter(it, shouldUppercaseField.get(), logger) },
+                        propertiesSpec.orNull?.let {
                             PropertiesAdapter(it, shouldLowercaseClass.get(), shouldUppercaseField.get(), logger)
                         }
                     ),

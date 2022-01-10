@@ -1,17 +1,19 @@
 package com.hendraanggrian.generating
 
+import org.gradle.api.provider.Property
+
 /** Settings for customizing the field generation of json file. */
-interface RJsonConfiguration {
+interface JsonRSpec {
 
     /**
      * Determine whether adapter should also write inner json object.
      * Default is false.
      */
-    var isRecursive: Boolean
+    var recursive: Property<Boolean>
 
     /**
-     * Extended property of [isRecursive] that will also write inner json array.
+     * Extended property of [recursive] that will also write inner json array.
      * Default is true.
      */
-    var isWriteArray: Boolean
+    var writeArray: Property<Boolean>
 }

@@ -1,6 +1,6 @@
 package com.hendraanggrian.generating.adapters
 
-import com.hendraanggrian.generating.RJsonConfiguration
+import com.hendraanggrian.generating.JsonRSpec
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import org.gradle.api.logging.Logger
 import org.json.simple.JSONArray
@@ -14,7 +14,7 @@ import java.lang.ref.WeakReference
  * The file path itself will be written with underscore prefix.
  */
 internal class JsonAdapter(
-    private val configuration: RJsonConfiguration,
+    private val configuration: JsonRSpec,
     isUppercaseField: Boolean,
     logger: Logger
 ) : BaseAdapter(isUppercaseField, logger) {
@@ -38,15 +38,15 @@ internal class JsonAdapter(
 
     private fun JSONObject.forEachKey(action: (String) -> Unit): Unit = forEach { key, value ->
         action("$key")
-        if (value is JSONArray && configuration.isWriteArray) {
+        if (value is JSONArray && configuration.writeArray.get()) {
             value.forEachKey(action)
         }
     }
 
     private fun JSONArray.forEachKey(action: (String) -> Unit): Unit = forEach { json ->
         when {
-            configuration.isRecursive && json is JSONObject -> json.forEachKey(action)
-            configuration.isWriteArray && json is JSONArray -> json.forEachKey(action)
+            configuration.recursive.get() && json is JSONObject -> json.forEachKey(action)
+            configuration.writeArray.get() && json is JSONArray -> json.forEachKey(action)
         }
     }
 }

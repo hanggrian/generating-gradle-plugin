@@ -63,20 +63,21 @@ class GeneratingPlugin : Plugin<Project> {
             generateBuildConfig {
                 packageName.convention(project.group.toString())
                 appName.convention(project.name)
+                appVersion.convention(project.version.toString())
                 groupId.convention(project.group.toString())
-                version.convention(project.version.toString())
             }
             generateR {
                 packageName.convention(project.group.toString())
-                val sourceSets = project.extensions.getByName<SourceSetContainer>("sourceSets")
-                resourcesDirectory.set(sourceSets["main"].resources.srcDirs.last())
+                resourcesDirectory.convention(
+                    project.extensions.getByName<SourceSetContainer>("sourceSets")["main"].resources.srcDirs.last()
+                )
             }
         }
 
         val compiledClasses = project
             .files(
-                compileBuildConfig.get().outputs.files + compileR.get().outputs.files
-                    .filter { !it.name.endsWith("dependency-cache") }
+                compileBuildConfig.get().outputs.files +
+                    compileR.get().outputs.files.filter { !it.name.endsWith("dependency-cache") }
             )
             .builtBy(compileBuildConfig, compileR)
         project.extensions.getByType<JavaPluginExtension>().sourceSets {

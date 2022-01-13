@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter.ofPattern
 import javax.lang.model.element.Modifier
 
 /** A task that writes `R` class. */
+@RSpecMarker
 open class GenerateRTask : AbstractGenerateTask() {
 
     /**

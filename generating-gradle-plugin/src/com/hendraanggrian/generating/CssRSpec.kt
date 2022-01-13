@@ -6,6 +6,7 @@ import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 
 /** Settings for customizing the field generation of CSS file. */
+@RSpecMarker
 interface CssRSpec {
 
     /**

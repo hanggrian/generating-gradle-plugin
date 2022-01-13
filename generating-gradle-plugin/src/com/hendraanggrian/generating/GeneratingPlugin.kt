@@ -52,8 +52,8 @@ class GeneratingPlugin : Plugin<Project> {
         }
         val compileR = project.tasks.register<JavaCompile>(COMPILE_R_TASK_NAME) {
             dependsOn(generateR)
-            description = "Compiles R source file."
             group = GENERATING_GROUP
+            description = "Compiles R source file."
             classpath = project.files()
             destinationDirectory.set(generateR.get().outputClassesDir)
             source(generateR.get().outputSrcDir)
@@ -76,8 +76,8 @@ class GeneratingPlugin : Plugin<Project> {
 
         val compiledClasses = project
             .files(
-                compileBuildConfig.get().outputs.files +
-                    compileR.get().outputs.files.filter { !it.name.endsWith("dependency-cache") }
+                (compileBuildConfig.get().outputs.files + compileR.get().outputs.files)
+                    .filter { !it.name.endsWith("dependency-cache") }
             )
             .builtBy(compileBuildConfig, compileR)
         project.extensions.getByType<JavaPluginExtension>().sourceSets {

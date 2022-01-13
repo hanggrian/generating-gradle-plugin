@@ -16,7 +16,6 @@ import kotlin.test.assertTrue
 class GenerateRTaskTest {
 
     @Rule @JvmField val testProjectDir = TemporaryFolder()
-    private lateinit var settingsFile: File
     private lateinit var buildFile: File
     private lateinit var runner: GradleRunner
 
@@ -29,8 +28,7 @@ class GenerateRTaskTest {
             .use { stream ->
                 Properties().apply { setProperty("key", "value") }.store(stream, "")
             }
-        settingsFile = testProjectDir.newFile("settings.gradle.kts")
-        settingsFile.writeText(
+        testProjectDir.newFile("settings.gradle.kts").writeText(
             """
             rootProject.name = "generate-test"
             """.trimIndent()

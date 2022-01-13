@@ -3,6 +3,7 @@ package com.hendraanggrian.generating
 import org.gradle.api.provider.Property
 
 /** Settings for customizing the field generation of properties file. */
+@RSpecMarker
 interface PropertiesRSpec {
 
     /**

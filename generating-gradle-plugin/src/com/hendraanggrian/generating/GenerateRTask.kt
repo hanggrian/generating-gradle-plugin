@@ -121,9 +121,9 @@ open class GenerateRTask : AbstractGenerateTask() {
         logger.info("Generating R:")
 
         val resourcesDir = resourcesDirectory.get()
-        require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
-        require(className.get().isNotBlank()) { "Class name cannot be empty" }
-        require(resourcesDir.exists() && resourcesDir.isDirectory) { "Resources folder not found" }
+        require(packageName.get().isNotBlank()) { "Package name cannot be empty." }
+        require(className.get().isNotBlank()) { "Class name cannot be empty." }
+        require(resourcesDir.exists() && resourcesDir.isDirectory) { "Resources folder not found." }
 
         if (outputDir.exists()) {
             logger.info("  Existing source deleted")

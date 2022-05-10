@@ -85,8 +85,8 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
         }
         logger.info("Generating BuildConfig:")
 
-        require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
-        require(className.get().isNotBlank()) { "Class name cannot be empty" }
+        require(packageName.get().isNotBlank()) { "Package name cannot be empty." }
+        require(className.get().isNotBlank()) { "Class name cannot be empty." }
 
         if (outputDir.exists()) {
             logger.info("  Existing source deleted")

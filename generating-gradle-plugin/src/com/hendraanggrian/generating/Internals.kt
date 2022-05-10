@@ -60,7 +60,7 @@ internal data class BuildConfigField<T>(val type: Class<T>, val name: String, va
     }
 
     init {
-        check(SourceVersion.isName(name)) { "$name is not a valid java variable name" }
+        check(SourceVersion.isName(name)) { "$name is not a valid java variable name." }
     }
 
     override fun hashCode(): Int = name.hashCode()

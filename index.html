@@ -1,38 +1,139 @@
-<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Generating Gradle Plugin</title>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta content="chrome=1" http-equiv="X-UA-Compatible">
+        <title>generating-gradle-plugin by Hendra Anggrian</title>
+        <link href="styles/main.css" rel="stylesheet">
+        <link href="styles/pygment_trac.css" rel="stylesheet">
+        <meta content="width=device-width" name="viewport">
+        <script src="scripts/theme.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1>generating-gradle-plugin</h1>
+                <p>BuildConfig and R class generator for non-Android projects</p>
+                <p class="view">
+                    <a href="https://github.com/hendraanggrian/generating-gradle-plugin">View the Project on GitHub <small>hendraanggrian/generating-gradle-plugin</small></a>
+                </p>
+                <ul>
+                    <li>
+                        <a href="dokka">View<strong>Documentation</strong></a>
+                    </li>
+                </ul>
+            </header>
+            <section>
+                <p>
+                    <a href="https://plugins.gradle.org/plugin/com.hendraanggrian.generating"><img alt="Plugin Portal" src="https://img.shields.io/maven-metadata/v?label=plugin-portal&amp;metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml"></a>
+<a href="https://travis-ci.com/github/hendraanggrian/generating-gradle-plugin"><img alt="Travis CI" src="https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin"></a>
+<a href="https://ktlint.github.io"><img alt="ktlint" src="https://img.shields.io/badge/code%20style-%E2%9D%A4-ff4081"></a>
+                </p>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Generating Gradle Plugin</h1>
-        <p>BuildConfig and R class generator for non-Android projects</p>
-        <p class="view"><a href="http://github.com/hendraanggrian/generating-gradle-plugin">View the Project on GitHub <small>hendraanggrian/generating-gradle-plugin</small></a></p>
-        <ul>
-          <li><a href="https://github.com/hendraanggrian/generating-gradle-plugin/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/hendraanggrian/generating-gradle-plugin/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="http://github.com/hendraanggrian/generating-gradle-plugin/releases">View <strong>Releases</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>Documentation</h1>
-        <h2><a href="generating-gradle-plugin/index.html">generating-gradle-plugin</a></h2>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="http://github.com/hendraanggrian">Hendra Anggrian</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-  </body>
+                <h1>Generating Gradle Plugin</h1>
+
+                <p>
+                    Generate Android-like <code>BuildConfig</code> and <code>R</code> class on any JVM projects.
+Currently only supported with <strong>IntelliJ IDEA</strong>.
+                </p>
+
+                <pre><code class="language-java">public final class BuildConfig {
+    public static final String NAME = "My App";
+    public static final String GROUP = "my.package";
+    public static final String VERSION = "1.0";
+    public static final String DEBUG = true;
+}
+
+public final class R {
+    public static final class font {
+        public static final String MyriadPro = "/font/MyriadPro.ttf";
+        public static final String SegoeUI = "/font/SegoeUI.ttf";
+    }
+    public static final class layout {
+        public static final String main = "/layout/main.fxml";
+        public static final String about = "/layout/about.fxml";
+    }
+}
+</code></pre>
+
+                <h2>Download</h2>
+
+                <p>Using plugins DSL:</p>
+
+                <pre><code class="language-gradle">plugins {
+    id('com.hendraanggrian.generating') version "$version"
+}
+</code></pre>
+
+                <p>Using legacy plugin application:</p>
+
+                <pre><code class="language-gradle">buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.hendraanggrian:generating-gradle-plugin:$version")
+    }
+}
+
+apply plugin: 'com.hendraanggrian.generating'
+</code></pre>
+
+                <h2>Usage</h2>
+
+                <h3>BuildConfig</h3>
+
+                <p>
+                    Modify <code>BuildConfig</code> class generation with <code>generateBuildConfig</code> task.
+                </p>
+
+                <pre><code class="language-gradle">group 'com.example' // project group
+version '1.0'       // project version
+
+tasks.generateBuildConfig {
+    packageName.set('my.app') // package name of which R.class will be generated to, default is project group
+
+    appName.set('My App')     // `BuildConfig.NAME` value, default is project name
+    groupId.set('my.app')     // `BuildConfig.GROUP` value, default is project group
+    version.set('2.0')        // `BuildConfig.VERSION` value, default is project version
+    debug.set(true)           // `BuildConfig.DEBUG` value
+
+    // add custom field specifying its name, type, and value
+    addField String.class, "myString", "Hello world!"
+    addField double.class, "myDecimal", 12.0
+}
+</code></pre>
+
+                <h3>R</h3>
+
+                <p>
+                    Modify <code>R</code> class generation with <code>generateR</code> task.
+                </p>
+
+                <pre><code class="language-gradle">group 'com.example' // project group
+version '1.0'       // project version
+
+tasks.generateR {
+    packageName.set('my.app')
+    resourceDirectory.set(new File('my/path/resources'))
+    exclusions.addAll('some_file', 'some_other_file')
+    configureCss()
+    configureJson()
+    configureProperties()
+}
+</code></pre>
+
+            </section>
+            <footer>
+                <p>
+                    <button onclick="toggleDarkMode()" title="Toggle dark mode"><span id="theme-toggle"></span></button>
+                </p>
+                <p>
+                    This project is maintained by <a href="https://github.com/hendraanggrian">Hendra Anggrian</a>
+                </p>
+                <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/hendraanggrian/minimal-theme">minimal</a></small>
+            </footer>
+        </div>
+        <script src="scripts/scale.fix.js"></script>
+    </body>
 </html>

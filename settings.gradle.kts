@@ -10,12 +10,17 @@ fun includeDir(dir: String) = file(dir)
 dependencyResolutionManagement {
     versionCatalogs {
         val kotlinVersion = "1.6.21"
+        register("sdk") {
+            version("jdk", "8")
+        }
         register("plugs") {
+            val koverVersion = "0.5.0"
             val spotlessVersion = "6.7.0"
             val pluginPublishVersion = "1.0.0-rc-2"
             val pagesVersion = "0.1"
             val gitPublishVersion = "3.0.1"
             library("kotlin", "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+            library("kotlin.kover", "org.jetbrains.kotlinx:kover:$koverVersion")
             library("dokka", "org.jetbrains.dokka:dokka-gradle-plugin:$kotlinVersion")
             library("spotless", "com.diffplug.spotless:spotless-plugin-gradle:$spotlessVersion")
             library("plugin-publish", "com.gradle.publish:plugin-publish-plugin:$pluginPublishVersion")
@@ -24,7 +29,7 @@ dependencyResolutionManagement {
         }
         register("libs") {
             val coroutinesVersion = "1.6.2"
-            val javapoetDslVersion = "0.1-SNAPSHOT"
+            val javapoetDslVersion = "0.1"
             val jsonSimpleVersion = "1.1.1"
             val phCssVersion = "6.4.0"
             library("kotlinx-coroutines", "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")

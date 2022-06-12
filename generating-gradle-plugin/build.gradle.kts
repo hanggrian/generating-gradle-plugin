@@ -1,60 +1,48 @@
-group = RELEASE_GROUP
-version = RELEASE_VERSION
-
 plugins {
-    idea
     `java-gradle-plugin`
     `kotlin-dsl`
-    dokka
-    `gradle-publish`
+    id("org.jetbrains.dokka")
+    id("com.diffplug.spotless")
+    id("com.gradle.plugin-publish")
 }
 
-sourceSets {
-    main {
-        java.srcDir("src")
+java {
+    registerFeature("css") {
+        usingSourceSet(sourceSets.main.get())
+        capability(RELEASE_GROUP, "generating-r", RELEASE_VERSION)
     }
-    test {
-        java.srcDir("tests/src")
-        resources.srcDir("tests/res")
+    registerFeature("json") {
+        usingSourceSet(sourceSets.main.get())
+        capability(RELEASE_GROUP, "generating-r", RELEASE_VERSION)
     }
 }
 
 gradlePlugin {
-    plugins {
-        val generatingPlugin by plugins.registering {
-            id = "$RELEASE_GROUP.generating"
-            implementationClass = "$RELEASE_GROUP.generating.GeneratingPlugin"
-            displayName = "Generating plugin"
-            description = RELEASE_DESCRIPTION
-        }
+    plugins.register("generatingPlugin") {
+        id = "$RELEASE_GROUP.generating"
+        implementationClass = "$id.GeneratingPlugin"
+        displayName = "Generating Plugin"
+        description = RELEASE_DESCRIPTION
     }
     testSourceSets(sourceSets.test.get())
 }
 
-ktlint()
-
-dependencies {
-    implementation(kotlin("stdlib", VERSION_KOTLIN))
-    implementation(hendraanggrian("javapoet-ktx", VERSION_JAVAPOETKTX))
-    implementation(phCss())
-    implementation(jsonSimple())
-    testImplementation(gradleTestKit())
-    testImplementation(kotlin("test-junit", VERSION_KOTLIN))
-}
-
-tasks {
-    dokkaHtml {
-        outputDirectory.set(buildDir.resolve("dokka/$RELEASE_ARTIFACT"))
-    }
-}
-
 pluginBundle {
-    website = RELEASE_GITHUB
-    vcsUrl = "$RELEASE_GITHUB.git"
+    website = RELEASE_URL
+    vcsUrl = "$RELEASE_URL.git"
     description = RELEASE_DESCRIPTION
     tags = listOf("generating", "codegen", "buildconfig", "r")
-    mavenCoordinates {
-        groupId = RELEASE_GROUP
-        artifactId = RELEASE_ARTIFACT
-    }
+}
+
+val cssImplementation by configurations.getting
+val jsonImplementation by configurations.getting
+
+dependencies {
+    implementation(libs.javapoet.dsl)
+    cssImplementation(libs.javapoet.dsl)
+    cssImplementation(libs.ph.css)
+    jsonImplementation(libs.javapoet.dsl)
+    jsonImplementation(libs.json.simple)
+    testImplementation(gradleTestKit())
+    testImplementation(testLibs.kotlin.junit)
 }

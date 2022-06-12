@@ -1,6 +1,7 @@
-[![version](https://img.shields.io/maven-metadata/v?label=plugin-portal&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/com.hendraanggrian.generating)
-[![build](https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin)](https://travis-ci.com/github/hendraanggrian/generating-gradle-plugin)
-[![analysis](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081)](https://ktlint.github.io)
+[![Plugin Portal](https://img.shields.io/maven-metadata/v?label=plugin-portal&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/com.hendraanggrian.generating)
+[![Travis CI](https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin)](https://travis-ci.com/github/hendraanggrian/generating-gradle-plugin)
+[![OpenJDK](https://img.shields.io/badge/JDK-1.8+-orange)](https://openjdk.java.net/projects/jdk8)
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-ff4081)](https://ktlint.github.io)
 
 Generating Gradle Plugin
 ========================

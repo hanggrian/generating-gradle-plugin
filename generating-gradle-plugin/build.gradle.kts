@@ -10,11 +10,11 @@ plugins {
 java {
     registerFeature("css") {
         usingSourceSet(sourceSets.main.get())
-        capability(RELEASE_GROUP, "generating-r", RELEASE_VERSION)
+        capability(RELEASE_GROUP, "generating-css", RELEASE_VERSION)
     }
     registerFeature("json") {
         usingSourceSet(sourceSets.main.get())
-        capability(RELEASE_GROUP, "generating-r", RELEASE_VERSION)
+        capability(RELEASE_GROUP, "generating-json", RELEASE_VERSION)
     }
 }
 

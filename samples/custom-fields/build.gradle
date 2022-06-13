@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath files('../generating-gradle-plugin-0.2.jar')
-        classpath 'com.hendraanggrian:javapoet-dsl:0.1-SNAPSHOT'
+        classpath 'com.hendraanggrian:javapoet-dsl:0.1'
     }
 }
 
@@ -37,7 +37,3 @@ tasks.generateBuildConfig {
 }
 
 tasks.generateR.setEnabled(false)
-
-tasks.withType(Jar) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}

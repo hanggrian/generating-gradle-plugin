@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath files('../generating-gradle-plugin-0.2.jar')
-        classpath 'com.hendraanggrian:javapoet-dsl:0.1-SNAPSHOT'
+        classpath 'com.hendraanggrian:javapoet-dsl:0.1'
         classpath 'com.helger:ph-css:6.4.0'
     }
 }
@@ -24,8 +24,4 @@ dependencies {
 
 tasks.generateR {
     css()
-}
-
-tasks.withType(Jar) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

@@ -8,11 +8,9 @@ import com.hendraanggrian.javapoet.STATIC
 import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.property
-import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
 import kotlin.reflect.KClass
@@ -78,7 +76,6 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
     val url: Property<String> = project.objects.property()
 
     private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
-    private val outputDir: File = project.buildDir.resolve("generated/buildconfig")
 
     @TaskAction
     fun generate() {
@@ -91,11 +88,10 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
         require(packageName.get().isNotBlank()) { "Package name cannot be empty." }
         require(className.get().isNotBlank()) { "Class name cannot be empty." }
 
-        if (outputDir.exists()) {
-            logger.info("  Existing source deleted")
-            outputDir.deleteRecursively()
+        val outputDir = outputDirectory.asFile.get()
+        if (!outputDir.exists()) {
+            outputDir.mkdirs()
         }
-        outputDir.mkdirs()
 
         addField(BuildConfigField.NAME, appName.get())
         addField(BuildConfigField.VERSION, appVersion.get())
@@ -126,12 +122,9 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
                     }
                 }
             }
-        }.writeTo(outputSrcDir)
+        }.writeTo(outputDir)
         logger.info("  Source generated")
     }
-
-    internal val outputSrcDir: File @Internal get() = outputDir.resolve("src/main")
-    internal val outputClassesDir: File @Internal get() = outputDir.resolve("classes/main")
 
     /**
      * Add custom field specifying its type, name, and value.

@@ -20,21 +20,16 @@ class GenerateRTaskTest {
     @BeforeTest
     @Throws(IOException::class)
     fun setup() {
-        testProjectDir.newFolder("src", "main", "resources")
-            .resolve("my.properties")
-            .outputStream()
-            .use { stream ->
-                Properties().apply { setProperty("key", "value") }.store(stream, "")
-            }
+        testProjectDir.newFolder("src", "main", "resources").resolve("my.properties").outputStream().use { stream ->
+            Properties().apply { setProperty("key", "value") }.store(stream, "")
+        }
         testProjectDir.newFile("settings.gradle.kts").writeText(
             """
-            rootProject.name = "generate-test"
+            rootProject.name = "generate-r-test"
             """.trimIndent()
         )
         buildFile = testProjectDir.newFile("build.gradle.kts")
-        runner = GradleRunner.create()
-            .withPluginClasspath()
-            .withProjectDir(testProjectDir.root)
+        runner = GradleRunner.create().withPluginClasspath().withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
     }
 
@@ -49,13 +44,23 @@ class GenerateRTaskTest {
                 java
                 id("com.hendraanggrian.generating")
             }
+            tasks.generateBuildConfig {
+                enabled.set(false)
+            }
+            // temporary until TODO is fixed
             tasks.generateR {
+                packageName.set("com.example")
                 properties()
             }
             """.trimIndent()
         )
-        assertEquals(TaskOutcome.SUCCESS, runner.withArguments("compileR").build().task(":compileR")!!.outcome)
-        testProjectDir.root.resolve("build/generated/r/src/main/com/example/R.java").readLines().let {
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            runner.withArguments(GeneratingPlugin.TASK_GENERATE_R).build()
+                .task(":${GeneratingPlugin.TASK_GENERATE_R}")!!.outcome
+        )
+        assertTrue(!testProjectDir.root.resolve("build/generated/java/com/example/BuildConfig.java").exists())
+        testProjectDir.root.resolve("build/generated/java/com/example/R.java").readLines().let {
             assertTrue("package com.example;" in it, "invalid package")
             assertTrue("public final class R {" in it, "invalid class")
             assertTrue("  public static final String key = \"key\";" in it, "invalid properties")
@@ -73,6 +78,9 @@ class GenerateRTaskTest {
                 java
                 id("com.hendraanggrian.generating")
             }
+            tasks.generateBuildConfig {
+                enabled.set(false)
+            }
             tasks.generateR {
                 properties()
                 packageName.set("mypackage")
@@ -82,8 +90,13 @@ class GenerateRTaskTest {
             }
             """.trimIndent()
         )
-        assertEquals(TaskOutcome.SUCCESS, runner.withArguments("compileR").build().task(":compileR")!!.outcome)
-        testProjectDir.root.resolve("build/generated/r/src/main/mypackage/R2.java").readLines().let {
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            runner.withArguments(GeneratingPlugin.TASK_GENERATE_R).build()
+                .task(":${GeneratingPlugin.TASK_GENERATE_R}")!!.outcome
+        )
+        assertTrue(!testProjectDir.root.resolve("build/generated/java/mypackage/BuildConfig.java").exists())
+        testProjectDir.root.resolve("build/generated/java/mypackage/R2.java").readLines().let {
             assertTrue("package mypackage;" in it, "invalid package")
             assertTrue("public final class r2 {" in it, "invalid class")
             assertTrue("  public static final String KEY = \"key\";" in it, "invalid properties")

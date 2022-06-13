@@ -15,7 +15,6 @@ import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.property
@@ -23,7 +22,6 @@ import org.gradle.kotlin.dsl.setProperty
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
-import java.util.Optional
 import javax.lang.model.element.Modifier
 
 /**
@@ -73,45 +71,44 @@ open class GenerateRTask : AbstractGenerateTask() {
     val exclusions: SetProperty<File> = project.objects.setProperty<File>()
         .convention(emptySet())
 
-    private var cssOptions: Optional<CssROptions> = Optional.empty()
-    private var propertiesOptions: Optional<PropertiesROptions> = Optional.empty()
-    private var jsonOptions: Optional<JsonROptions> = Optional.empty()
-    private val outputDir: File = project.buildDir.resolve("generated/r")
+    private var cssOptions: CssROptions? = null
+    private var propertiesOptions: PropertiesROptions? = null
+    private var jsonOptions: JsonROptions? = null
 
     /** Enable CSS files support with default configuration. */
     fun css() {
-        cssOptions = Optional.of(CssROptionsImpl())
+        cssOptions = CssROptionsImpl()
     }
 
     /** Enable CSS files support with customized [action]. */
     fun css(action: Action<CssROptions>) {
         val options = CssROptionsImpl()
         action(options)
-        cssOptions = Optional.of(options)
+        cssOptions = options
     }
 
     /** Enable properties files support with default configuration. */
     fun properties() {
-        propertiesOptions = Optional.of(PropertiesROptionsImpl())
+        propertiesOptions = PropertiesROptionsImpl()
     }
 
     /** Enable properties files support with customized [action]. */
     fun properties(action: Action<PropertiesROptions>) {
         val options = PropertiesROptionsImpl()
         action(options)
-        propertiesOptions = Optional.of(options)
+        propertiesOptions = options
     }
 
     /** Enable json files support with default configuration. */
     fun json() {
-        jsonOptions = Optional.of(JsonROptionsImpl())
+        jsonOptions = JsonROptionsImpl()
     }
 
     /** Enable json files support with customized [action]. */
     fun json(action: Action<JsonROptions>) {
         val options = JsonROptionsImpl()
         action(options)
-        jsonOptions = Optional.of(options)
+        jsonOptions = options
     }
 
     /** Generate R class given provided options. */
@@ -128,11 +125,10 @@ open class GenerateRTask : AbstractGenerateTask() {
         require(className.get().isNotBlank()) { "Class name cannot be empty." }
         require(resourcesDir.exists() && resourcesDir.isDirectory) { "Resources folder not found." }
 
-        if (outputDir.exists()) {
-            logger.info("  Existing source deleted")
-            outputDir.deleteRecursively()
+        val outputDir = outputDirectory.asFile.get()
+        if (!outputDir.exists()) {
+            outputDir.mkdirs()
         }
-        outputDir.mkdirs()
 
         val javaFile = buildJavaFile(packageName.get()) {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
@@ -145,9 +141,9 @@ open class GenerateRTask : AbstractGenerateTask() {
                 methods.addConstructor { addModifiers(Modifier.PRIVATE) }
                 processDir(
                     listOfNotNull(
-                        cssOptions.orElse(null)?.let { CssAdapter(it, shouldUppercaseField.get(), logger) },
-                        jsonOptions.orElse(null)?.let { JsonAdapter(it, shouldUppercaseField.get(), logger) },
-                        propertiesOptions.orElse(null)?.let {
+                        cssOptions?.let { CssAdapter(it, shouldUppercaseField.get(), logger) },
+                        jsonOptions?.let { JsonAdapter(it, shouldUppercaseField.get(), logger) },
+                        propertiesOptions?.let {
                             PropertiesAdapter(it, shouldLowercaseClass.get(), shouldUppercaseField.get(), logger)
                         }
                     ),
@@ -157,12 +153,9 @@ open class GenerateRTask : AbstractGenerateTask() {
             }
         }
 
-        javaFile.writeTo(outputSrcDir)
+        javaFile.writeTo(outputDir)
         logger.info("  Source generated")
     }
-
-    internal val outputSrcDir: File @Internal get() = outputDir.resolve("src/main")
-    internal val outputClassesDir: File @Internal get() = outputDir.resolve("classes/main")
 
     private fun TypeSpecBuilder.processDir(
         adapters: Iterable<RAdapter>,

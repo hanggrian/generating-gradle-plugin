@@ -5,7 +5,6 @@
 # Generating Gradle Plugin
 
 Generate Android-like `BuildConfig` and `R` class on any JVM projects.
-Currently only supported with **IntelliJ IDEA**.
 
 ```java
 public final class BuildConfig {
@@ -54,6 +53,11 @@ apply plugin: 'com.hendraanggrian.generating'
 
 ## Usage
 
+Once applied, the plugin works out of the box without additional configuration.
+To configure or even disable this behavior, modify task as instructed below.
+
+> This plugin does not have an extension, every configuration is performed within tasks.
+
 ### BuildConfig
 
 Modify `BuildConfig` class generation with `generateBuildConfig` task.
@@ -79,6 +83,8 @@ tasks.generateBuildConfig {
 ### R
 
 Modify `R` class generation with `generateR` task.
+Some file types (CSS & JSON) requires certain capabilities.
+This is to ensure that plugin consumer only download artifacts they are using.
 
 ```gradle
 group 'com.example' // project group
@@ -88,8 +94,44 @@ tasks.generateR {
     packageName.set('my.app')
     resourceDirectory.set(new File('my/path/resources'))
     exclusions.addAll('some_file', 'some_other_file')
-    configureCss()
-    configureJson()
-    configureProperties()
+    properties { ... }  // enables Properties file support
+}
+```
+
+#### Feature: CSS file
+
+Enable CSS file support by reading CSS classes and IDs,
+powered by [ph-css](https://github.com/phax/ph-css). 
+
+```gradle
+dependencies {
+    classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
+        capabilities {
+            requireCapability("com.hendraanggrian:generating-css")
+        }
+    }
+}
+
+tasks.generateR {
+    css { ... }
+}
+```
+
+#### Feature: JSON file
+
+Enable CSS file support by reading JSON keys,
+powered by [json-simple](https://search.maven.org/artifact/com.googlecode.json-simple/json-simple).
+
+```gradle
+dependencies {
+    classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
+        capabilities {
+            requireCapability("com.hendraanggrian:generating-json")
+        }
+    }
+}
+
+tasks.generateR {
+    json { ... }
 }
 ```

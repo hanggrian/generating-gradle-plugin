@@ -27,15 +27,14 @@
                 <p>
                     <a href="https://plugins.gradle.org/plugin/com.hendraanggrian.generating"><img alt="Plugin Portal" src="https://img.shields.io/maven-metadata/v?label=plugin-portal&amp;metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml"></a>
 <a href="https://travis-ci.com/github/hendraanggrian/generating-gradle-plugin"><img alt="Travis CI" src="https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin"></a>
-<a href="https://openjdk.java.net/projects/jdk8"><img alt="OpenJDK" src="https://img.shields.io/badge/JDK-1.8+-orange"></a>
-<a href="https://ktlint.github.io"><img alt="ktlint" src="https://img.shields.io/badge/code%20style-%E2%9D%A4-ff4081"></a>
+<a href="https://app.codecov.io/gh/hendraanggrian/generating-gradle-plugin"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/hendraanggrian/generating-gradle-plugin"></a>
+<a href="https://openjdk.java.net/projects/jdk8"><img alt="OpenJDK" src="https://img.shields.io/badge/jdk-1.8+-informational"></a>
                 </p>
 
                 <h1>Generating Gradle Plugin</h1>
 
                 <p>
                     Generate Android-like <code>BuildConfig</code> and <code>R</code> class on any JVM projects.
-Currently only supported with <strong>IntelliJ IDEA</strong>.
                 </p>
 
                 <pre><code class="language-java">public final class BuildConfig {
@@ -82,6 +81,15 @@ apply plugin: 'com.hendraanggrian.generating'
 
                 <h2>Usage</h2>
 
+                <p>Once applied, the plugin works out of the box without additional configuration.
+To configure or even disable this behavior, modify task as instructed below.</p>
+
+                <blockquote>
+
+                    <p>This plugin does not have an extension, every configuration is performed within tasks.</p>
+
+                </blockquote>
+
                 <h3>BuildConfig</h3>
 
                 <p>
@@ -109,6 +117,8 @@ tasks.generateBuildConfig {
 
                 <p>
                     Modify <code>R</code> class generation with <code>generateR</code> task.
+Some file types (CSS &amp; JSON) requires certain capabilities.
+This is to ensure that plugin consumer only download artifacts they are using.
                 </p>
 
                 <pre><code class="language-gradle">group 'com.example' // project group
@@ -118,9 +128,47 @@ tasks.generateR {
     packageName.set('my.app')
     resourceDirectory.set(new File('my/path/resources'))
     exclusions.addAll('some_file', 'some_other_file')
-    configureCss()
-    configureJson()
-    configureProperties()
+    properties { ... }  // enables Properties file support
+}
+</code></pre>
+
+                <h4>Feature: CSS file</h4>
+
+                <p>
+                    Enable CSS file support by reading CSS classes and IDs,
+powered by <a href="https://github.com/phax/ph-css">ph-css</a>.
+                </p>
+
+                <pre><code class="language-gradle">dependencies {
+    classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
+        capabilities {
+            requireCapability("com.hendraanggrian:generating-css")
+        }
+    }
+}
+
+tasks.generateR {
+    css { ... }
+}
+</code></pre>
+
+                <h4>Feature: JSON file</h4>
+
+                <p>
+                    Enable CSS file support by reading JSON keys,
+powered by <a href="https://search.maven.org/artifact/com.googlecode.json-simple/json-simple">json-simple</a>.
+                </p>
+
+                <pre><code class="language-gradle">dependencies {
+    classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
+        capabilities {
+            requireCapability("com.hendraanggrian:generating-json")
+        }
+    }
+}
+
+tasks.generateR {
+    json { ... }
 }
 </code></pre>
 

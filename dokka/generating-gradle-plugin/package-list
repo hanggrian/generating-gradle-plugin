@@ -11,6 +11,7 @@ $dokka.location:com.hendraanggrian.generating.internal////PointingToDeclaration/
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/index.html
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/AbstractGenerateTask/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/-abstract-generate-task.html
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/enabled/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/enabled.html
+$dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/outputDirectory/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/output-directory.html
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/packageName/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/package-name.html
 $dokka.location:com.hendraanggrian.generating.json////PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.json/index.html
 $dokka.location:com.hendraanggrian.generating.json/JsonROptions///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.json/-json-r-options/index.html
@@ -46,8 +47,6 @@ $dokka.location:com.hendraanggrian.generating/GenerateRTask/shouldLowercaseClass
 $dokka.location:com.hendraanggrian.generating/GenerateRTask/shouldUppercaseField/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generate-r-task/should-uppercase-field.html
 $dokka.location:com.hendraanggrian.generating/GeneratingPlugin.Companion///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/-companion/index.html
 $dokka.location:com.hendraanggrian.generating/GeneratingPlugin.Companion/GROUP/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/-companion/-g-r-o-u-p.html
-$dokka.location:com.hendraanggrian.generating/GeneratingPlugin.Companion/TASK_COMPILE_BUILDCONFIG/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/-companion/-t-a-s-k_-c-o-m-p-i-l-e_-b-u-i-l-d-c-o-n-f-i-g.html
-$dokka.location:com.hendraanggrian.generating/GeneratingPlugin.Companion/TASK_COMPILE_R/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/-companion/-t-a-s-k_-c-o-m-p-i-l-e_-r.html
 $dokka.location:com.hendraanggrian.generating/GeneratingPlugin.Companion/TASK_GENERATE_BUILDCONFIG/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/-companion/-t-a-s-k_-g-e-n-e-r-a-t-e_-b-u-i-l-d-c-o-n-f-i-g.html
 $dokka.location:com.hendraanggrian.generating/GeneratingPlugin.Companion/TASK_GENERATE_R/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/-companion/-t-a-s-k_-g-e-n-e-r-a-t-e_-r.html
 $dokka.location:com.hendraanggrian.generating/GeneratingPlugin///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating/-generating-plugin/index.html

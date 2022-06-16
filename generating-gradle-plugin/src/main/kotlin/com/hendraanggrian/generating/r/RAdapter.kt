@@ -1,5 +1,7 @@
-package com.hendraanggrian.generating
+package com.hendraanggrian.generating.r
 
+import com.hendraanggrian.generating.isJavaName
+import com.hendraanggrian.generating.toJavaNameOrNull
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import org.gradle.api.logging.Logger
 import java.io.File

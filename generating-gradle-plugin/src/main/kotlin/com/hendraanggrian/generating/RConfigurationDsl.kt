@@ -13,4 +13,4 @@ package com.hendraanggrian.generating
  */
 @DslMarker
 @Target(AnnotationTarget.CLASS)
-annotation class RFileMarker
+annotation class RConfigurationDsl

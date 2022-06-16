@@ -1,6 +1,5 @@
-package com.hendraanggrian.generating.json
+package com.hendraanggrian.generating.r
 
-import com.hendraanggrian.generating.RAdapter
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import org.gradle.api.logging.Logger
 import org.json.simple.JSONArray

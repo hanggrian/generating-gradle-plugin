@@ -1,7 +1,6 @@
-package com.hendraanggrian.generating.css
+package com.hendraanggrian.generating.r
 
 import com.helger.css.reader.CSSReader
-import com.hendraanggrian.generating.RAdapter
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import org.gradle.api.logging.Logger
 import java.io.File

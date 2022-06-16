@@ -1,9 +1,9 @@
-package com.hendraanggrian.generating.json
+package com.hendraanggrian.generating.r
 
-import com.hendraanggrian.generating.RFileMarker
+import com.hendraanggrian.generating.RConfigurationDsl
 
 /** A specification for field generation of JSON file. */
-@RFileMarker
+@RConfigurationDsl
 interface JsonROptions {
     /**
      * Determine whether adapter should also write inner json object.

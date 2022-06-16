@@ -1,7 +1,9 @@
-package com.hendraanggrian.generating
+package com.hendraanggrian.generating.r
+
+import com.hendraanggrian.generating.RConfigurationDsl
 
 /** A specification for field generation of properties file. */
-@RFileMarker
+@RConfigurationDsl
 interface PropertiesROptions {
     /**
      * Determine whether adapter should also write resource bundle.

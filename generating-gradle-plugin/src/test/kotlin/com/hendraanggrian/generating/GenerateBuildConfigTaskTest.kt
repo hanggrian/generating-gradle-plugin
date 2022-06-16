@@ -41,7 +41,7 @@ class GenerateBuildConfigTaskTest {
                 id("com.hendraanggrian.generating")
             }
             tasks.generateR {
-                setEnabled(false)
+                enabled = false
             }
             // temporary until TODO is fixed
             tasks.generateBuildConfig {
@@ -79,7 +79,7 @@ class GenerateBuildConfigTaskTest {
                 id("com.hendraanggrian.generating")
             }
             tasks.generateR {
-                setEnabled(false)
+                enabled = false
             }
             tasks.generateBuildConfig {
                 packageName.set("mypackage")
@@ -88,8 +88,6 @@ class GenerateBuildConfigTaskTest {
                 appVersion.set("2.0")
                 groupId.set("my.website")
                 debug.set(true)
-                email.set("me@mail.com")
-                url.set("https://my.website")
             }
             """.trimIndent()
         )
@@ -107,8 +105,6 @@ class GenerateBuildConfigTaskTest {
             assertTrue("  public static final String VERSION = \"2.0\";" in it, "invalid version")
             assertTrue("  public static final Boolean DEBUG = true;" in it, "invalid debug")
             assertTrue("  public static final String GROUP = \"my.website\";" in it, "invalid group")
-            assertTrue("  public static final String EMAIL = \"me@mail.com\";" in it, "invalid version")
-            assertTrue("  public static final String URL = \"https://my.website\";" in it, "invalid version")
         }
     }
 }

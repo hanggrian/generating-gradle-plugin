@@ -2,9 +2,11 @@ package com.hendraanggrian.generating
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaApplication
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 
 /**
@@ -23,6 +25,7 @@ class GeneratingPlugin : Plugin<Project> {
         require(project.pluginManager.hasPlugin("java") || project.pluginManager.hasPlugin("java-library")) {
             "Generating Plugin requires `java` or `java-library`."
         }
+        val hasApplicationPlugin = project.pluginManager.hasPlugin("application")
         val mainSourceSet = project.extensions.getByName<SourceSetContainer>("sourceSets")["main"]
 
         val generateBuildConfig = project.tasks.register<GenerateBuildConfigTask>(TASK_GENERATE_BUILDCONFIG) {
@@ -37,14 +40,20 @@ class GeneratingPlugin : Plugin<Project> {
             group = GROUP
             description = "Generate Android-like R class."
             packageName.convention(project.group.toString())
-            resourcesDirectory.convention(mainSourceSet.resources.srcDirs.last())
+            resourcesDirectory.convention(mainSourceSet.resources.srcDirs.lastOrNull()?.takeIf { it.exists() })
         }
-
         if (generateBuildConfig.get().isEnabled) {
             mainSourceSet.java.srcDir(generateBuildConfig.get().outputDirectory)
         }
         if (generateR.get().isEnabled) {
             mainSourceSet.java.srcDir(generateR.get().outputDirectory)
+        }
+
+        project.afterEvaluate {
+            if (hasApplicationPlugin) {
+                generateBuildConfig.get().appName
+                    .convention(project.extensions.getByType<JavaApplication>().applicationName)
+            }
         }
     }
 }

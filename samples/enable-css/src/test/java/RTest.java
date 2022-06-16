@@ -4,7 +4,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class RTest {
-
     @Test
     public void test() {
         assertEquals("text-field", R.style.text_field);

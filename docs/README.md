@@ -1,6 +1,6 @@
-[![Plugin Portal](https://img.shields.io/maven-metadata/v?label=plugin-portal&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/com.hendraanggrian.generating)
-[![Travis CI](https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin)](https://travis-ci.com/github/hendraanggrian/generating-gradle-plugin)
-[![OpenJDK](https://img.shields.io/badge/JDK-1.8+-informational)](https://openjdk.java.net/projects/jdk8)
+[![Plugin Portal](https://img.shields.io/maven-metadata/v?label=plugin-portal&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/com.hendraanggrian.generating/)
+[![Travis CI](https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin)](https://travis-ci.com/github/hendraanggrian/generating-gradle-plugin/)
+[![OpenJDK](https://img.shields.io/badge/jdk-1.8+-informational)](https://openjdk.java.net/projects/jdk8/)
 
 # Generating Gradle Plugin
 
@@ -75,8 +75,8 @@ tasks.generateBuildConfig {
     debug.set(true)           // `BuildConfig.DEBUG` value
 
     // add custom field specifying its name, type, and value
-    addField String.class, "myString", "Hello world!"
-    addField double.class, "myDecimal", 12.0
+    addField String.class, 'myString', 'Hello world!'
+    addField double.class, 'myDecimal', 12.0
 }
 ```
 
@@ -101,13 +101,13 @@ tasks.generateR {
 #### Feature: CSS file
 
 Enable CSS file support by reading CSS classes and IDs,
-powered by [ph-css](https://github.com/phax/ph-css). 
+powered by [ph-css](https://github.com/phax/ph-css/).
 
 ```gradle
 dependencies {
     classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
         capabilities {
-            requireCapability("com.hendraanggrian:generating-css")
+            requireCapability('com.hendraanggrian:generating-css')
         }
     }
 }
@@ -120,13 +120,13 @@ tasks.generateR {
 #### Feature: JSON file
 
 Enable CSS file support by reading JSON keys,
-powered by [json-simple](https://search.maven.org/artifact/com.googlecode.json-simple/json-simple).
+powered by [json-simple](https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/).
 
 ```gradle
 dependencies {
     classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
         capabilities {
-            requireCapability("com.hendraanggrian:generating-json")
+            requireCapability('com.hendraanggrian:generating-json')
         }
     }
 }

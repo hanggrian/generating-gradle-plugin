@@ -45,7 +45,7 @@ class GenerateRTaskTest {
                 id("com.hendraanggrian.generating")
             }
             tasks.generateBuildConfig {
-                enabled.set(false)
+                enabled = false
             }
             // temporary until TODO is fixed
             tasks.generateR {
@@ -79,7 +79,7 @@ class GenerateRTaskTest {
                 id("com.hendraanggrian.generating")
             }
             tasks.generateBuildConfig {
-                enabled.set(false)
+                enabled = false
             }
             tasks.generateR {
                 properties()

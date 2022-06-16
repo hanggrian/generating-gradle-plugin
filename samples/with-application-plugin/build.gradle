@@ -5,20 +5,20 @@ buildscript {
     dependencies {
         classpath files('../generating-gradle-plugin-0.2.jar')
         classpath 'com.hendraanggrian:javapoet-dsl:0.1'
-        classpath 'com.helger:ph-css:6.5.0'
     }
 }
 
 group 'com.example'
 version '1.0'
 
-apply plugin: 'java-library'
+apply plugin: 'application'
 apply plugin: 'com.hendraanggrian.generating'
+
+application {
+    applicationName('My App')
+    mainClassName('com.example.MyApp')
+}
 
 dependencies {
     testImplementation 'junit:junit:4.13.2'
-}
-
-tasks.generateR {
-    css()
 }

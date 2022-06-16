@@ -1,12 +1,12 @@
-package com.hendraanggrian.generating.css
+package com.hendraanggrian.generating.r
 
 import com.helger.css.ECSSVersion
-import com.hendraanggrian.generating.RFileMarker
+import com.hendraanggrian.generating.RConfigurationDsl
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 
 /** A specification for field generation of CSS file. */
-@RFileMarker
+@RConfigurationDsl
 interface CssROptions {
     /**
      * Charset to be used in case neither a charset rule nor a BOM is present.

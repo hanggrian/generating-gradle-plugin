@@ -8,11 +8,11 @@ import com.hendraanggrian.javapoet.STATIC
 import com.hendraanggrian.javapoet.buildJavaFile
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.property
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ofPattern
+import javax.lang.model.SourceVersion
 import kotlin.reflect.KClass
 
 /**
@@ -59,34 +59,13 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
     val debug: Property<Boolean> = project.objects.property<Boolean>()
         .convention(false)
 
-    /**
-     * Optional field `BuildConfig.EMAIL` value.
-     * If left null, field generation will be skipped.
-     */
-    @Optional
-    @Input
-    val email: Property<String> = project.objects.property()
-
-    /**
-     * Optional field `BuildConfig.URL` value.
-     * If left null, field generation will be skipped.
-     */
-    @Optional
-    @Input
-    val url: Property<String> = project.objects.property()
-
     private val fields: MutableSet<BuildConfigField<*>> = mutableSetOf()
 
     @TaskAction
     fun generate() {
-        if (!enabled.get()) {
-            logger.info("BuildConfig disabled")
-            return
-        }
         logger.info("Generating BuildConfig:")
-
-        require(packageName.get().isNotBlank()) { "Package name cannot be empty." }
-        require(className.get().isNotBlank()) { "Class name cannot be empty." }
+        require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
+        require(className.get().isNotBlank()) { "Class name cannot be empty" }
 
         val outputDir = outputDirectory.asFile.get()
         if (!outputDir.exists()) {
@@ -97,12 +76,6 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
         addField(BuildConfigField.VERSION, appVersion.get())
         addField(BuildConfigField.GROUP, groupId.get())
         addField(BuildConfigField.DEBUG, debug.get())
-        if (email.isPresent) {
-            addField(BuildConfigField.EMAIL, email.get())
-        }
-        if (url.isPresent) {
-            addField(BuildConfigField.URL, url.get())
-        }
 
         buildJavaFile(packageName.get()) {
             comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
@@ -159,4 +132,28 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
      */
     inline fun <reified T : Any> addField(name: String, value: T): Unit =
         addField(T::class.java, name, value)
+
+    /** Represents a single field within `BuildConfig` class. */
+    private data class BuildConfigField<T>(val type: Class<T>, val name: String, val value: T) {
+
+        /** Non-custom field names. */
+        companion object {
+            // mandatory
+            const val NAME = "NAME"
+            const val VERSION = "VERSION"
+            const val DEBUG = "DEBUG"
+            const val GROUP = "GROUP"
+
+            // optional
+            const val EMAIL = "EMAIL"
+            const val URL = "URL"
+        }
+
+        init {
+            check(SourceVersion.isName(name)) { "$name is not a valid java variable name" }
+        }
+
+        override fun hashCode(): Int = name.hashCode()
+        override fun equals(other: Any?): Boolean = other != null && other is BuildConfigField<*> && other.name == name
+    }
 }

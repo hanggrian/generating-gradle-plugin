@@ -14,10 +14,6 @@ import org.gradle.kotlin.dsl.property
  * There is also `className` property which has different convention for each task.
  */
 abstract class AbstractGenerateTask : DefaultTask() {
-    /** Determine whether to write this class. */
-    @Input
-    val enabled: Property<Boolean> = project.objects.property<Boolean>()
-        .convention(true)
     /**
      * Package name of which `BuildConfig` and `R` class will be generated to, cannot be empty.
      * If left null, project group will be assigned as value.

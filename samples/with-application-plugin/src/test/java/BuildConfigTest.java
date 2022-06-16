@@ -7,7 +7,7 @@ import static org.junit.Assert.assertFalse;
 public class BuildConfigTest {
     @Test
     public void main() {
-        assertEquals(BuildConfig.NAME, "simple");
+        assertEquals(BuildConfig.NAME, "My App");
         assertEquals(BuildConfig.GROUP, "com.example");
         assertEquals(BuildConfig.VERSION, "1.0");
         assertFalse(BuildConfig.DEBUG);

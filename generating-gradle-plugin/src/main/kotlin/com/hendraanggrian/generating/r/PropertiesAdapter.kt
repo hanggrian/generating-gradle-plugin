@@ -1,4 +1,4 @@
-package com.hendraanggrian.generating
+package com.hendraanggrian.generating.r
 
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import org.gradle.api.logging.Logger

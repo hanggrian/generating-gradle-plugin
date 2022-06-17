@@ -3,7 +3,6 @@ $dokka.linkExtension:html
 $dokka.location:com.hendraanggrian.generating.internal////PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/index.html
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask///PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/index.html
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/AbstractGenerateTask/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/-abstract-generate-task.html
-$dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/enabled/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/enabled.html
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/outputDirectory/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/output-directory.html
 $dokka.location:com.hendraanggrian.generating.internal/AbstractGenerateTask/packageName/#/PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.internal/-abstract-generate-task/package-name.html
 $dokka.location:com.hendraanggrian.generating.r////PointingToDeclaration/generating-gradle-plugin/com.hendraanggrian.generating.r/index.html

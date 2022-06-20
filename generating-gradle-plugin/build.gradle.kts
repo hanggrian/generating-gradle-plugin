@@ -27,6 +27,8 @@ gradlePlugin {
     testSourceSets(sourceSets.test.get())
 }
 
+spotless.kotlin { ktlint() }
+
 pluginBundle {
     website = RELEASE_URL
     vcsUrl = "$RELEASE_URL.git"
@@ -45,4 +47,8 @@ dependencies {
     jsonImplementation(libs.json.simple)
     testImplementation(gradleTestKit())
     testImplementation(testLibs.kotlin.junit)
+}
+
+tasks.dokkaHtml {
+    outputDirectory.set(buildDir.resolve("dokka/dokka"))
 }

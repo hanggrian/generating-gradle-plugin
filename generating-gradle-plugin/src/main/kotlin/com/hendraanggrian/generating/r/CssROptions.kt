@@ -5,7 +5,10 @@ import com.hendraanggrian.generating.RConfigurationDsl
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 
-/** A specification for field generation of CSS file. */
+/**
+ * CSS configuration options using [com.hendraanggrian.generating.GenerateRTask.css].
+ * Classes and IDs will be generated into fields.
+ */
 @RConfigurationDsl
 interface CssROptions {
     /**

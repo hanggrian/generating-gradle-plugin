@@ -2,7 +2,10 @@ package com.hendraanggrian.generating.r
 
 import com.hendraanggrian.generating.RConfigurationDsl
 
-/** A specification for field generation of properties file. */
+/**
+ * Properties configuration options using [com.hendraanggrian.generating.GenerateRTask.properties].
+ * Keys will be generated into fields.
+ */
 @RConfigurationDsl
 interface PropertiesROptions {
     /**

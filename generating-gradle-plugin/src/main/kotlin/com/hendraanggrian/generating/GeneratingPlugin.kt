@@ -8,6 +8,7 @@ import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
+import org.gradle.language.base.plugins.LifecycleBasePlugin
 
 /**
  * BuildConfig and R Gradle plugin for Java projects.
@@ -16,7 +17,7 @@ import org.gradle.kotlin.dsl.register
  */
 class GeneratingPlugin : Plugin<Project> {
     companion object {
-        const val GROUP = "generating"
+        const val GROUP = LifecycleBasePlugin.BUILD_GROUP
         const val TASK_GENERATE_BUILDCONFIG = "generateBuildConfig"
         const val TASK_GENERATE_R = "generateR"
     }

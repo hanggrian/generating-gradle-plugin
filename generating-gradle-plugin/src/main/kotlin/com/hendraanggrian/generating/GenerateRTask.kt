@@ -88,7 +88,7 @@ open class GenerateRTask : AbstractGenerateTask() {
     }
 
     /** Enable CSS files support with customized [action]. */
-    fun css(action: Action<CssROptions>) {
+    fun css(action: Action<in CssROptions>) {
         val options = CssROptionsImpl()
         action(options)
         cssOptions = options
@@ -100,7 +100,7 @@ open class GenerateRTask : AbstractGenerateTask() {
     }
 
     /** Enable properties files support with customized [action]. */
-    fun properties(action: Action<PropertiesROptions>) {
+    fun properties(action: Action<in PropertiesROptions>) {
         val options = PropertiesROptionsImpl()
         action(options)
         propertiesOptions = options
@@ -112,7 +112,7 @@ open class GenerateRTask : AbstractGenerateTask() {
     }
 
     /** Enable json files support with customized [action]. */
-    fun json(action: Action<JsonROptions>) {
+    fun json(action: Action<in JsonROptions>) {
         val options = JsonROptionsImpl()
         action(options)
         jsonOptions = options
@@ -121,7 +121,7 @@ open class GenerateRTask : AbstractGenerateTask() {
     /** Generate R class given provided options. */
     @TaskAction
     fun generate() {
-        if (!resourcesDirectory.isPresent && !resourcesDirectory.get().exists()) {
+        if (!resourcesDirectory.isPresent || !resourcesDirectory.get().exists()) {
             logger.info("Resources folder doesn't exist")
             return
         }

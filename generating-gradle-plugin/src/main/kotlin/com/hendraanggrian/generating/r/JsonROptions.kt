@@ -2,7 +2,10 @@ package com.hendraanggrian.generating.r
 
 import com.hendraanggrian.generating.RConfigurationDsl
 
-/** A specification for field generation of JSON file. */
+/**
+ * JSON configuration options using [com.hendraanggrian.generating.GenerateRTask.json].
+ * Keys will be generated into fields.
+ */
 @RConfigurationDsl
 interface JsonROptions {
     /**

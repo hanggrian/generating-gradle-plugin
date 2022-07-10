@@ -1,41 +1,47 @@
-<html>
-<head>
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta content="chrome=1" http-equiv="X-UA-Compatible">
-<title>generating-gradle-plugin by Hendra Anggrian</title>
-<link href="styles/main.css" rel="stylesheet">
-<link href="styles/pygment_trac.css" rel="stylesheet">
-<meta content="width=device-width" name="viewport">
-<script src="scripts/theme.js"></script>
-</head>
-<body>
-<div class="wrapper">
-<header>
-<h1>generating-gradle-plugin</h1>
-<p>BuildConfig and R class generator for non-Android projects</p>
-<p class="view">
-<a href="https://github.com/hendraanggrian/generating-gradle-plugin">View the Project on GitHub <small>hendraanggrian/generating-gradle-plugin</small></a>
-</p>
-<ul>
-<li>
-<a href="dokka">View<strong>Documentation</strong></a>
-</li>
-</ul>
-</header>
-<section>
-<p>
-<a href="https://travis-ci.com/github/hendraanggrian/generating-gradle-plugin/"><img alt="Travis CI" src="https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin"></a>
-<a href="https://plugins.gradle.org/plugin/com.hendraanggrian.generating/"><img alt="Plugin Portal" src="https://img.shields.io/maven-metadata/v?label=plugin-portal&amp;metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml"></a>
-<a href="https://openjdk.java.net/projects/jdk8/"><img alt="OpenJDK" src="https://img.shields.io/badge/jdk-1.8+-informational"></a>
-</p>
+<!doctype html>
+<html lang="en-us">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>generating-gradle-plugin</title>
+        <meta content="width=device-width" name="viewport">
+        <meta content="chrome=1" http-equiv="X-UA-Compatible">
+        <link href="styles/main.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,1,0" rel="stylesheet">
+        <link href="styles/prism-tomorrow.min.css" rel="stylesheet">
+        <script src="scripts/theme.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-groovy.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-java.min.js"></script>
+        <!--Primary meta tags-->
+        <meta content="generating-gradle-plugin" name="title">
+        <meta content="BuildConfig and R class generator for non-Android projects" name="description">
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1>generating-gradle-plugin</h1>
+                <p>BuildConfig and R class generator for non-Android projects</p>
+                <p class="view">
+                    <a href="https://github.com/hendraanggrian/generating-gradle-plugin/">View the Project on GitHub <small>hendraanggrian/generating-gradle-plugi</small></a>
+                </p>
+                <ul>
+                    <li>
+                        <a href="dokka">View<strong>Documentation</strong></a>
+                    </li>
+                </ul>
+            </header>
+            <section>
+                <p>
+                    <a href="https://travis-ci.com/github/hendraanggrian/generating-gradle-plugin/"><img alt="Travis CI" src="https://img.shields.io/travis/com/hendraanggrian/generating-gradle-plugin"></a>
+<a href="https://plugins.gradle.org/plugin/com.hendraanggrian.generating"><img alt="Plugin Portal" src="https://img.shields.io/maven-metadata/v.svg?label=plugin-portal&amp;metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fcom%2Fhendraanggrian%2Fgenerating%2Fcom.hendraanggrian.generating.gradle.plugin%2Fmaven-metadata.xml"></a>
+<a href="https://openjdk.java.net/projects/jdk8/"><img alt="OpenJDK" src="https://img.shields.io/badge/jdk-1.8%2B-informational"></a>
+                </p>
 
-<h1>Generating Gradle Plugin</h1>
+                <h1>Generating Gradle Plugin</h1>
 
-<p>Generate Android-like <code>BuildConfig</code> and <code>R</code> class on any JVM projects.</p>
+                <p>
+                    Generate Android-like <code>BuildConfig</code> and <code>R</code> class on any JVM projects.
+                </p>
 
-<pre>
-<code class="language-java">public final class BuildConfig {
+                <pre><code class="language-java">public final class BuildConfig {
     public static final String NAME = "My App";
     public static final String GROUP = "my.package";
     public static final String VERSION = "1.0";
@@ -52,24 +58,20 @@ public final class R {
         public static final String about = "/layout/about.fxml";
     }
 }
-</code>
-</pre>
+</code></pre>
 
-<h2>Download</h2>
+                <h2>Download</h2>
 
-<p>Using plugins DSL:</p>
+                <p>Using plugins DSL:</p>
 
-<pre>
-<code class="language-gradle">plugins {
+                <pre><code class="language-groovy">plugins {
     id('com.hendraanggrian.generating') version "$version"
 }
-</code>
-</pre>
+</code></pre>
 
-<p>Using legacy plugin application:</p>
+                <p>Using legacy plugin application:</p>
 
-<pre>
-<code class="language-gradle">buildscript {
+                <pre><code class="language-groovy">buildscript {
     repositories {
         gradlePluginPortal()
     }
@@ -79,26 +81,26 @@ public final class R {
 }
 
 apply plugin: 'com.hendraanggrian.generating'
-</code>
-</pre>
+</code></pre>
 
-<h2>Usage</h2>
+                <h2>Usage</h2>
 
-<p>Once applied, the plugin works out of the box without additional configuration.
+                <p>Once applied, the plugin works out of the box without additional configuration.
 To configure or even disable this behavior, modify task as instructed below.</p>
 
-<blockquote>
+                <blockquote>
 
-<p>This plugin does not have an extension, every configuration is performed within tasks.</p>
+                    <p>This plugin does not have an extension, every configuration is performed within tasks.</p>
 
-</blockquote>
+                </blockquote>
 
-<h3>BuildConfig</h3>
+                <h3>BuildConfig</h3>
 
-<p>Modify <code>BuildConfig</code> class generation with <code>generateBuildConfig</code> task.</p>
+                <p>
+                    Modify <code>BuildConfig</code> class generation with <code>generateBuildConfig</code> task.
+                </p>
 
-<pre>
-<code class="language-gradle">group 'com.example' // project group
+                <pre><code class="language-groovy">group 'com.example' // project group
 version '1.0'       // project version
 
 tasks.generateBuildConfig {
@@ -113,17 +115,17 @@ tasks.generateBuildConfig {
     addField String.class, 'myString', 'Hello world!'
     addField double.class, 'myDecimal', 12.0
 }
-</code>
-</pre>
+</code></pre>
 
-<h3>R</h3>
+                <h3>R</h3>
 
-<p>Modify <code>R</code> class generation with <code>generateR</code> task.
+                <p>
+                    Modify <code>R</code> class generation with <code>generateR</code> task.
 Some file types (CSS &amp; JSON) requires certain capabilities.
-This is to ensure that plugin consumer only download artifacts they are using.</p>
+This is to ensure that plugin consumer only download artifacts they are using.
+                </p>
 
-<pre>
-<code class="language-gradle">group 'com.example' // project group
+                <pre><code class="language-groovy">group 'com.example' // project group
 version '1.0'       // project version
 
 tasks.generateR {
@@ -132,16 +134,16 @@ tasks.generateR {
     exclusions.addAll('some_file', 'some_other_file')
     properties { ... }  // enables Properties file support
 }
-</code>
-</pre>
+</code></pre>
 
-<h4>Feature: CSS file</h4>
+                <h4>Feature: CSS file</h4>
 
-<p>Enable CSS file support by reading CSS classes and IDs,
-powered by <a href="https://github.com/phax/ph-css/">ph-css</a>.</p>
+                <p>
+                    Enable CSS file support by reading CSS classes and IDs,
+powered by <a href="https://github.com/phax/ph-css/">ph-css</a>.
+                </p>
 
-<pre>
-<code class="language-gradle">dependencies {
+                <pre><code class="language-groovy">dependencies {
     classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
         capabilities {
             requireCapability('com.hendraanggrian:generating-css')
@@ -152,16 +154,16 @@ powered by <a href="https://github.com/phax/ph-css/">ph-css</a>.</p>
 tasks.generateR {
     css { ... }
 }
-</code>
-</pre>
+</code></pre>
 
-<h4>Feature: JSON file</h4>
+                <h4>Feature: JSON file</h4>
 
-<p>Enable CSS file support by reading JSON keys,
-powered by <a href="https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/">json-simple</a>.</p>
+                <p>
+                    Enable CSS file support by reading JSON keys,
+powered by <a href="https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/">json-simple</a>.
+                </p>
 
-<pre>
-<code class="language-gradle">dependencies {
+                <pre><code class="language-groovy">dependencies {
     classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
         capabilities {
             requireCapability('com.hendraanggrian:generating-json')
@@ -172,19 +174,19 @@ powered by <a href="https://search.maven.org/artifact/com.googlecode.json-simple
 tasks.generateR {
     json { ... }
 }
-</code>
-</pre>
+</code></pre>
 
-</section>
-<footer>
-<p>
-<button onclick="toggleDarkMode()" title="Toggle dark mode"><span id="theme-toggle"></span></button>
-</p>
-<p>This project is maintained by <a href="https://github.com/hendraanggrian">Hendra Anggrian</a>
-</p>
-<small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/hendraanggrian/minimal-theme">minimal</a></small>
-</footer>
-</div>
-<script src="scripts/scale.fix.js"></script>
-</body>
+            </section>
+            <footer>
+                <p>
+                    <button class="material-symbols-sharp" id="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode"></button>
+                </p>
+                <p>
+                    This project is maintained by <a href="https://github.com/hendraanggrian/">Hendra Anggrian</a>
+                </p>
+                <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist/">orderedlist</a></small>
+            </footer>
+        </div>
+        <script src="scripts/scale.fix.js"></script>
+    </body>
 </html>

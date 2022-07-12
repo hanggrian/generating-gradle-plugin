@@ -17,9 +17,9 @@ import org.gradle.language.base.plugins.LifecycleBasePlugin
  */
 class GeneratingPlugin : Plugin<Project> {
     companion object {
-        const val GROUP = LifecycleBasePlugin.BUILD_GROUP
-        const val TASK_GENERATE_BUILDCONFIG = "generateBuildConfig"
-        const val TASK_GENERATE_R = "generateR"
+        const val GROUP: String = LifecycleBasePlugin.BUILD_GROUP
+        const val TASK_GENERATE_BUILDCONFIG: String = "generateBuildConfig"
+        const val TASK_GENERATE_R: String = "generateR"
     }
 
     override fun apply(project: Project) {

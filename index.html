@@ -20,7 +20,7 @@
                 <h1>generating-gradle-plugin</h1>
                 <p>BuildConfig and R class generator for non-Android projects</p>
                 <p class="view">
-                    <a href="https://github.com/hendraanggrian/generating-gradle-plugin/">View the Project on GitHub <small>hendraanggrian/generating-gradle-plugi</small></a>
+                    <a href="https://github.com/hendraanggrian/generating-gradle-plugin/">View the Project on GitHub <small>hendraanggrian/generating-gradle-plugin</small></a>
                 </p>
                 <ul>
                     <li>
@@ -64,14 +64,14 @@ public final class R {
 
                 <p>Using plugins DSL:</p>
 
-                <pre><code class="language-groovy">plugins {
+                <pre><code class="language-gradle">plugins {
     id('com.hendraanggrian.generating') version "$version"
 }
 </code></pre>
 
                 <p>Using legacy plugin application:</p>
 
-                <pre><code class="language-groovy">buildscript {
+                <pre><code class="language-gradle">buildscript {
     repositories {
         gradlePluginPortal()
     }
@@ -100,7 +100,7 @@ To configure or even disable this behavior, modify task as instructed below.</p>
                     Modify <code>BuildConfig</code> class generation with <code>generateBuildConfig</code> task.
                 </p>
 
-                <pre><code class="language-groovy">group 'com.example' // project group
+                <pre><code class="language-gradle">group 'com.example' // project group
 version '1.0'       // project version
 
 tasks.generateBuildConfig {
@@ -125,7 +125,7 @@ Some file types (CSS &amp; JSON) requires certain capabilities.
 This is to ensure that plugin consumer only download artifacts they are using.
                 </p>
 
-                <pre><code class="language-groovy">group 'com.example' // project group
+                <pre><code class="language-gradle">group 'com.example' // project group
 version '1.0'       // project version
 
 tasks.generateR {
@@ -143,7 +143,7 @@ tasks.generateR {
 powered by <a href="https://github.com/phax/ph-css/">ph-css</a>.
                 </p>
 
-                <pre><code class="language-groovy">dependencies {
+                <pre><code class="language-gradle">dependencies {
     classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
         capabilities {
             requireCapability('com.hendraanggrian:generating-css')
@@ -163,7 +163,7 @@ tasks.generateR {
 powered by <a href="https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/">json-simple</a>.
                 </p>
 
-                <pre><code class="language-groovy">dependencies {
+                <pre><code class="language-gradle">dependencies {
     classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
         capabilities {
             requireCapability('com.hendraanggrian:generating-json')

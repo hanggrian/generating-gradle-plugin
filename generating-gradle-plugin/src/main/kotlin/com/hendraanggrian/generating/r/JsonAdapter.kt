@@ -9,8 +9,8 @@ import java.io.File
 import java.lang.ref.WeakReference
 
 /**
- * An adapter that writes [JSONObject] and [JSONArray] keys.
- * The file path itself will be written with underscore prefix.
+ * An adapter that writes [JSONObject] and [JSONArray] keys. The file path itself will be written
+ * with underscore prefix.
  */
 internal class JsonAdapter(
     private val configuration: JsonROptions,

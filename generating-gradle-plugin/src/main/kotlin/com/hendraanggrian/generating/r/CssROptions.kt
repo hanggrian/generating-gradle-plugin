@@ -6,39 +6,27 @@ import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 
 /**
- * CSS configuration options using [com.hendraanggrian.generating.GenerateRTask.css].
- * Classes and IDs will be generated into fields.
+ * CSS configuration options using [com.hendraanggrian.generating.GenerateRTask.css]. Classes and
+ * IDs will be generated into fields.
  */
 @RConfigurationDsl
 interface CssROptions {
     /**
-     * Charset to be used in case neither a charset rule nor a BOM is present.
-     * Default is [StandardCharsets.UTF_8].
+     * Charset to be used in case neither a charset rule nor a BOM is present. Default
+     * is [StandardCharsets.UTF_8].
      */
     var charset: Charset
 
-    /**
-     * Version to use when parsing CSS file.
-     * Default is [ECSSVersion.CSS30].
-     */
+    /** Version to use when parsing CSS file. Default is [ECSSVersion.CSS30]. */
     var cssVersion: ECSSVersion
 
-    /**
-     * Determine whether adapter should write element type selector.
-     * Default is false.
-     */
+    /** Determine whether adapter should write element type selector. Default is false. */
     var writeElementTypeSelector: Boolean
 
-    /**
-     * Determine whether adapter should write class selector.
-     * Default is true.
-     */
+    /** Determine whether adapter should write class selector. Default is true. */
     var writeClassSelector: Boolean
 
-    /**
-     * Determine whether adapter should write ID selector.
-     * Default is true.
-     */
+    /** Determine whether adapter should write ID selector. Default is true. */
     var writeIdSelector: Boolean
 }
 

@@ -31,49 +31,33 @@ import java.time.format.DateTimeFormatter.ofPattern
 import javax.lang.model.element.Modifier
 
 /**
- * Task to run when `generateR` command is executed.
- * Running this task alone will not bring generated class to current classpath.
- * To do so, run `compileR`, which also depends on this task.
+ * Task to run when `generateR` command is executed. Running this task alone will not bring
+ * generated class to current classpath. To do so, run `compileR`, which also depends on this task.
  */
 @RConfigurationDsl
 open class GenerateRTask : AbstractGenerateTask() {
 
-    /**
-     * Generated class name, cannot be empty.
-     * Default value is `R`.
-     */
+    /** Generated class name, cannot be empty. Default value is `R`. */
     @Input
     val className: Property<String> = project.objects.property<String>()
         .convention("R")
 
-    /**
-     * When activated, automatically make all field names uppercase.
-     * It is disabled by default.
-     */
+    /** When activated, automatically make all field names uppercase. It is disabled by default. */
     @Input
     val shouldUppercaseField: Property<Boolean> = project.objects.property<Boolean>()
         .convention(false)
 
-    /**
-     * When activated, automatically make all class names lowercase.
-     * It is disabled by default.
-     */
+    /** When activated, automatically make all class names lowercase. It is disabled by default. */
     @Input
     val shouldLowercaseClass: Property<Boolean> = project.objects.property<Boolean>()
         .convention(false)
 
-    /**
-     * Main resource directory.
-     * Default is last configured sources set resources' dir.
-     */
+    /** Main resource directory. Default is last configured sources set resources' dir. */
     @Optional
     @InputDirectory
     val resourcesDirectory: Property<File> = project.objects.property()
 
-    /**
-     * Collection of files (or directories) that are ignored from this task.
-     * Default is empty.
-     */
+    /** Collection of files (or directories) that are ignored from this task. Default is empty. */
     @InputFiles
     val exclusions: SetProperty<File> = project.objects.setProperty<File>()
         .convention(emptySet())
@@ -122,14 +106,14 @@ open class GenerateRTask : AbstractGenerateTask() {
     @TaskAction
     fun generate() {
         if (!resourcesDirectory.isPresent || !resourcesDirectory.get().exists()) {
-            logger.info("Resources folder doesn't exist")
+            logger.info("Resources folder doesn't exist.")
             return
         }
 
-        logger.info("Generating R:")
+        logger.info("Generating R...")
         val resourcesDir = resourcesDirectory.get()
-        require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
-        require(className.get().isNotBlank()) { "Class name cannot be empty" }
+        require(packageName.get().isNotBlank()) { "Package name cannot be empty." }
+        require(className.get().isNotBlank()) { "Class name cannot be empty." }
 
         val outputDir = outputDirectory.asFile.get()
         if (!outputDir.exists()) {
@@ -137,7 +121,8 @@ open class GenerateRTask : AbstractGenerateTask() {
         }
 
         buildJavaFile(packageName.get()) {
-            comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
+            comment = "Generated at " +
+                LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))
             var fileName = className.get()
             if (shouldLowercaseClass.get()) {
                 fileName = fileName.toLowerCase()
@@ -150,7 +135,12 @@ open class GenerateRTask : AbstractGenerateTask() {
                         cssOptions?.let { CssAdapter(it, shouldUppercaseField.get(), logger) },
                         jsonOptions?.let { JsonAdapter(it, shouldUppercaseField.get(), logger) },
                         propertiesOptions?.let {
-                            PropertiesAdapter(it, shouldLowercaseClass.get(), shouldUppercaseField.get(), logger)
+                            PropertiesAdapter(
+                                it,
+                                shouldLowercaseClass.get(),
+                                shouldUppercaseField.get(),
+                                logger
+                            )
                         }
                     ),
                     PathRAdapter(resourcesDir.path, shouldUppercaseField.get(), logger),
@@ -158,7 +148,7 @@ open class GenerateRTask : AbstractGenerateTask() {
                 )
             }
         }.writeTo(outputDir)
-        logger.info("  Source generated")
+        logger.info("Source generated.")
     }
 
     private fun TypeSpecBuilder.processDir(
@@ -184,6 +174,7 @@ open class GenerateRTask : AbstractGenerateTask() {
                             }
                         }
                     }
+
                     file.isFile -> {
                         pathRAdapter.isUnderscorePrefix = adapters.any { it.process(this, file) }
                         pathRAdapter.process(this, file)

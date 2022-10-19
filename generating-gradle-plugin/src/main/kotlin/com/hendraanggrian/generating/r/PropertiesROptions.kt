@@ -8,10 +8,7 @@ import com.hendraanggrian.generating.RConfigurationDsl
  */
 @RConfigurationDsl
 interface PropertiesROptions {
-    /**
-     * Determine whether adapter should also write resource bundle.
-     * Default is false.
-     */
+    /** Determine whether adapter should also write resource bundle. Default is false. */
     var writeResourceBundle: Boolean
 }
 

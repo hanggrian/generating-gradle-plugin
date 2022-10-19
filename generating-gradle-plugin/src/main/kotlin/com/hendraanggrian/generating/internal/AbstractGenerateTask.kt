@@ -10,21 +10,18 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.kotlin.dsl.property
 
 /**
- * Base task for [GenerateBuildConfigTask] and [GenerateRTask].
- * There is also `className` property which has different convention for each task.
+ * Base task for [GenerateBuildConfigTask] and [GenerateRTask]. There is also `className` property
+ * which has different convention for each task.
  */
 abstract class AbstractGenerateTask : DefaultTask() {
     /**
-     * Package name of which `BuildConfig` and `R` class will be generated to, cannot be empty.
-     * If left null, project group will be assigned as value.
+     * Package name of which `BuildConfig` and `R` class will be generated to, cannot be empty. If
+     * left null, project group will be assigned as value.
      */
     @Input
     val packageName: Property<String> = project.objects.property()
 
-    /**
-     * Output directory of generated classes.
-     * Default is `$projectDir/build/generated/java`.
-     */
+    /** Output directory of generated classes. Default is `$projectDir/build/generated/java`. */
     @OutputDirectory
     val outputDirectory: DirectoryProperty = project.objects.directoryProperty()
         .convention(project.layout.buildDirectory.dir("generated/java"))

@@ -6,8 +6,8 @@ import org.gradle.api.logging.Logger
 import java.io.File
 
 /**
- * An adapter that writes CSS classes and identifiers.
- * The file path itself will be written with underscore prefix.
+ * An adapter that writes CSS classes and identifiers. The file path itself will be written with
+ * underscore prefix.
  */
 internal class CssAdapter(
     private val configuration: CssROptions,

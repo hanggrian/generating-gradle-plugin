@@ -19,6 +19,7 @@ public final class R {
         public static final String MyriadPro = "/font/MyriadPro.ttf";
         public static final String SegoeUI = "/font/SegoeUI.ttf";
     }
+
     public static final class layout {
         public static final String main = "/layout/main.fxml";
         public static final String about = "/layout/about.fxml";
@@ -53,8 +54,8 @@ apply plugin: 'com.hendraanggrian.generating'
 
 ## Usage
 
-Once applied, the plugin works out of the box without additional configuration.
-To configure or even disable this behavior, modify task as instructed below.
+Once applied, the plugin works out of the box without additional configuration. To configure or even
+disable this behavior, modify task as instructed below.
 
 > This plugin does not have an extension, every configuration is performed within tasks.
 
@@ -82,9 +83,8 @@ tasks.generateBuildConfig {
 
 ### R
 
-Modify `R` class generation with `generateR` task.
-Some file types (CSS & JSON) requires certain capabilities.
-This is to ensure that plugin consumer only download artifacts they are using.
+Modify `R` class generation with `generateR` task. Some file types (CSS & JSON) requires certain
+capabilities. This is to ensure that plugin consumer only download artifacts they are using.
 
 ```gradle
 group 'com.example' // project group
@@ -100,8 +100,8 @@ tasks.generateR {
 
 #### Feature: CSS file
 
-Enable CSS file support by reading CSS classes and IDs,
-powered by [ph-css](https://github.com/phax/ph-css/).
+Enable CSS file support by reading CSS classes and IDs, powered
+by [ph-css](https://github.com/phax/ph-css/).
 
 ```gradle
 dependencies {
@@ -119,8 +119,8 @@ tasks.generateR {
 
 #### Feature: JSON file
 
-Enable CSS file support by reading JSON keys,
-powered by [json-simple](https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/).
+Enable CSS file support by reading JSON keys, powered
+by [json-simple](https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/).
 
 ```gradle
 dependencies {

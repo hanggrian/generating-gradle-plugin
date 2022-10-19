@@ -8,10 +8,7 @@ import java.io.File
 import javax.lang.model.element.Modifier
 
 /** Where the R fields writing process starts, implementation of each adapter may differ. */
-internal abstract class RAdapter(
-    private val isUppercaseField: Boolean,
-    val logger: Logger
-) {
+internal abstract class RAdapter(private val isUppercaseField: Boolean, val logger: Logger) {
     abstract fun process(typeBuilder: TypeSpecBuilder, file: File): Boolean
     protected fun TypeSpecBuilder.addField(name: String): Unit = addField(name, name)
     protected fun TypeSpecBuilder.addField(name: String, value: String) {
@@ -33,7 +30,8 @@ internal abstract class RAdapter(
 
 /**
  * An adapter that writes file paths as field values.
- * When optional features are activated (CSS, properties, etc.), underscore prefix will be applied to field names.
+ * When optional features are activated (CSS, properties, etc.), underscore prefix will be applied
+ * to field names.
  */
 internal class PathRAdapter(
     private val resourcesDir: String,

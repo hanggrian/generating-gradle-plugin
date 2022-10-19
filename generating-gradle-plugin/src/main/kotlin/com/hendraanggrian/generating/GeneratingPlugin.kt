@@ -23,25 +23,29 @@ class GeneratingPlugin : Plugin<Project> {
     }
 
     override fun apply(project: Project) {
-        require(project.pluginManager.hasPlugin("java") || project.pluginManager.hasPlugin("java-library")) {
-            "Generating Plugin requires `java` or `java-library`."
-        }
+        require(
+            project.pluginManager.hasPlugin("java") ||
+                project.pluginManager.hasPlugin("java-library")
+        ) { "Generating Plugin requires `java` or `java-library`." }
         val hasApplicationPlugin = project.pluginManager.hasPlugin("application")
         val mainSourceSet = project.extensions.getByName<SourceSetContainer>("sourceSets")["main"]
 
-        val generateBuildConfig = project.tasks.register<GenerateBuildConfigTask>(TASK_GENERATE_BUILDCONFIG) {
-            group = GROUP
-            description = "Generate Android-like BuildConfig class."
-            packageName.convention(project.group.toString())
-            appName.convention(project.name)
-            appVersion.convention(project.version.toString())
-            groupId.convention(project.group.toString())
-        }
+        val generateBuildConfig =
+            project.tasks.register<GenerateBuildConfigTask>(TASK_GENERATE_BUILDCONFIG) {
+                group = GROUP
+                description = "Generate Android-like BuildConfig class."
+                packageName.convention(project.group.toString())
+                appName.convention(project.name)
+                appVersion.convention(project.version.toString())
+                groupId.convention(project.group.toString())
+            }
         val generateR = project.tasks.register<GenerateRTask>(TASK_GENERATE_R) {
             group = GROUP
             description = "Generate Android-like R class."
             packageName.convention(project.group.toString())
-            resourcesDirectory.convention(mainSourceSet.resources.srcDirs.lastOrNull()?.takeIf { it.exists() })
+            resourcesDirectory.convention(
+                mainSourceSet.resources.srcDirs.lastOrNull()?.takeIf { it.exists() }
+            )
         }
         if (generateBuildConfig.get().isEnabled) {
             mainSourceSet.java.srcDir(generateBuildConfig.get().outputDirectory)

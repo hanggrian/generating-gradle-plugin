@@ -4,7 +4,8 @@ import javax.lang.model.SourceVersion
 
 /** Check if string is a valid Java field name. */
 internal fun String.isJavaName(): Boolean = when {
-    isEmpty() || this == "_" || !SourceVersion.isName(this) -> false // Java SE 9 no longer supports '_'
+    // Java SE 9 no longer supports '_'
+    isEmpty() || this == "_" || !SourceVersion.isName(this) -> false
     else -> first().isJavaIdentifierStart() && drop(1).all { it.isJavaIdentifierPart() }
 }
 

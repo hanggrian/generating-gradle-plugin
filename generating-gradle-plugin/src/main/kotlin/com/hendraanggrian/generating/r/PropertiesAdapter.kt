@@ -7,8 +7,8 @@ import java.util.Properties
 import javax.lang.model.element.Modifier
 
 /**
- * An adapter that writes [Properties] keys.
- * The file path itself will be written with underscore prefix.
+ * An adapter that writes [Properties] keys. The file path itself will be written with underscore
+ * prefix.
  */
 internal class PropertiesAdapter(
     private val configuration: PropertiesROptions,
@@ -47,7 +47,9 @@ internal class PropertiesAdapter(
         }
     }
 
-    private val File.resourceBundleName: String get() = nameWithoutExtension.substringBeforeLast("_")
+    private val File.resourceBundleName: String get() =
+        nameWithoutExtension.substringBeforeLast("_")
+
     private fun File.isResourceBundle(): Boolean = !isHidden &&
         extension == "properties" &&
         nameWithoutExtension.let { name -> '_' in name && name.substringAfterLast("_").length == 2 }

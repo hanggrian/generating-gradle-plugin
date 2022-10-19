@@ -12,7 +12,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class GenerateBuildConfigTaskTest {
-    @Rule @JvmField val testProjectDir = TemporaryFolder()
+    @Rule @JvmField
+    val testProjectDir = TemporaryFolder()
     private lateinit var buildFile: File
     private lateinit var runner: GradleRunner
 
@@ -61,9 +62,18 @@ class GenerateBuildConfigTaskTest {
             .let {
                 assertTrue("package com.example;" in it, "invalid package")
                 assertTrue("public final class BuildConfig {" in it, "invalid class")
-                assertTrue("  public static final String NAME = \"generate-buildconfig-test\";" in it, "invalid name")
-                assertTrue("  public static final String GROUP = \"com.example\";" in it, "invalid group")
-                assertTrue("  public static final String VERSION = \"1.0\";" in it, "invalid version")
+                assertTrue(
+                    "  public static final String NAME = \"generate-buildconfig-test\";" in it,
+                    "invalid name"
+                )
+                assertTrue(
+                    "  public static final String GROUP = \"com.example\";" in it,
+                    "invalid group"
+                )
+                assertTrue(
+                    "  public static final String VERSION = \"1.0\";" in it,
+                    "invalid version"
+                )
                 assertTrue("  public static final Boolean DEBUG = false;" in it, "invalid debug")
             }
     }
@@ -104,7 +114,10 @@ class GenerateBuildConfigTaskTest {
             assertTrue("  public static final String NAME = \"My App\";" in it, "invalid name")
             assertTrue("  public static final String VERSION = \"2.0\";" in it, "invalid version")
             assertTrue("  public static final Boolean DEBUG = true;" in it, "invalid debug")
-            assertTrue("  public static final String GROUP = \"my.website\";" in it, "invalid group")
+            assertTrue(
+                "  public static final String GROUP = \"my.website\";" in it,
+                "invalid group"
+            )
         }
     }
 }

@@ -16,45 +16,39 @@ import javax.lang.model.SourceVersion
 import kotlin.reflect.KClass
 
 /**
- * Task to run when `generateBuildConfig` command is executed.
- * Running this task alone will not bring generated class to current classpath.
- * To do so, run `compileBuildConfig`, which also depends on this task.
+ * Task to run when `generateBuildConfig` command is executed. Running this task alone will not
+ * bring generated class to current classpath. To do so, run `compileBuildConfig`, which also
+ * depends on this task.
  */
 open class GenerateBuildConfigTask : AbstractGenerateTask() {
 
-    /**
-     * Generated class name, cannot be empty.
-     * Default value is `BuildConfig`.
-     */
+    /** Generated class name, cannot be empty. Default value is `BuildConfig`. */
     @Input
     val className: Property<String> = project.objects.property<String>()
         .convention("BuildConfig")
 
     /**
-     * Mandatory field `BuildConfig.NAME` value.
-     * If left null, project name will be assigned as value.
+     * Mandatory field `BuildConfig.NAME` value. If left null, project name will be assigned as
+     * value.
      */
     @Input
     val appName: Property<String> = project.objects.property()
 
     /**
-     * Mandatory field `BuildConfig.VERSION` value.
-     * If left null, project version will be assigned as value.
+     * Mandatory field `BuildConfig.VERSION` value. If left null, project version will be assigned
+     * as value.
      */
     @Input
     val appVersion: Property<String> = project.objects.property()
 
     /**
-     * Mandatory field `BuildConfig.GROUP` value.
-     * If left null, project group will be assigned as value.
+     * Mandatory field `BuildConfig.GROUP` value. If left null, project group will be assigned as
+     * value.
      */
     @Input
     val groupId: Property<String> = project.objects.property()
 
-    /**
-     * Mandatory field `BuildConfig.DEBUG` value.
-     * Default value is `false`.
-     */
+    /** Mandatory field `BuildConfig.DEBUG` value. Default value is `false`. */
     @Input
     val debug: Property<Boolean> = project.objects.property<Boolean>()
         .convention(false)
@@ -63,9 +57,9 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
 
     @TaskAction
     fun generate() {
-        logger.info("Generating BuildConfig:")
-        require(packageName.get().isNotBlank()) { "Package name cannot be empty" }
-        require(className.get().isNotBlank()) { "Class name cannot be empty" }
+        logger.info("Generating BuildConfig...")
+        require(packageName.get().isNotBlank()) { "Package name cannot be empty." }
+        require(className.get().isNotBlank()) { "Class name cannot be empty." }
 
         val outputDir = outputDirectory.asFile.get()
         if (!outputDir.exists()) {
@@ -78,7 +72,8 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
         addField(BuildConfigField.DEBUG, debug.get())
 
         buildJavaFile(packageName.get()) {
-            comment = "Generated at ${LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))}"
+            comment = "Generated at " +
+                LocalDateTime.now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))
             addClass(className.get()) {
                 addModifiers(PUBLIC, FINAL)
                 methods.addConstructor { addModifiers(PRIVATE) }
@@ -96,7 +91,7 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
                 }
             }
         }.writeTo(outputDir)
-        logger.info("  Source generated")
+        logger.info("Source generated.")
     }
 
     /**
@@ -150,10 +145,11 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
         }
 
         init {
-            check(SourceVersion.isName(name)) { "$name is not a valid java variable name" }
+            check(SourceVersion.isName(name)) { "$name is not a valid java variable name." }
         }
 
         override fun hashCode(): Int = name.hashCode()
-        override fun equals(other: Any?): Boolean = other != null && other is BuildConfigField<*> && other.name == name
+        override fun equals(other: Any?): Boolean =
+            other != null && other is BuildConfigField<*> && other.name == name
     }
 }

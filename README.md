@@ -100,8 +100,7 @@ tasks.generateR {
 
 #### Feature: CSS file
 
-Enable CSS file support by reading CSS classes and IDs, powered
-by [ph-css](https://github.com/phax/ph-css/).
+Enable CSS file support by reading CSS classes and IDs, powered by [ph-css](https://github.com/phax/ph-css/).
 
 ```gradle
 dependencies {
@@ -119,8 +118,7 @@ tasks.generateR {
 
 #### Feature: JSON file
 
-Enable CSS file support by reading JSON keys, powered
-by [json-simple](https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/).
+Enable CSS file support by reading JSON keys, powered by [json-simple](https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/).
 
 ```gradle
 dependencies {

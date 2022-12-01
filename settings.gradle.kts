@@ -1,4 +1,12 @@
-include("generating-gradle-plugin")
+pluginManagement.repositories {
+    gradlePluginPortal()
+    mavenCentral()
+}
+dependencyResolutionManagement.repositories.mavenCentral()
+
+rootProject.name = "generating-gradle-plugin"
+
+include("generating")
 include("website")
 includeDir("samples")
 

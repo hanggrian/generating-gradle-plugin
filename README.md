@@ -54,10 +54,11 @@ apply plugin: 'com.hendraanggrian.generating'
 
 ## Usage
 
-Once applied, the plugin works out of the box without additional configuration. To configure or even
-disable this behavior, modify task as instructed below.
+Once applied, the plugin works out of the box without additional configuration.
+To configure or even disable this behavior, modify task as instructed below.
 
-> This plugin does not have an extension, every configuration is performed within tasks.
+> This plugin does not have an extension, every configuration is performed
+  within tasks.
 
 ### BuildConfig
 
@@ -83,8 +84,9 @@ tasks.generateBuildConfig {
 
 ### R
 
-Modify `R` class generation with `generateR` task. Some file types (CSS & JSON) requires certain
-capabilities. This is to ensure that plugin consumer only download artifacts they are using.
+Modify `R` class generation with `generateR` task. Some file types (CSS & JSON)
+requires certain capabilities. This is to ensure that plugin consumer only
+download artifacts they are using.
 
 ```gradle
 group 'com.example' // project group

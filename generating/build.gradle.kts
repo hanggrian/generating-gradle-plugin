@@ -40,7 +40,7 @@ val cssImplementation by configurations.getting
 val jsonImplementation by configurations.getting
 
 dependencies {
-    ktlint(libs.ktlint, ::ktlintConfig)
+    ktlint(libs.ktlint, ::configureKtlint)
     ktlint(libs.rulebook.ktlint)
     implementation(libs.javapoet.dsl)
     cssImplementation(libs.javapoet.dsl)

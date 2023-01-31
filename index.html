@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en-us">
+<html lang="en">
     <head>
         <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <title>generating-gradle-plugin</title>
         <meta content="width=device-width" name="viewport">
         <meta content="chrome=1" http-equiv="X-UA-Compatible">
         <link href="styles/main.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,1,0" rel="stylesheet">
         <link href="styles/prism-tomorrow.min.css" rel="stylesheet">
-        <script src="scripts/theme.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-groovy.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-java.min.js"></script>
+        <script src="scripts/theme.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-groovy.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
         <!--Primary meta tags-->
         <meta content="generating-gradle-plugin" name="title">
         <meta content="BuildConfig and R class generator for non-Android projects" name="description">
@@ -53,6 +53,7 @@ public final class R {
         public static final String MyriadPro = "/font/MyriadPro.ttf";
         public static final String SegoeUI = "/font/SegoeUI.ttf";
     }
+
     public static final class layout {
         public static final String main = "/layout/main.fxml";
         public static final String about = "/layout/about.fxml";
@@ -64,14 +65,14 @@ public final class R {
 
                 <p>Using plugins DSL:</p>
 
-                <pre><code class="language-gradle">plugins {
+                <pre><code class="language-groovy">plugins {
     id('com.hendraanggrian.generating') version "$version"
 }
 </code></pre>
 
                 <p>Using legacy plugin application:</p>
 
-                <pre><code class="language-gradle">buildscript {
+                <pre><code class="language-groovy">buildscript {
     repositories {
         gradlePluginPortal()
     }
@@ -90,7 +91,8 @@ To configure or even disable this behavior, modify task as instructed below.</p>
 
                 <blockquote>
 
-                    <p>This plugin does not have an extension, every configuration is performed within tasks.</p>
+                    <p>This plugin does not have an extension, every configuration is performed
+within tasks.</p>
 
                 </blockquote>
 
@@ -100,7 +102,7 @@ To configure or even disable this behavior, modify task as instructed below.</p>
                     Modify <code>BuildConfig</code> class generation with <code>generateBuildConfig</code> task.
                 </p>
 
-                <pre><code class="language-gradle">group 'com.example' // project group
+                <pre><code class="language-groovy">group 'com.example' // project group
 version '1.0'       // project version
 
 tasks.generateBuildConfig {
@@ -120,12 +122,12 @@ tasks.generateBuildConfig {
                 <h3>R</h3>
 
                 <p>
-                    Modify <code>R</code> class generation with <code>generateR</code> task.
-Some file types (CSS &amp; JSON) requires certain capabilities.
-This is to ensure that plugin consumer only download artifacts they are using.
+                    Modify <code>R</code> class generation with <code>generateR</code> task. Some file types (CSS &amp; JSON)
+requires certain capabilities. This is to ensure that plugin consumer only
+download artifacts they are using.
                 </p>
 
-                <pre><code class="language-gradle">group 'com.example' // project group
+                <pre><code class="language-groovy">group 'com.example' // project group
 version '1.0'       // project version
 
 tasks.generateR {
@@ -139,11 +141,10 @@ tasks.generateR {
                 <h4>Feature: CSS file</h4>
 
                 <p>
-                    Enable CSS file support by reading CSS classes and IDs,
-powered by <a href="https://github.com/phax/ph-css/">ph-css</a>.
+                    Enable CSS file support by reading CSS classes and IDs, powered by <a href="https://github.com/phax/ph-css/">ph-css</a>.
                 </p>
 
-                <pre><code class="language-gradle">dependencies {
+                <pre><code class="language-groovy">dependencies {
     classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
         capabilities {
             requireCapability('com.hendraanggrian:generating-css')
@@ -159,11 +160,10 @@ tasks.generateR {
                 <h4>Feature: JSON file</h4>
 
                 <p>
-                    Enable CSS file support by reading JSON keys,
-powered by <a href="https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/">json-simple</a>.
+                    Enable CSS file support by reading JSON keys, powered by <a href="https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/">json-simple</a>.
                 </p>
 
-                <pre><code class="language-gradle">dependencies {
+                <pre><code class="language-groovy">dependencies {
     classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
         capabilities {
             requireCapability('com.hendraanggrian:generating-json')

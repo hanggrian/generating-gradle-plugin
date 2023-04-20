@@ -14,7 +14,7 @@ internal abstract class RAdapter(private val isUppercaseField: Boolean, val logg
     protected fun TypeSpecBuilder.addField(name: String, value: String) {
         var fieldName: String? = name
         if (isUppercaseField) {
-            fieldName = fieldName!!.toUpperCase()
+            fieldName = fieldName!!.lowercase()
         }
         if (!fieldName!!.isJavaName()) {
             fieldName = fieldName.toJavaNameOrNull()
@@ -29,15 +29,15 @@ internal abstract class RAdapter(private val isUppercaseField: Boolean, val logg
 }
 
 /**
- * An adapter that writes file paths as field values.
- * When optional features are activated (CSS, properties, etc.), underscore prefix will be applied
- * to field names.
+ * An adapter that writes file paths as field values. When optional features are
+ * activated (CSS, properties, etc.), underscore prefix will be applied to field names.
  */
 internal class PathRAdapter(
     private val resourcesDir: String,
     isUppercaseField: Boolean,
     logger: Logger
 ) : RAdapter(isUppercaseField, logger) {
+
     var isUnderscorePrefix: Boolean = false
     override fun process(typeBuilder: TypeSpecBuilder, file: File): Boolean {
         typeBuilder.addField(

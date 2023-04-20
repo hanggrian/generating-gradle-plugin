@@ -100,37 +100,21 @@ tasks.generateR {
 }
 ```
 
-#### Feature: CSS file
+#### CSS files
 
 Enable CSS file support by reading CSS classes and IDs, powered by [ph-css](https://github.com/phax/ph-css/).
 
 ```gradle
-dependencies {
-    classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
-        capabilities {
-            requireCapability('com.hendraanggrian:generating-css')
-        }
-    }
-}
-
 tasks.generateR {
     css { ... }
 }
 ```
 
-#### Feature: JSON file
+#### JSON files
 
 Enable CSS file support by reading JSON keys, powered by [json-simple](https://search.maven.org/artifact/com.googlecode.json-simple/json-simple/).
 
 ```gradle
-dependencies {
-    classpath("com.hendraanggrian:pages-gradle-plugin:$version") {
-        capabilities {
-            requireCapability('com.hendraanggrian:generating-json')
-        }
-    }
-}
-
 tasks.generateR {
     json { ... }
 }

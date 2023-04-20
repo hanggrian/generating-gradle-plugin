@@ -8,16 +8,10 @@ import com.hendraanggrian.generating.RConfigurationDsl
  */
 @RConfigurationDsl
 interface JsonROptions {
-    /**
-     * Determine whether adapter should also write inner json object.
-     * Default is false.
-     */
+    /** Determine whether adapter should also write inner json object. Default is false. */
     var recursive: Boolean
 
-    /**
-     * Extended property of [recursive] that will also write inner json array.
-     * Default is true.
-     */
+    /** Extended property of [recursive] that will also write inner json array. Default is true. */
     var writeArray: Boolean
 }
 

@@ -21,7 +21,9 @@ abstract class AbstractGenerateTask : DefaultTask() {
     @Input
     val packageName: Property<String> = project.objects.property()
 
-    /** Output directory of generated classes. Default is `$projectDir/build/generated/java`. */
+    /**
+     * Output directory of generated classes. Default is `$projectDir/build/generated/java`.
+     */
     @OutputDirectory
     val outputDirectory: DirectoryProperty = project.objects.directoryProperty()
         .convention(project.layout.buildDirectory.dir("generated/java"))

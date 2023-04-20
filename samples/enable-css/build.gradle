@@ -2,8 +2,8 @@ buildscript {
     repositories.mavenCentral()
     dependencies {
         classpath files('../generating-gradle-plugin-0.2.jar')
-        classpath 'com.hendraanggrian:javapoet-dsl:0.1'
-        classpath 'com.helger:ph-css:6.5.0'
+        classpath libs.javapoet.dsl
+        classpath libs.ph.css
     }
 }
 
@@ -13,7 +13,7 @@ version '1.0'
 apply plugin: 'java-library'
 apply plugin: 'com.hendraanggrian.generating'
 
-dependencies.testImplementation 'junit:junit:4.13.2'
+dependencies.testImplementation('junit:junit:4.13.2')
 
 tasks.generateR {
     css()

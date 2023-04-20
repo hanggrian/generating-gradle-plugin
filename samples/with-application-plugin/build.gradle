@@ -2,7 +2,7 @@ buildscript {
     repositories.mavenCentral()
     dependencies {
         classpath files('../generating-gradle-plugin-0.2.jar')
-        classpath 'com.hendraanggrian:javapoet-dsl:0.1'
+        classpath libs.javapoet.dsl
     }
 }
 
@@ -12,9 +12,9 @@ version '1.0'
 apply plugin: 'application'
 apply plugin: 'com.hendraanggrian.generating'
 
-application {
-    applicationName('My App')
-    mainClassName('com.example.MyApp')
-}
+dependencies.testImplementation('junit:junit:4.13.2')
 
-dependencies.testImplementation 'junit:junit:4.13.2'
+application {
+    applicationName = 'My App'
+    mainClass.set('com.example.MyApp')
+}

@@ -17,6 +17,7 @@ internal class JsonAdapter(
     isUppercaseField: Boolean,
     logger: Logger
 ) : RAdapter(isUppercaseField, logger) {
+
     private var parserRef = WeakReference<JSONParser>(null)
 
     override fun process(typeBuilder: TypeSpecBuilder, file: File): Boolean {

@@ -14,6 +14,7 @@ internal class CssAdapter(
     isUppercaseField: Boolean,
     logger: Logger
 ) : RAdapter(isUppercaseField, logger) {
+
     override fun process(typeBuilder: TypeSpecBuilder, file: File): Boolean {
         logger.debug("File '${file.name}' is recognized as CSS.")
         if (file.extension == "css") {

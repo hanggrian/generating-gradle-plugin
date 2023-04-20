@@ -2,11 +2,14 @@ pluginManagement.repositories {
     gradlePluginPortal()
     mavenCentral()
 }
-dependencyResolutionManagement.repositories.mavenCentral()
+dependencyResolutionManagement.repositories {
+    mavenCentral()
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+}
 
 rootProject.name = "generating-gradle-plugin"
 
-include("generating")
+include("generating-gradle-plugin")
 include("website")
 includeDir("samples")
 

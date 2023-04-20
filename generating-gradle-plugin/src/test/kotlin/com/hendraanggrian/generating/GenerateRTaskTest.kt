@@ -1,7 +1,8 @@
 package com.hendraanggrian.generating
 
+import com.hendraanggrian.generating.GeneratingPlugin.Companion.TASK_GENERATE_R
 import org.gradle.testkit.runner.GradleRunner
-import org.gradle.testkit.runner.TaskOutcome
+import org.gradle.testkit.runner.TaskOutcome.SUCCESS
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import java.io.File
@@ -29,7 +30,9 @@ class GenerateRTaskTest {
             """.trimIndent()
         )
         buildFile = testProjectDir.newFile("build.gradle.kts")
-        runner = GradleRunner.create().withPluginClasspath().withProjectDir(testProjectDir.root)
+        runner = GradleRunner.create()
+            .withPluginClasspath()
+            .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
     }
 
@@ -44,9 +47,6 @@ class GenerateRTaskTest {
                 java
                 id("com.hendraanggrian.generating")
             }
-            tasks.generateBuildConfig {
-                enabled = false
-            }
             // temporary until TODO is fixed
             tasks.generateR {
                 packageName.set("com.example")
@@ -55,23 +55,23 @@ class GenerateRTaskTest {
             """.trimIndent()
         )
         assertEquals(
-            TaskOutcome.SUCCESS,
-            runner.withArguments(GeneratingPlugin.TASK_GENERATE_R).build()
-                .task(":${GeneratingPlugin.TASK_GENERATE_R}")!!.outcome
+            SUCCESS,
+            runner.withArguments(TASK_GENERATE_R).build().task(":$TASK_GENERATE_R")!!.outcome
         )
-        assertTrue(
-            !testProjectDir.root.resolve("build/generated/java/com/example/BuildConfig.java")
-                .exists()
-        )
-        testProjectDir.root.resolve("build/generated/java/com/example/R.java").readLines().let {
-            assertTrue("package com.example;" in it, "invalid package")
-            assertTrue("public final class R {" in it, "invalid class")
-            assertTrue("  public static final String key = \"key\";" in it, "invalid properties")
-            assertTrue(
-                "  public static final String _my = \"/my.properties\";" in it,
-                "invalid path"
-            )
-        }
+        testProjectDir.root
+            .resolve("build/generated/java/com/example/R.java").readLines()
+            .let {
+                assertTrue("package com.example;" in it, "invalid package")
+                assertTrue("public final class R {" in it, "invalid class")
+                assertTrue(
+                    "  public static final String key = \"key\";" in it,
+                    "invalid properties"
+                )
+                assertTrue(
+                    "  public static final String _my = \"/my.properties\";" in it,
+                    "invalid path"
+                )
+            }
     }
 
     @Test
@@ -84,32 +84,26 @@ class GenerateRTaskTest {
                 java
                 id("com.hendraanggrian.generating")
             }
-            tasks.generateBuildConfig {
-                enabled = false
-            }
             tasks.generateR {
-                properties()
                 packageName.set("mypackage")
+                outputDirectory.set(buildDir.resolve("custom"))
                 className.set("R2")
+                properties()
                 shouldUppercaseField.set(true)
                 shouldLowercaseClass.set(true)
             }
             """.trimIndent()
         )
         assertEquals(
-            TaskOutcome.SUCCESS,
-            runner.withArguments(GeneratingPlugin.TASK_GENERATE_R).build()
-                .task(":${GeneratingPlugin.TASK_GENERATE_R}")!!.outcome
+            SUCCESS,
+            runner.withArguments(TASK_GENERATE_R).build().task(":$TASK_GENERATE_R")!!.outcome
         )
-        assertTrue(
-            !testProjectDir.root.resolve("build/generated/java/mypackage/BuildConfig.java").exists()
-        )
-        testProjectDir.root.resolve("build/generated/java/mypackage/R2.java").readLines().let {
+        testProjectDir.root.resolve("build/custom/mypackage/R2.java").readLines().let {
             assertTrue("package mypackage;" in it, "invalid package")
             assertTrue("public final class r2 {" in it, "invalid class")
-            assertTrue("  public static final String KEY = \"key\";" in it, "invalid properties")
+            assertTrue("  public static final String key = \"key\";" in it, "invalid properties")
             assertTrue(
-                "  public static final String _MY = \"/my.properties\";" in it,
+                "  public static final String _my = \"/my.properties\";" in it,
                 "invalid path"
             )
         }

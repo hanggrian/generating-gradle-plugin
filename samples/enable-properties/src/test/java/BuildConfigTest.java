@@ -2,14 +2,12 @@ import com.example.BuildConfig;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class BuildConfigTest {
-    @Test
-    public void main() {
-        assertEquals(BuildConfig.NAME, "enable-properties");
-        assertEquals(BuildConfig.GROUP, "com.example");
-        assertEquals(BuildConfig.VERSION, "1.0");
-        assertFalse(BuildConfig.DEBUG);
-    }
+  @Test
+  public void test() {
+    assertEquals("enable-properties", BuildConfig.NAME);
+    assertEquals("com.example", BuildConfig.GROUP);
+    assertEquals("1.0", BuildConfig.VERSION);
+  }
 }

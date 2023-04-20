@@ -16,6 +16,7 @@ internal class PropertiesAdapter(
     isUppercaseField: Boolean,
     logger: Logger
 ) : RAdapter(isUppercaseField, logger) {
+
     override fun process(typeBuilder: TypeSpecBuilder, file: File): Boolean {
         logger.debug("File '${file.name}' is recognized as properties.")
         if (file.extension == "properties") {
@@ -23,7 +24,7 @@ internal class PropertiesAdapter(
                 configuration.writeResourceBundle && file.isResourceBundle() -> {
                     var className = file.resourceBundleName
                     if (isLowercaseClass) {
-                        className = className.toLowerCase()
+                        className = className.lowercase()
                     }
                     if (className !in typeBuilder.build().typeSpecs.map { it.name }) {
                         typeBuilder.types.addClass(className) {
@@ -47,10 +48,9 @@ internal class PropertiesAdapter(
         }
     }
 
-    private val File.resourceBundleName: String get() =
-        nameWithoutExtension.substringBeforeLast("_")
+    private val File.resourceBundleName get() = nameWithoutExtension.substringBeforeLast("_")
 
-    private fun File.isResourceBundle(): Boolean = !isHidden &&
+    private fun File.isResourceBundle() = !isHidden &&
         extension == "properties" &&
         nameWithoutExtension.let { name -> '_' in name && name.substringAfterLast("_").length == 2 }
 }

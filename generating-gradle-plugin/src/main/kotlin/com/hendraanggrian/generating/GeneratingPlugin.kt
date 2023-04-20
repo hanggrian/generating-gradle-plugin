@@ -1,12 +1,15 @@
 package com.hendraanggrian.generating
 
+import com.hendraanggrian.generating.internal.AbstractGenerateTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaApplication
+import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.register
 import org.gradle.language.base.plugins.LifecycleBasePlugin
 
@@ -35,8 +38,8 @@ class GeneratingPlugin : Plugin<Project> {
                 group = GROUP
                 description = "Generate Android-like BuildConfig class."
                 packageName.convention(project.group.toString())
-                appName.convention(project.name)
-                appVersion.convention(project.version.toString())
+                applicationName.convention(project.name)
+                applicationVersion.convention(project.version.toString())
                 groupId.convention(project.group.toString())
             }
         val generateR = project.tasks.register<GenerateRTask>(TASK_GENERATE_R) {
@@ -47,18 +50,29 @@ class GeneratingPlugin : Plugin<Project> {
                 mainSourceSet.resources.srcDirs.lastOrNull()?.takeIf { it.exists() }
             )
         }
-        if (generateBuildConfig.get().isEnabled) {
-            mainSourceSet.java.srcDir(generateBuildConfig.get().outputDirectory)
-        }
-        if (generateR.get().isEnabled) {
-            mainSourceSet.java.srcDir(generateR.get().outputDirectory)
-        }
+        addToSourceSet(mainSourceSet, generateBuildConfig.get())
+        addToSourceSet(mainSourceSet, generateR.get())
 
         project.afterEvaluate {
             if (hasApplicationPlugin) {
-                generateBuildConfig.get().appName
-                    .convention(project.extensions.getByType<JavaApplication>().applicationName)
+                val javaApp = project.extensions.getByType<JavaApplication>()
+                val alternatePackage = javaApp.mainClass.get().substringBeforeLast('.')
+                generateBuildConfig {
+                    packageName.convention(alternatePackage)
+                    applicationName.convention(javaApp.applicationName)
+                    groupId.convention(alternatePackage)
+                }
+                generateR {
+                    packageName.convention(alternatePackage)
+                }
             }
         }
+    }
+
+    private fun addToSourceSet(sourceSet: SourceSet, generateTask: AbstractGenerateTask) {
+        if (!generateTask.isEnabled) {
+            return
+        }
+        sourceSet.java.srcDir(generateTask.outputDirectory)
     }
 }

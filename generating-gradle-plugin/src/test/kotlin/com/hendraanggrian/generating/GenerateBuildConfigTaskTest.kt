@@ -24,13 +24,14 @@ class GenerateBuildConfigTaskTest {
         testProjectDir.newFile("settings.gradle.kts").writeText(
             """
             rootProject.name = "generate-buildconfig-test"
-            """.trimIndent()
+            """.trimIndent(),
         )
         buildFile = testProjectDir.newFile("build.gradle.kts")
-        runner = GradleRunner.create()
-            .withPluginClasspath()
-            .withProjectDir(testProjectDir.root)
-            .withTestKitDir(testProjectDir.newFolder())
+        runner =
+            GradleRunner.create()
+                .withPluginClasspath()
+                .withProjectDir(testProjectDir.root)
+                .withTestKitDir(testProjectDir.newFolder())
     }
 
     @Test
@@ -50,12 +51,14 @@ class GenerateBuildConfigTaskTest {
                 groupId.set("com.example")
                 applicationVersion.set("1.0")
             }
-            """.trimIndent()
+            """.trimIndent(),
         )
         assertEquals(
             SUCCESS,
-            runner.withArguments(TASK_GENERATE_BUILDCONFIG).build()
-                .task(":$TASK_GENERATE_BUILDCONFIG")!!.outcome
+            runner.withArguments(TASK_GENERATE_BUILDCONFIG)
+                .build()
+                .task(":$TASK_GENERATE_BUILDCONFIG")!!
+                .outcome,
         )
         testProjectDir.root
             .resolve("build/generated/java/com/example/BuildConfig.java").readLines()
@@ -64,15 +67,15 @@ class GenerateBuildConfigTaskTest {
                 assertTrue("public final class BuildConfig {" in it, "invalid class")
                 assertTrue(
                     "  public static final String NAME = \"generate-buildconfig-test\";" in it,
-                    "invalid name"
+                    "invalid name",
                 )
                 assertTrue(
                     "  public static final String GROUP = \"com.example\";" in it,
-                    "invalid group"
+                    "invalid group",
                 )
                 assertTrue(
                     "  public static final String VERSION = \"1.0\";" in it,
-                    "invalid version"
+                    "invalid version",
                 )
             }
     }
@@ -95,12 +98,14 @@ class GenerateBuildConfigTaskTest {
                 applicationVersion.set("2.0")
                 groupId.set("my.website")
             }
-            """.trimIndent()
+            """.trimIndent(),
         )
         assertEquals(
             SUCCESS,
-            runner.withArguments(TASK_GENERATE_BUILDCONFIG).build()
-                .task(":$TASK_GENERATE_BUILDCONFIG")!!.outcome
+            runner.withArguments(TASK_GENERATE_BUILDCONFIG)
+                .build()
+                .task(":$TASK_GENERATE_BUILDCONFIG")!!
+                .outcome,
         )
         testProjectDir.root
             .resolve("build/custom/mypackage/BuildConfig2.java").readLines()
@@ -111,11 +116,11 @@ class GenerateBuildConfigTaskTest {
                 assertTrue("  public static final String NAME = \"My App\";" in it, "invalid name")
                 assertTrue(
                     "  public static final String VERSION = \"2.0\";" in it,
-                    "invalid version"
+                    "invalid version",
                 )
                 assertTrue(
                     "  public static final String GROUP = \"my.website\";" in it,
-                    "invalid group"
+                    "invalid group",
                 )
             }
     }

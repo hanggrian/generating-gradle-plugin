@@ -1,5 +1,6 @@
 buildscript {
     repositories.mavenCentral()
+    repositories.maven { url = "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
     dependencies {
         classpath files('../generating-gradle-plugin-0.2.jar')
         classpath libs.javapoet.dsl

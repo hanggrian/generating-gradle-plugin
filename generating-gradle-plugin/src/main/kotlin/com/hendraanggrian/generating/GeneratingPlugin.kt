@@ -1,6 +1,6 @@
 package com.hendraanggrian.generating
 
-import com.hendraanggrian.generating.internal.AbstractGenerateTask
+import com.hendraanggrian.generating.internal.GenerateTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaApplication
@@ -28,7 +28,7 @@ class GeneratingPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         require(
             project.pluginManager.hasPlugin("java") ||
-                project.pluginManager.hasPlugin("java-library")
+                project.pluginManager.hasPlugin("java-library"),
         ) { "Generating Plugin requires `java` or `java-library`." }
         val hasApplicationPlugin = project.pluginManager.hasPlugin("application")
         val mainSourceSet = project.extensions.getByName<SourceSetContainer>("sourceSets")["main"]
@@ -42,14 +42,15 @@ class GeneratingPlugin : Plugin<Project> {
                 applicationVersion.convention(project.version.toString())
                 groupId.convention(project.group.toString())
             }
-        val generateR = project.tasks.register<GenerateRTask>(TASK_GENERATE_R) {
-            group = GROUP
-            description = "Generate Android-like R class."
-            packageName.convention(project.group.toString())
-            resourcesDirectory.convention(
-                mainSourceSet.resources.srcDirs.lastOrNull()?.takeIf { it.exists() }
-            )
-        }
+        val generateR =
+            project.tasks.register<GenerateRTask>(TASK_GENERATE_R) {
+                group = GROUP
+                description = "Generate Android-like R class."
+                packageName.convention(project.group.toString())
+                resourcesDirectory.convention(
+                    mainSourceSet.resources.srcDirs.lastOrNull()?.takeIf { it.exists() },
+                )
+            }
         addToSourceSet(mainSourceSet, generateBuildConfig.get())
         addToSourceSet(mainSourceSet, generateR.get())
 
@@ -69,7 +70,7 @@ class GeneratingPlugin : Plugin<Project> {
         }
     }
 
-    private fun addToSourceSet(sourceSet: SourceSet, generateTask: AbstractGenerateTask) {
+    private fun addToSourceSet(sourceSet: SourceSet, generateTask: GenerateTask) {
         if (!generateTask.isEnabled) {
             return
         }

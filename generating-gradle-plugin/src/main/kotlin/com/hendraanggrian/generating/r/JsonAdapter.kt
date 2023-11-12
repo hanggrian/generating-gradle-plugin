@@ -15,9 +15,8 @@ import java.lang.ref.WeakReference
 internal class JsonAdapter(
     private val configuration: JsonROptions,
     isUppercaseField: Boolean,
-    logger: Logger
+    logger: Logger,
 ) : RAdapter(isUppercaseField, logger) {
-
     private var parserRef = WeakReference<JSONParser>(null)
 
     override fun process(typeBuilder: TypeSpecBuilder, file: File): Boolean {
@@ -36,17 +35,19 @@ internal class JsonAdapter(
         return false
     }
 
-    private fun JSONObject.forEachKey(action: (String) -> Unit): Unit = forEach { key, value ->
-        action("$key")
-        if (value is JSONArray && configuration.writeArray) {
-            value.forEachKey(action)
+    private fun JSONObject.forEachKey(action: (String) -> Unit) =
+        forEach { key, value ->
+            action("$key")
+            if (value is JSONArray && configuration.writeArray) {
+                value.forEachKey(action)
+            }
         }
-    }
 
-    private fun JSONArray.forEachKey(action: (String) -> Unit): Unit = forEach { json ->
-        when {
-            configuration.recursive && json is JSONObject -> json.forEachKey(action)
-            configuration.writeArray && json is JSONArray -> json.forEachKey(action)
+    private fun JSONArray.forEachKey(action: (String) -> Unit): Unit =
+        forEach { json ->
+            when {
+                configuration.recursive && json is JSONObject -> json.forEachKey(action)
+                configuration.writeArray && json is JSONArray -> json.forEachKey(action)
+            }
         }
-    }
 }

@@ -27,13 +27,14 @@ class GenerateRTaskTest {
         testProjectDir.newFile("settings.gradle.kts").writeText(
             """
             rootProject.name = "generate-r-test"
-            """.trimIndent()
+            """.trimIndent(),
         )
         buildFile = testProjectDir.newFile("build.gradle.kts")
-        runner = GradleRunner.create()
-            .withPluginClasspath()
-            .withProjectDir(testProjectDir.root)
-            .withTestKitDir(testProjectDir.newFolder())
+        runner =
+            GradleRunner.create()
+                .withPluginClasspath()
+                .withProjectDir(testProjectDir.root)
+                .withTestKitDir(testProjectDir.newFolder())
     }
 
     @Test
@@ -52,11 +53,11 @@ class GenerateRTaskTest {
                 packageName.set("com.example")
                 properties()
             }
-            """.trimIndent()
+            """.trimIndent(),
         )
         assertEquals(
             SUCCESS,
-            runner.withArguments(TASK_GENERATE_R).build().task(":$TASK_GENERATE_R")!!.outcome
+            runner.withArguments(TASK_GENERATE_R).build().task(":$TASK_GENERATE_R")!!.outcome,
         )
         testProjectDir.root
             .resolve("build/generated/java/com/example/R.java").readLines()
@@ -65,11 +66,11 @@ class GenerateRTaskTest {
                 assertTrue("public final class R {" in it, "invalid class")
                 assertTrue(
                     "  public static final String key = \"key\";" in it,
-                    "invalid properties"
+                    "invalid properties",
                 )
                 assertTrue(
                     "  public static final String _my = \"/my.properties\";" in it,
-                    "invalid path"
+                    "invalid path",
                 )
             }
     }
@@ -92,11 +93,11 @@ class GenerateRTaskTest {
                 shouldUppercaseField.set(true)
                 shouldLowercaseClass.set(true)
             }
-            """.trimIndent()
+            """.trimIndent(),
         )
         assertEquals(
             SUCCESS,
-            runner.withArguments(TASK_GENERATE_R).build().task(":$TASK_GENERATE_R")!!.outcome
+            runner.withArguments(TASK_GENERATE_R).build().task(":$TASK_GENERATE_R")!!.outcome,
         )
         testProjectDir.root.resolve("build/custom/mypackage/R2.java").readLines().let {
             assertTrue("package mypackage;" in it, "invalid package")
@@ -104,7 +105,7 @@ class GenerateRTaskTest {
             assertTrue("  public static final String key = \"key\";" in it, "invalid properties")
             assertTrue(
                 "  public static final String _my = \"/my.properties\";" in it,
-                "invalid path"
+                "invalid path",
             )
         }
     }

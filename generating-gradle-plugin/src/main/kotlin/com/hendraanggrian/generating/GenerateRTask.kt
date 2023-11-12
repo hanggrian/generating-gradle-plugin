@@ -1,6 +1,6 @@
 package com.hendraanggrian.generating
 
-import com.hendraanggrian.generating.internal.AbstractGenerateTask
+import com.hendraanggrian.generating.internal.GenerateTask
 import com.hendraanggrian.generating.r.CssAdapter
 import com.hendraanggrian.generating.r.CssROptions
 import com.hendraanggrian.generating.r.CssROptionsImpl
@@ -15,8 +15,11 @@ import com.hendraanggrian.generating.r.RAdapter
 import com.hendraanggrian.javapoet.FINAL
 import com.hendraanggrian.javapoet.PRIVATE
 import com.hendraanggrian.javapoet.PUBLIC
+import com.hendraanggrian.javapoet.STATIC
 import com.hendraanggrian.javapoet.TypeSpecBuilder
 import com.hendraanggrian.javapoet.buildJavaFile
+import com.hendraanggrian.javapoet.classType
+import com.hendraanggrian.javapoet.constructorMethod
 import org.gradle.api.Action
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
@@ -31,28 +34,27 @@ import org.gradle.kotlin.dsl.setProperty
 import java.io.File
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
-import javax.lang.model.element.Modifier
 
 /**
  * Task to run when `generateR` command is executed. Running this task alone will not bring
  * generated class to current classpath. To do so, run `compileR`, which also depends on this task.
  */
 @RConfigurationDsl
-open class GenerateRTask : AbstractGenerateTask() {
+open class GenerateRTask : GenerateTask() {
     /** Generated class name, cannot be empty. Default value is `R`. */
     @Input
-    val className: Property<String> = project.objects.property<String>()
-        .convention("R")
+    val className: Property<String> =
+        project.objects.property<String>().convention("R")
 
     /** When activated, automatically make all field names uppercase. Default value is false. */
     @Input
-    val shouldUppercaseField: Property<Boolean> = project.objects.property<Boolean>()
-        .convention(false)
+    val shouldUppercaseField: Property<Boolean> =
+        project.objects.property<Boolean>().convention(false)
 
     /** When activated, automatically make all class names lowercase. Default value is false. */
     @Input
-    val shouldLowercaseClass: Property<Boolean> = project.objects.property<Boolean>()
-        .convention(false)
+    val shouldLowercaseClass: Property<Boolean> =
+        project.objects.property<Boolean>().convention(false)
 
     /** Main resource directory. Default is last configured sources set resources' dir. */
     @Optional
@@ -63,8 +65,8 @@ open class GenerateRTask : AbstractGenerateTask() {
      * Collection of files (or directories) that are ignored from this task. Default value is empty.
      */
     @InputFiles
-    val exclusions: SetProperty<File> = project.objects.setProperty<File>()
-        .convention(emptySet())
+    val exclusions: SetProperty<File> =
+        project.objects.setProperty<File>().convention(emptySet())
 
     private var cssOptions: CssROptions? = null
     private var propertiesOptions: PropertiesROptions? = null
@@ -124,14 +126,14 @@ open class GenerateRTask : AbstractGenerateTask() {
         outputDir.resolve(className.get()).takeIf { it.exists() }?.delete()
 
         buildJavaFile(packageName.get()) {
-            comment = "Generated at " + now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))
+            comment("Generated at " + now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a")))
             var fileName = className.get()
             if (shouldLowercaseClass.get()) {
                 fileName = fileName.lowercase()
             }
-            addClass(fileName) {
-                addModifiers(PUBLIC, FINAL)
-                methods.addConstructor { addModifiers(PRIVATE) }
+            classType(fileName) {
+                modifiers(PUBLIC, FINAL)
+                constructorMethod { modifiers(PRIVATE) }
                 processDir(
                     listOfNotNull(
                         cssOptions?.let { CssAdapter(it, shouldUppercaseField.get(), logger) },
@@ -141,12 +143,12 @@ open class GenerateRTask : AbstractGenerateTask() {
                                 it,
                                 shouldLowercaseClass.get(),
                                 shouldUppercaseField.get(),
-                                logger
+                                logger,
                             )
-                        }
+                        },
                     ),
                     PathRAdapter(resourcesDir.path, shouldUppercaseField.get(), logger),
-                    resourcesDir
+                    resourcesDir,
                 )
             }
         }.writeTo(outputDir)
@@ -156,7 +158,7 @@ open class GenerateRTask : AbstractGenerateTask() {
     private fun TypeSpecBuilder.processDir(
         adapters: Iterable<RAdapter>,
         pathRAdapter: PathRAdapter,
-        resourcesDir: File
+        resourcesDir: File,
     ) {
         val exclusionPaths = exclusions.get().map { it.path }
         resourcesDir.listFiles()!!
@@ -169,14 +171,13 @@ open class GenerateRTask : AbstractGenerateTask() {
                             if (shouldLowercaseClass.get()) {
                                 innerClassName = innerClassName.lowercase()
                             }
-                            types.addClass(innerClassName) {
-                                addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-                                methods.addConstructor { addModifiers(Modifier.PRIVATE) }
+                            classType(innerClassName) {
+                                modifiers(PUBLIC, STATIC, FINAL)
+                                constructorMethod { modifiers(PRIVATE) }
                                 processDir(adapters, pathRAdapter, file)
                             }
                         }
                     }
-
                     file.isFile -> {
                         pathRAdapter.isUnderscorePrefix = adapters.any { it.process(this, file) }
                         pathRAdapter.process(this, file)

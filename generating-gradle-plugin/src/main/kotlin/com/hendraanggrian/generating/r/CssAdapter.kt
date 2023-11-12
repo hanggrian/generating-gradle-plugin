@@ -12,31 +12,34 @@ import java.io.File
 internal class CssAdapter(
     private val configuration: CssROptions,
     isUppercaseField: Boolean,
-    logger: Logger
+    logger: Logger,
 ) : RAdapter(isUppercaseField, logger) {
-
     override fun process(typeBuilder: TypeSpecBuilder, file: File): Boolean {
         logger.debug("File '${file.name}' is recognized as CSS.")
         if (file.extension == "css") {
-            val css = checkNotNull(
-                CSSReader.readFromFile(file, configuration.charset, configuration.cssVersion)
-            ) {
-                "Error while reading CSS, " +
-                    "please report to github.com/hendraanggrian/r-gradle-plugin/issues"
-            }
+            val css =
+                checkNotNull(
+                    CSSReader.readFromFile(file, configuration.charset, configuration.cssVersion),
+                ) {
+                    "Error while reading CSS, " +
+                        "please report to github.com/hendraanggrian/r-gradle-plugin/issues"
+                }
             css.allStyleRules.forEach { rule ->
                 rule.allSelectors.forEach { selector ->
                     val member = selector.getMemberAtIndex(0)?.asCSSString ?: return false
                     when {
-                        member.startsWith('.') -> if (configuration.writeClassSelector) {
-                            typeBuilder.addField(member.substringAfter('.'))
-                        }
-                        member.startsWith('#') -> if (configuration.writeIdSelector) {
-                            typeBuilder.addField(member.substringAfter('#'))
-                        }
-                        else -> if (configuration.writeElementTypeSelector) {
-                            typeBuilder.addField(member)
-                        }
+                        member.startsWith('.') ->
+                            if (configuration.writeClassSelector) {
+                                typeBuilder.addField(member.substringAfter('.'))
+                            }
+                        member.startsWith('#') ->
+                            if (configuration.writeIdSelector) {
+                                typeBuilder.addField(member.substringAfter('#'))
+                            }
+                        else ->
+                            if (configuration.writeElementTypeSelector) {
+                                typeBuilder.addField(member)
+                            }
                     }
                 }
             }

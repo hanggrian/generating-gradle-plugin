@@ -1,12 +1,15 @@
 package com.hendraanggrian.generating
 
-import com.hendraanggrian.generating.internal.AbstractGenerateTask
+import com.hendraanggrian.generating.internal.GenerateTask
 import com.hendraanggrian.javapoet.FINAL
 import com.hendraanggrian.javapoet.PRIVATE
 import com.hendraanggrian.javapoet.PUBLIC
 import com.hendraanggrian.javapoet.STATIC
 import com.hendraanggrian.javapoet.buildFieldSpec
 import com.hendraanggrian.javapoet.buildJavaFile
+import com.hendraanggrian.javapoet.classType
+import com.hendraanggrian.javapoet.constructorMethod
+import com.hendraanggrian.javapoet.name2
 import com.squareup.javapoet.FieldSpec
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -21,11 +24,11 @@ import kotlin.reflect.KClass
  * bring generated class to current classpath. To do so, run `compileBuildConfig`, which also
  * depends on this task.
  */
-open class GenerateBuildConfigTask : AbstractGenerateTask() {
+open class GenerateBuildConfigTask : GenerateTask() {
     /** Generated class name, cannot be empty. Default value is `BuildConfig`. */
     @Input
-    val className: Property<String> = project.objects.property<String>()
-        .convention("BuildConfig")
+    val className: Property<String> =
+        project.objects.property<String>().convention("BuildConfig")
 
     /**
      * Application name in `BuildConfig.NAME` field. Default value is `application.applicationName`
@@ -59,10 +62,10 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
         addField(String::class, "GROUP", groupId.get())
 
         buildJavaFile(packageName.get()) {
-            comment = "Generated at " + now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a"))
-            addClass(className.get()) {
-                addModifiers(PUBLIC, FINAL)
-                methods.addConstructor { addModifiers(PRIVATE) }
+            comment("Generated at " + now().format(ofPattern("MM-dd-yyyy 'at' h.mm.ss a")))
+            classType(className.get()) {
+                modifiers(PUBLIC, FINAL)
+                constructorMethod { modifiers(PRIVATE) }
                 fields.addAll(buildConfigFields)
             }
         }.writeTo(outputDir)
@@ -78,16 +81,17 @@ open class GenerateBuildConfigTask : AbstractGenerateTask() {
      */
     fun <T> addField(type: Class<T>, name: String, value: T) {
         logger.info("- $name = $value")
-        buildConfigFields += buildFieldSpec(type, name, PUBLIC, STATIC, FINAL) {
-            initializer(
-                when (type) {
-                    String::class.java -> "%S"
-                    Char::class.java -> "'%L'"
-                    else -> "%L"
-                },
-                value!!
-            )
-        }
+        buildConfigFields +=
+            buildFieldSpec(type.name2, name, PUBLIC, STATIC, FINAL) {
+                initializer(
+                    when (type) {
+                        String::class.java -> "%S"
+                        Char::class.java -> "'%L'"
+                        else -> "%L"
+                    },
+                    value!!,
+                )
+            }
     }
 
     /**
